@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cinemetho - E-ticket</title>
+</head>
+<style>
+	*
+	{
+		margin: 0;
+		padding: 0;
+		font-family: sans-serif;
+	}
+
+	.ticket-box 
+	{
+		align-items: center;
+		justify-content: center;
+		position: relative;
+		width: 100%;
+		margin: 3% auto;
+		color: #000000;
+	}
+
+	.ticket 
+	{
+		background: #fff;
+		height: 11%;
+		float: left;
+		position: relative;
+		padding: 1%;
+		margin-top: 10%;
+	}
+
+	.leftTicket
+	{
+	  border-top-left-radius: 8px;
+	  border-bottom-left-radius: 8px;
+	  width: 16em;
+	}
+
+	h1 
+	{
+		font-size: 250%;
+		margin-top: 0;
+		text-align: center;
+	}
+
+	.title, .name, .seat, .time 
+	{
+	  text-transform: uppercase;
+	  font-weight: normal;	  
+	  span 
+	  {
+		font-size: .7em;
+		color: #a2aeae;
+	  }
+	}
+
+	.title 
+	{
+	  margin: 2em 0 0 0;
+	}
+
+	.name, .seat 
+	{
+	  margin: .7em 0 0 0;
+	}
+
+	.time 
+	{
+	  margin: .7em 0 0 1em;
+	}
+
+	.seat, .time 
+	{
+	  float: left;
+	}
+</style>
+<body>
+	<div class="backgroundImage">
+		<h1>E-TICKETS</h1><hr>
+		<h2>UPCOMING</h2>
+		<div class="ticket-box">
+			<div class="ticket leftTicket">
+				<div class="title">
+					<span class="confirmation">Confirmation Id: </span>
+					<input type="hidden" readonly><br>
+					<span class="booking">Movie title </span>
+					<input type="hidden" readonly><br>
+				</div>
+				<div class="name">
+					<span class="booking">Date </span>
+					<input type="hidden" readonly><br>
+					<span class="booking">Combo </span>
+					<input type="hidden" readonly><br>
+				</div>
+				<div class="seat">
+					<input type="hidden" readonly><br>
+					<span>seat</span>
+				</div>
+				<div class="time">
+					<input type="hidden" readonly><br>
+					<span class="booking">Time </span>	
+				</div>				
+			</div>			
+		</div>
+	</div>
+<script>
+	
+</script>
+</body>
+</html>
+
+
