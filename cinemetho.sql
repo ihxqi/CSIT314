@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 30, 2023 at 09:04 PM
+-- Generation Time: May 05, 2023 at 03:55 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -20,28 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `cinemetho`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `admin`
---
-
-CREATE TABLE `admin` (
-  `admin_id` int(10) NOT NULL,
-  `admin_name` varchar(50) NOT NULL,
-  `admin_password` varchar(100) NOT NULL,
-  `admin_role` varchar(50) NOT NULL,
-  `role_desc` varchar(200) NOT NULL,
-  `role_access` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `admin`
---
-
-INSERT INTO `admin` (`admin_id`, `admin_name`, `admin_password`, `admin_role`, `role_desc`, `role_access`) VALUES
-(1, 'admin', 'admin', 'staff', 'staff in training', 'movie, food');
 
 -- --------------------------------------------------------
 
@@ -131,27 +109,27 @@ CREATE TABLE `user` (
   `username` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(50) NOT NULL,
-  `profile` varchar(50) NOT NULL
+  `profile` varchar(50) NOT NULL,
+  `user_type` varchar(100) NOT NULL DEFAULT 'user'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `username`, `email`, `password`, `profile`) VALUES
-(1, 'test', 'test@gmail.com', 'test1', 'Adult'),
-(2, 'Adam123', 'adam123@gmail.com', 'adam123', 'Student'),
-(3, 'test2', 'test@gmail.com', 'test2', 'adult');
+INSERT INTO `user` (`user_id`, `username`, `email`, `password`, `profile`, `user_type`) VALUES
+(1, 'test', 'test@gmail.com', 'test1', 'Adult', 'user'),
+(2, 'Adam123', 'adam123@gmail.com', 'adam123', 'Student', 'user'),
+(8, 'test3', 'test3@gmail.com', '202cb962ac59075b964b07152d234b70', 'Adult', 'user'),
+(9, 'test2', 'test2@gmail.com', '202cb962ac59075b964b07152d234b70', 'Adult', 'user'),
+(10, 'test11', 'test11@gmail.com', '202cb962ac59075b964b07152d234b70', 'Adult', 'user'),
+(11, 'elaine', 'elaine@gmail.com', '202cb962ac59075b964b07152d234b70', 'Adult', 'user'),
+(12, 'cinemaManager', 'staff1@gmail.com', '1253208465b1efa876f982d8a9e73eef', 'Adult', 'cinemaManager'),
+(13, 'reportManager', 'staff2@gmail.com', '1253208465b1efa876f982d8a9e73eef', 'Adult', 'reportManager');
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `admin`
---
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`admin_id`);
 
 --
 -- Indexes for table `cinema`
@@ -176,12 +154,6 @@ ALTER TABLE `user`
 --
 
 --
--- AUTO_INCREMENT for table `admin`
---
-ALTER TABLE `admin`
-  MODIFY `admin_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
 -- AUTO_INCREMENT for table `cinema`
 --
 ALTER TABLE `cinema`
@@ -197,7 +169,7 @@ ALTER TABLE `movie`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
