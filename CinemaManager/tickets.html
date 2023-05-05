@@ -96,109 +96,91 @@
 			border-radius: 50%;
 		}
 	</style>
-<body>
-	<div class="white-box">
-        <section>
-            <div class="container1">
-                <div class="logo">
-                    <img src="Images/cinemethologo.jpeg">
-                </div>
-    
-                <div class="topnav">
-					<a href="#" onclick="logout()">LOG OUT</a>
-					<a href="tickets.html">TICKETS</a>
-					<a href="cinemaRooms.html">CINEMA ROOMS</a>  
-					<a href="movies.html">MOVIES</a>    
-					<a href="f&b.html">F&B</a>                				
-					<a class="active" href="cinemaManager.html">HOME</a>
-                </div>
-            </div> 
-        </section>
+	<body>
+		<div class="white-box">
+			<section>
+				<div class="container1">
+					<div class="logo">
+						<img src="Images/cinemethologo.jpeg">
+					</div>
+		
+					<div class="topnav">
+						<a href="#" onclick="logout()">LOG OUT</a>
+						<a href="tickets.html">TICKETS</a>
+						<a href="cinemaRooms.html">CINEMA ROOMS</a>  
+						<a href="movies.html">MOVIES</a>    
+						<a href="f&b.html">F&B</a>                				
+						<a class="active" href="cinemaManager.html">HOME</a>
+					</div>
+				</div> 
+			</section>
 
-        <hr>
-        <br><br>
-		<div class="search-container">			
-				<input type="text" id="search" placeholder="Search by customer profile">
-				<div class="search-results"></div>
+			<hr>
+			<br><br>
+			
+			<div class="search-container">			
+					<input type="text" id="search" placeholder="Search by customer profile">
+					<div class="search-results"></div>
+			</div>
+			
+			<table id="ticketTable" border="1">
+				<tr>
+					<th>Customer Profiles</th>
+					<th>Prices</th>
+					<th>Actions</th>
+				</tr>
+				<tr>
+					<td contenteditable="true">Adult</td>
+					<td contenteditable="true">$12.50</td>
+					<td>		
+						<label class="switch">
+							<input type="checkbox" class="toggleSwitch" checked>
+							<span class="slider round"></span>
+						</label>
+					</td>	
+				</tr>
+				<tr>
+					<td contenteditable="true">Student</td>
+					<td contenteditable="true">$8.50</td>
+					<td>		
+						<label class="switch">
+							<input type="checkbox" class="toggleSwitch" checked>
+							<span class="slider round"></span>
+						</label>
+					</td>		
+				</tr>			
+			</table><br>
+			
+			<button onclick="addTicket()">Add Ticket</button>
+			<button onclick="updateTicket()">Update Ticket</button>		
 		</div>
-		<table id="ticketTable" border="1">
-		<tr>
-			<th>Customer Profiles</th>
-			<th>Prices</th>
-			<th>Actions</th>
-		</tr>
-		<tr>
-			<td contenteditable="true">Adult</td>
-			<td contenteditable="true">$12.50</td>
-			<td>		
-				<label class="switch">
-					<input type="checkbox" class="toggleSwitch" checked>
-					<span class="slider round"></span>
-				</label>
-			</td>	
-		</tr>
-		<tr>
-			<td contenteditable="true">Student</td>
-			<td contenteditable="true">$8.50</td>
-			<td>		
-				<label class="switch">
-					<input type="checkbox" class="toggleSwitch" checked>
-					<span class="slider round"></span>
-				</label>
-			</td>		
-		</tr>
-		<tr>
-			<td contenteditable="true">Child</td>
-			<td contenteditable="true">$6.50</td>
-			<td>		
-				<label class="switch">
-					<input type="checkbox" class="toggleSwitch" checked>
-					<span class="slider round"></span>
-				</label>
-			</td>	
-		</tr>
-		<tr>
-			<td contenteditable="true">Senior Citizen</td>
-			<td contenteditable="true">$4.50</td>
-			<td>		
-				<label class="switch">
-					<input type="checkbox" class="toggleSwitch" checked>
-					<span class="slider round"></span>
-				</label>
-			</td>	
-		</tr>
-		</table><br>
 		
-		<button onclick="addTicket()">Add Ticket</button>
-		<button onclick="updateTicket()">Update Ticket</button>		
-	</div>
-	
-	<script>
-		document.addEventListener("DOMContentLoaded", function() 
-		{
-			updateToggleSwitchListeners();
-			document.getElementById('search').addEventListener('input', function(e) 
+		<script>
+			document.addEventListener("DOMContentLoaded", function() 
 			{
-				var searchVal = e.target.value.toLowerCase();
-				var table = document.getElementById('ticketTable');
-
-				for (var i = 1, row; row = table.rows[i]; i++) 
+				updateToggleSwitchListeners();
+				document.getElementById('search').addEventListener('input', function(e) 
 				{
-					var ticket = row.cells[0].innerText;				
+					var searchVal = e.target.value.toLowerCase();
+					var table = document.getElementById('ticketTable');
 
-					if (ticket.toLowerCase().includes(searchVal)) 
+					for (var i = 1, row; row = table.rows[i]; i++) 
 					{
-						row.style.display = "";
-					}	 
-					else 
-					{
-						row.style.display = ('none');
+						var ticket = row.cells[0].innerText;				
+
+						if (ticket.toLowerCase().includes(searchVal)) 
+						{
+							row.style.display = "";
+						}	 
+						else 
+						{
+							row.style.display = ('none');
+						}
 					}
-				}
+				});
 			});
-		});
-		
-		function updateToggleSwitchListeners() 
+			
+			function updateToggleSwitchListeners() 
 			{
 				var switches = document.querySelectorAll('.toggleSwitch');
 				for (var i = 0; i < switches.length; i++) 
@@ -222,27 +204,27 @@
 					setRowEditable(row, true);
 				}
 			}
-		
-		function addTicket() 
-		{
-			var table = document.getElementById('ticketTable');
-			var row = table.insertRow(-1);
-
-			var cell1 = row.insertCell(0);
-			var cell2 = row.insertCell(1);
-			var cell3 = row.insertCell(2);
-
-			cell1.contentEditable = "true";
-			cell2.contentEditable = "true";
-			cell3.innerHTML = '<label class="switch"><input type="checkbox" class="toggleSwitch" checked><span class="slider round"></span></label>';
-
-			cell1.innerHTML = "New Ticket";
-			cell2.innerHTML = "$0";
 			
-			updateToggleSwitchListeners();
-		}
-		
-		function setRowEditable(row, editable) 
+			function addTicket() 
+			{
+				var table = document.getElementById('ticketTable');
+				var row = table.insertRow(-1);
+
+				var cell1 = row.insertCell(0);
+				var cell2 = row.insertCell(1);
+				var cell3 = row.insertCell(2);
+
+				cell1.contentEditable = "true";
+				cell2.contentEditable = "true";
+				cell3.innerHTML = '<label class="switch"><input type="checkbox" class="toggleSwitch" checked><span class="slider round"></span></label>';
+
+				cell1.innerHTML = "New Ticket";
+				cell2.innerHTML = "$0";
+				
+				updateToggleSwitchListeners();
+			}
+			
+			function setRowEditable(row, editable) 
 			{
 				for (var i = 0; i < row.cells.length; i++) 
 				{
@@ -252,25 +234,24 @@
 					}
 				}
 			}
-		
-		function updateTicket() 
-		{
-			var table = document.getElementById('ticketTable');
-			for (var i = 1, row; row = table.rows[i]; i++) 
+			
+			function updateTicket() 
 			{
-				var ticket = row.cells[0].innerText;
-				var price = row.cells[1].innerText;
-				console.log('Ticket: ' + ticket + ', Price: ' + price);
+				var table = document.getElementById('ticketTable');
+				for (var i = 1, row; row = table.rows[i]; i++) 
+				{
+					var ticket = row.cells[0].innerText;
+					var price = row.cells[1].innerText;
+					console.log('Ticket: ' + ticket + ', Price: ' + price);
+				}
 			}
-		}
-		
-		function logout() 
-		{
-			// Code to handle logout
-			console.log("Logged out");
-			window.location.href = 'index.html'; // redirect to login page after logout
-		}
-	</script>
-</body>
-
+			
+			function logout() 
+			{
+				// Code to handle logout
+				console.log("Logged out");
+				window.location.href = 'index.html'; // redirect to login page after logout
+			}
+		</script>
+	</body>
 </html>
