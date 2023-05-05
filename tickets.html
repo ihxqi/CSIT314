@@ -26,6 +26,75 @@
 		{
 			display: none;
 		}
+		
+		.switch 
+		{			
+			position: relative;
+			display: inline-block;
+			width: 60px;
+			height: 34px;
+		}
+
+		.switch input 
+		{ 
+			opacity: 0;
+			width: 0;
+			height: 0;
+		}
+
+		.slider 
+		{
+			position: absolute;
+			cursor: pointer;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: #FF160C;
+			-webkit-transition: .4s;
+			transition: .4s;
+		}
+
+		.slider:before 
+		{
+			position: absolute;
+			content: "";
+			height: 26px;
+			width: 26px;
+			left: 4px;
+			bottom: 4px;
+			background-color: black;
+			-webkit-transition: .4s;
+			transition: .4s;
+		}
+
+		input:checked + .slider 
+		{
+			background-color: #0FFF50;
+		}
+
+		input:focus + .slider 
+		{
+			box-shadow: 0 0 1px #2196F3;
+		}
+
+		input:checked + .slider:before 
+		{
+			-webkit-transform: translateX(26px);
+			-ms-transform: translateX(26px);
+			transform: translateX(26px);
+		}
+
+		/* Rounded sliders */
+		.slider.round 
+		{
+			border-radius: 34px;
+		}
+
+		.slider.round:before 
+		{
+			border-radius: 50%;
+		}
 	</style>
 <body>
 	<div class="white-box">
@@ -37,7 +106,6 @@
     
                 <div class="topnav">
 					<a href="#" onclick="logout()">LOG OUT</a>
-					<a href="loyaltyRewards.html">LOYALTY REWARDS</a>					
 					<a href="tickets.html">TICKETS</a>
 					<a href="cinemaRooms.html">CINEMA ROOMS</a>  
 					<a href="movies.html">MOVIES</a>    
@@ -62,34 +130,42 @@
 		<tr>
 			<td contenteditable="true">Adult</td>
 			<td contenteditable="true">$12.50</td>
-			<td>
-				<button onclick="suspend(this)">Suspend</button>
-				<button onclick="activate(this)" disabled>Activate</button>
-			</td>
+			<td>		
+				<label class="switch">
+					<input type="checkbox" class="toggleSwitch" checked>
+					<span class="slider round"></span>
+				</label>
+			</td>	
 		</tr>
 		<tr>
 			<td contenteditable="true">Student</td>
 			<td contenteditable="true">$8.50</td>
-			<td>
-				<button onclick="suspend(this)">Suspend</button>
-				<button onclick="activate(this)" disabled>Activate</button>
+			<td>		
+				<label class="switch">
+					<input type="checkbox" class="toggleSwitch" checked>
+					<span class="slider round"></span>
+				</label>
 			</td>		
 		</tr>
 		<tr>
 			<td contenteditable="true">Child</td>
 			<td contenteditable="true">$6.50</td>
-			<td>
-				<button onclick="suspend(this)">Suspend</button>
-				<button onclick="activate(this)" disabled>Activate</button>
-			</td>
+			<td>		
+				<label class="switch">
+					<input type="checkbox" class="toggleSwitch" checked>
+					<span class="slider round"></span>
+				</label>
+			</td>	
 		</tr>
 		<tr>
 			<td contenteditable="true">Senior Citizen</td>
 			<td contenteditable="true">$4.50</td>
-			<td>
-				<button onclick="suspend(this)">Suspend</button>
-				<button onclick="activate(this)" disabled>Activate</button>
-			</td>
+			<td>		
+				<label class="switch">
+					<input type="checkbox" class="toggleSwitch" checked>
+					<span class="slider round"></span>
+				</label>
+			</td>	
 		</tr>
 		</table><br>
 		
@@ -98,26 +174,55 @@
 	</div>
 	
 	<script>
-		document.getElementById('search').addEventListener('input', function(e) 
+		document.addEventListener("DOMContentLoaded", function() 
 		{
-			var searchVal = e.target.value.toLowerCase();
-			var table = document.getElementById('ticketTable');
-
-			for (var i = 1, row; row = table.rows[i]; i++) 
+			updateToggleSwitchListeners();
+			document.getElementById('search').addEventListener('input', function(e) 
 			{
-				var ticket = row.cells[0].innerText;				
+				var searchVal = e.target.value.toLowerCase();
+				var table = document.getElementById('ticketTable');
 
-				if (ticket.toLowerCase().includes(searchVal)) 
+				for (var i = 1, row; row = table.rows[i]; i++) 
 				{
-					row.style.display = "";
-				}	 
-				else 
+					var ticket = row.cells[0].innerText;				
+
+					if (ticket.toLowerCase().includes(searchVal)) 
+					{
+						row.style.display = "";
+					}	 
+					else 
+					{
+						row.style.display = ('none');
+					}
+				}
+			});
+		});
+		
+		function updateToggleSwitchListeners() 
+			{
+				var switches = document.querySelectorAll('.toggleSwitch');
+				for (var i = 0; i < switches.length; i++) 
 				{
-					row.style.display = ('none');
+					switches[i].removeEventListener('change', toggleSwitchListener);
+					switches[i].addEventListener('change', toggleSwitchListener);
 				}
 			}
-		});
-	
+
+			function toggleSwitchListener() 
+			{
+				var row = this.closest('tr');
+				if (!this.checked) 
+				{
+					row.style.backgroundColor = 'grey';
+					setRowEditable(row, false);
+				} 
+				else 
+				{
+					row.style.backgroundColor = '';
+					setRowEditable(row, true);
+				}
+			}
+		
 		function addTicket() 
 		{
 			var table = document.getElementById('ticketTable');
@@ -129,43 +234,26 @@
 
 			cell1.contentEditable = "true";
 			cell2.contentEditable = "true";
-			cell3.innerHTML = '<button onclick="suspend(this)">Suspend</button><button onclick="activate(this)" disabled>Activate</button>';
+			cell3.innerHTML = '<label class="switch"><input type="checkbox" class="toggleSwitch" checked><span class="slider round"></span></label>';
 
 			cell1.innerHTML = "New Ticket";
 			cell2.innerHTML = "$0";
+			
+			updateToggleSwitchListeners();
 		}
 		
-		function suspend(btn)
-		{
-			var row = btn.parentNode.parentNode;
-			row.style.backgroundColor = 'grey'; // suspended
-			row.cells[0].contentEditable = "false";  // Make cells uneditable
-			row.cells[1].contentEditable = "false";
-			btn.disabled = true;  // Disable the suspend button
-
-			var activateButton = btn.nextElementSibling;
-			if (activateButton) 
+		function setRowEditable(row, editable) 
 			{
-				activateButton.disabled = false;  // Enable the activate button
+				for (var i = 0; i < row.cells.length; i++) 
+				{
+					if (i !== row.cells.length - 1) 
+					{
+						row.cells[i].contentEditable = editable ? "true" : "false";
+					}
+				}
 			}
-		}
 		
-		function activate(btn) 
-		{
-		  var row = btn.parentNode.parentNode;
-		  row.style.backgroundColor = '';  // Change color back to original
-		  row.cells[0].contentEditable = "true";  // Make cells editable
-		  row.cells[1].contentEditable = "true";
-		  btn.disabled = true;  // Disable the activate button
-
-			var suspendButton = btn.previousElementSibling;
-			if (suspendButton) 
-			{
-				suspendButton.disabled = false;  // Enable the suspend button
-			}
-		}
-	
-		function update() 
+		function updateTicket() 
 		{
 			var table = document.getElementById('ticketTable');
 			for (var i = 1, row; row = table.rows[i]; i++) 
