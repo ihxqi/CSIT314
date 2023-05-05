@@ -37,6 +37,7 @@ class User {
         $result = mysqli_num_rows($check);
         if($result == 1 && $data['password'] == $pass) {
             $_SESSION['login'] = true;
+            $_SESSION['user_type'] = $data['user_type'];
             $_SESSION['user_id'] = $data['user_id'];
             return true;
         } else {
@@ -44,6 +45,7 @@ class User {
         }
     }
     
+    /*
     public function fullname($user_id) {
         $conn = mysqli_connect(HOST, USER, PASS, DB);
         $result = mysqli_query($conn, "SELECT * FROM user WHERE user_id='$user_id'");
@@ -56,6 +58,7 @@ class User {
             return $_SESSION['login'];
         }
     }
+    */
     
     public function logout() {
         $_SESSION['login'] = false;

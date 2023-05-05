@@ -2,6 +2,7 @@
 session_start();
 include_once '..\cinemetho\login\class.php';
 $user = new User();
+$message = array();
 
 // Registration
 if(isset($_POST['register'])) {
@@ -27,10 +28,20 @@ if(isset($_POST['login'])) {
     $login = $user->login($username, $password);
         
     if($login) {
-        header('location: ../cinemetho/UserProfile/custProfile.php');
-    } else {
-        echo 'Login failed please try again';
-    }
+		if($_SESSION['user_type'] == 'cinemaManager'){
+		   header('location: ../cinemetho/cinemaManager/cinemaManager.php');
+		}elseif($_SESSION['user_type'] == 'reportManager'){
+		   header('location: ../cinemetho/UserProfile/custProfile.php');
+		}elseif($_SESSION['user_type'] == 'user adminstator'){
+			header('location: ../cinemetho/UserProfile/custProfile.php');
+		}elseif($_SESSION['user_type'] == 'user'){
+			header('location: ../cinemetho/UserProfile/custProfile.php');
+		}else{
+		   $message[] = 'no user found!';
+		}
+	 }else{
+		$message[] = 'incorrect email or password!';
+	 }
 }
 ?>
 
@@ -173,19 +184,19 @@ if(isset($_POST['login'])) {
 			</div>		
 			<h3></h3>
 			<form id="login" class="user-input" method="POST">
-				<label for="userProfile">Login as:</label>
-				<select name="userProfile" id="userProfile">
-				<option value="member">Member</option>
-				<option value="cinemaManager">Cinema Manager</option>
-				<option value="reportManager">Report Manager</option>
-				<option value="userAdministrator">User Administrator</option>			
-				</select>
    				 <input type="text" name="username" class="input-field" placeholder="Username" required>
    				 <input type="password" name="password" class="input-field" placeholder="Password" required><br><br>
    				 <input type="checkbox" class="check-box">
    				 <span>Remember password ?</span>
    				 <input type="submit" name="login" class="submit-btn" value="Login">
 			</form>
+			<?php
+         if(isset($message)){
+            foreach($message as $msg){
+               echo '<p>'.$msg.'</p>';
+            }
+         }
+         ?>
 		
 		<form method="post" id="register" class="user-input">
 			<label for="profile">Customer profile:</label>
@@ -202,6 +213,13 @@ if(isset($_POST['login'])) {
 			<span>I agree to the <a href="#">terms & conditions</a></span>
 			<input type="submit" name="register" class="submit-btn" value="Register">
 		</form>
+		<?php
+         if(isset($message)){
+            foreach($message as $msg){
+               echo '<p>'.$msg.'</p>';
+            }
+         }
+         ?>
 		</div>
 	</div>
 	
