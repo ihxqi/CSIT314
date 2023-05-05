@@ -24,6 +24,7 @@
 					<a href="booking.html">BUY TICKETS</a>
 					<a href="#cinemas location">CINEMAS</a>
 					<a href="movielisting.html">MOVIES</a>
+					<a href="index.html" onclick="logout()">LOG OUT</a>
 				</div>
 			</div> 
 		</section>
@@ -43,13 +44,12 @@
 								<input type="date">
 							</div><br>
 							<div class="input-checkbox">
-								<span class="details">Seat preference:</span>
-								<input type="checkbox" id="front" name="front" value="front">
-								<label for="front">Front Row</label>
-								<input type="checkbox" id="middle" name="middle" value="middle">					
-								<label for="middle">Middle Row</label>
-								<input type="checkbox" id="back" name="back" value="back">									
-								<label for="back">Back Row</label>
+								<span class="details">Seat preference:</span>									
+								<select name="seat" id="seat">
+								  <option value="standard">Standard</option>
+								  <option value="premium">Premium</option>
+								  <option value="vip">VIP</option>								  
+								</select>
 							</div><br>
 							<div class="loyalty">
 								<span class="details">Loyalty points: </span>
@@ -63,20 +63,24 @@
 				</div>
 			  </div>
 		</section>
-	</div>
-	
-	
+	</div>		
   
 	<script>
 		function deactivate()
 		{
 			alert("You have successfully deactivated your account!")
 		}
-	</script>
-	<script>
+	
 		function update()
 		{
 			alert("You have successfully updated your profile!")
+		}
+		
+		function logout() 
+		{
+			// Code to handle logout
+			console.log("Logged out");
+			window.location.href = 'index.html'; // redirect to login page after logout
 		}
 	</script>
   </body>
