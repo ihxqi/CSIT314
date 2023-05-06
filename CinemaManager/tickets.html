@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-	<title>Cinema Manager - Tickets' Profile</title>
+		<title>Cinema Manager - Tickets' Profile</title>
         <meta charset = "utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel ="stylesheet" href = "styles.css">
@@ -129,7 +129,7 @@
 					<th>Status</th>
 				</tr>
 				<tr>
-					<td contenteditable="true">Adult</td>
+					<td class="editable">Not Set</td>
 					<td contenteditable="true">$12.50</td>
 					<td>		
 						<label class="switch">
@@ -139,7 +139,7 @@
 					</td>	
 				</tr>
 				<tr>
-					<td contenteditable="true">Student</td>
+					<td class="editable">Not Set</td>
 					<td contenteditable="true">$8.50</td>
 					<td>		
 						<label class="switch">
@@ -179,6 +179,51 @@
 				});
 			});
 			
+			var profile = document.querySelectorAll(".editable");
+
+			for(var i = 0; i < profile.length; i++)
+			{
+				profile[i].addEventListener("mousedown", function(e)
+				{
+					if (!this.querySelector('select'))
+					{
+						var select = document.createElement('select');
+						var options = ['Adult', 'Child', 'Student', 'Senior Citizen']; 
+					}
+				
+					// Create options and append to select
+					for(var j = 0; j < options.length; j++)
+					{
+						var option = document.createElement('option');
+						option.value = options[j];
+						option.text = options[j];
+						select.appendChild(option);
+					}
+				
+					// When an option is selected, replace the select with the chosen option
+					select.addEventListener('change', function(e)
+					{
+						this.parentElement.innerText = this.value;
+					});
+					
+					select.addEventListener('click', function(e)
+					{
+						e.stopPropagation();
+					});
+				
+					// Replace cell content with select
+					this.innerText = '';
+					this.appendChild(select);					
+					// Check if the toggle switch is checked and disable the dropdown box accordingly
+					var toggleSwitch = this.closest("tr").querySelector(".toggleSwitch");
+					if (toggleSwitch) 
+					{
+						select.disabled = !toggleSwitch.checked;
+					}
+					select.focus();				
+				});
+			}
+			
 			function updateToggleSwitchListeners() 
 			{
 				var switches = document.querySelectorAll('.toggleSwitch');
@@ -213,13 +258,17 @@
 				var cell2 = row.insertCell(1);
 				var cell3 = row.insertCell(2);
 
-				cell1.contentEditable = "true";
 				cell2.contentEditable = "true";
 				cell3.innerHTML = '<label class="switch"><input type="checkbox" class="toggleSwitch" checked><span class="slider round"></span></label>';
-
-				cell1.innerHTML = "New Ticket";
 				cell2.innerHTML = "$0";
 				
+				// Create the select element and options for the seat type
+				var select = document.createElement('select');
+				select.innerHTML = '<option value="not set">Not Set</option><option value="adult">Adult</option><option value="student">Student</option><option value="child">Child</option><option value="senior citizen">Senior Citizen</option>';
+				select.className = 'editable';
+
+				// Append the select element to the third cell
+				cell1.appendChild(select);
 				updateToggleSwitchListeners();
 			}
 			
@@ -227,9 +276,22 @@
 			{
 				for (var i = 0; i < row.cells.length; i++) 
 				{
-					if (i !== row.cells.length - 1) 
+					var cell = row.cells[i];
+					if (cell.querySelector('select')) 
 					{
-						row.cells[i].contentEditable = editable ? "true" : "false";
+						cell.querySelector('select').disabled = !editable;
+					} 
+					else if (i !== row.cells.length - 1) 
+					{
+						cell.contentEditable = editable ? "true" : "false";
+						if (!editable)
+						{
+							cell.style.backgroundColor = "grey";							
+						}
+						else
+						{
+							cell.style.backgroundColor = "";
+						}
 					}
 				}
 			}
@@ -239,9 +301,10 @@
 				var table = document.getElementById('ticketTable');
 				for (var i = 1, row; row = table.rows[i]; i++) 
 				{
-					var ticket = row.cells[0].innerText;
+					var profileDropdown = row.cells[1].querySelector('select');
+					var profile = profileDropdown ? profileDropdown.value : "Not Set";
 					var price = row.cells[1].innerText;
-					console.log('Ticket: ' + ticket + ', Price: ' + price);
+					console.log('Customer Profile: ' + profile + ', Price: ' + price);
 				}
 			}
 			
