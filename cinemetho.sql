@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 05, 2023 at 03:55 PM
+-- Generation Time: May 06, 2023 at 07:26 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -65,14 +65,26 @@ CREATE TABLE `loyaltypt` (
 --
 
 CREATE TABLE `movie` (
-  `movie_id` int(11) NOT NULL,
-  `movie_title` int(11) NOT NULL,
-  `movie_date` date NOT NULL,
-  `movie_desc` int(11) NOT NULL,
-  `movie_rating` int(11) NOT NULL,
-  `showtime` varchar(100) NOT NULL,
-  `movie_genre` varchar(100) NOT NULL
+  `MovieID` int(10) NOT NULL,
+  `MovieTitle` varchar(200) NOT NULL,
+  `MovieDescription` varchar(500) NOT NULL,
+  `MovieGenre` varchar(100) NOT NULL,
+  `MovieLanguage` varchar(100) NOT NULL,
+  `MovieDuration` varchar(50) NOT NULL,
+  `MovieShowtime` varchar(100) NOT NULL,
+  `MovieDate` date NOT NULL,
+  `MPARating` varchar(20) NOT NULL,
+  `MovieImage` varchar(200) NOT NULL,
+  `MovieAction` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `movie`
+--
+
+INSERT INTO `movie` (`MovieID`, `MovieTitle`, `MovieDescription`, `MovieGenre`, `MovieLanguage`, `MovieDuration`, `MovieShowtime`, `MovieDate`, `MPARating`, `MovieImage`, `MovieAction`) VALUES
+(1, 'Dungeons & Dragons (English Sub) PG13', 'A charming thief and a band of unlikely adventurers undertake an epic heist to retrieve a lost relic, but things go dangerously awry when they run afoul of the wrong people. Dungeons & Dragons: Honor Among Thieves brings the rich world and playful spirit of the legendary roleplaying game to the big screen in a hilarious and action-packed adventure.', 'Action, Fantasy', 'English', '134 mins', '', '0000-00-00', 'PG13 - Some Violence', 'image/dnd.jpeg', 0),
+(2, 'John Wick: Chapter 4', 'John Wick (Keanu Reeves) uncovers a path to defeating The High Table. But before he can earn his freedom, Wick must face off against a new enemy with powerful alliances across the globe and forces that turn old friends into foes.', 'Action', 'English', '170 mins', '', '0000-00-00', 'M18 - Violence', 'image/johnwick4.jpeg', 0);
 
 -- --------------------------------------------------------
 
@@ -118,14 +130,16 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `username`, `email`, `password`, `profile`, `user_type`) VALUES
-(1, 'test', 'test@gmail.com', 'test1', 'Adult', 'user'),
 (2, 'Adam123', 'adam123@gmail.com', 'adam123', 'Student', 'user'),
-(8, 'test3', 'test3@gmail.com', '202cb962ac59075b964b07152d234b70', 'Adult', 'user'),
-(9, 'test2', 'test2@gmail.com', '202cb962ac59075b964b07152d234b70', 'Adult', 'user'),
-(10, 'test11', 'test11@gmail.com', '202cb962ac59075b964b07152d234b70', 'Adult', 'user'),
-(11, 'elaine', 'elaine@gmail.com', '202cb962ac59075b964b07152d234b70', 'Adult', 'user'),
-(12, 'cinemaManager', 'staff1@gmail.com', '1253208465b1efa876f982d8a9e73eef', 'Adult', 'cinemaManager'),
-(13, 'reportManager', 'staff2@gmail.com', '1253208465b1efa876f982d8a9e73eef', 'Adult', 'reportManager');
+(3, 'test3', 'test3@gmail.com', '202cb962ac59075b964b07152d234b70', 'Adult', 'user'),
+(4, 'test2', 'test2@gmail.com', '202cb962ac59075b964b07152d234b70', 'Adult', 'user'),
+(5, 'test11', 'test11@gmail.com', '202cb962ac59075b964b07152d234b70', 'Adult', 'user'),
+(6, 'elaine', 'elaine@gmail.com', '202cb962ac59075b964b07152d234b70', 'Adult', 'user'),
+(12, 'cinemaManager', 'staff1@gmail.com', '1253208465b1efa876f982d8a9e73eef', '', 'cinemaManager'),
+(13, 'reportManager', 'staff2@gmail.com', '1253208465b1efa876f982d8a9e73eef', '', 'reportManager'),
+(14, 'helpme', 'help@gmail.com', '202cb962ac59075b964b07152d234b70', 'Adult', 'user'),
+(15, 'gg123', 'gg123@gmail.com', '202cb962ac59075b964b07152d234b70', 'Adult', 'user'),
+(16, 'test23', 'test23@gmail.com', '202cb962ac59075b964b07152d234b70', 'Adult', 'user');
 
 --
 -- Indexes for dumped tables
@@ -141,7 +155,7 @@ ALTER TABLE `cinema`
 -- Indexes for table `movie`
 --
 ALTER TABLE `movie`
-  ADD PRIMARY KEY (`movie_id`);
+  ADD PRIMARY KEY (`MovieID`);
 
 --
 -- Indexes for table `user`
@@ -163,13 +177,13 @@ ALTER TABLE `cinema`
 -- AUTO_INCREMENT for table `movie`
 --
 ALTER TABLE `movie`
-  MODIFY `movie_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `MovieID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
