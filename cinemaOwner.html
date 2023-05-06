@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<title>Cinema Owner - Sales Report</title>
+        <meta charset = "utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel ="stylesheet" href = "styles.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,300;0,400;0,800;1,100;1,400&display=swap" rel="stylesheet">
+    </head>
+	<style>	
+		body 
+		{
+			font-family: Arial, sans-serif;
+			line-height: 1.6;
+			margin: 2%;
+		}
+
+		table 
+		{
+			width: 100%;
+			border-collapse: collapse;
+			margin-bottom: 2%;
+		}
+
+		th, td 
+		{
+			border: 1px solid #800000;
+			text-align: left;
+			padding: 1%;
+		}
+
+		th 
+		{
+			background-color: #f2f2f2;
+			font-weight: bold;
+		}
+
+		tr:nth-child(even) 
+		{
+			background-color: #f9f9f9;
+		}
+
+		tr:hover 
+		{
+			background-color: #e6e6e6;
+		}
+		
+		form 
+		{
+			margin-bottom: 2%;
+		}
+
+		label, input[type="date"], select 
+		{
+			display: inline-block;
+			margin: 0 1%;
+		}
+
+		button 
+		{
+			width: 40%;
+			padding: 1% 2%;
+			text-align: center;
+			cursor: pointer;
+			display: inline-block;
+			font-size: 1em;
+			margin-top: 1%;
+			margin-bottom: 2%;
+			background: linear-gradient(to right, #008080, #DCAE96);
+			border: 0;
+			outline: none;
+			border-radius: 30px;
+		}		
+	</style>
+	<body>
+		<div class="white-box">
+			<section>
+				<div class="container1">
+					<div class="logo">
+						<img src="Images/cinemethologo.jpeg">
+					</div>		
+					<div class="topnav">
+						<a href="index.html" onclick="logout()">LOG OUT</a>						  						
+					</div>
+				</div> 
+			</section>
+			<hr>			
+			
+			<h1>Sales Report</h1>
+			<div>
+				<label for="report-type">Report Type:</label>
+				<select id="report-type">
+					<option value="daily">Daily</option>
+					<option value="weekly">Weekly</option>
+					<option value="monthly">Monthly</option>
+				</select>
+			</div><br>
+			<div>
+				<label for="start-date">Start Date:</label>
+				<input type="date" id="start-date">
+			</div><br>
+			<div>
+				<label for="end-date">End Date:</label>
+				<input type="date" id="end-date">
+			</div><br>
+			
+			<button id="generate-report">Generate Report</button>
+			<hr>
+			
+			<h2>Ticket Sales</h2>
+			<table id="ticket-sales">
+				<thead>
+					<tr>
+						<th>Date</th>
+						<th>Total Sale</th>						
+					</tr>
+				</thead>
+				<tbody>
+					<!-- Report content here -->
+				</tbody>
+			</table>
+		
+			<h2>F&B Sales</h2>
+			<table id="fb-sales">
+				<!-- Table headers -->
+				<thead>
+					<tr>
+						<th>Date</th>
+						<th>Total Sale</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- Report content here -->
+				</tbody>
+			</table>
+		</div>
+		<script>
+			// Validate dates
+			function isDaily(startDate, endDate) 
+			{
+				const start = new Date(startDate);
+				const end = new Date(endDate);
+				const diffTime = Math.abs(end - start);
+				const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+				return diffDays === 0;
+			}
+
+			function isWeekly(startDate, endDate) 
+			{
+				const start = new Date(startDate);
+				const end = new Date(endDate);
+				const diffTime = Math.abs(end - start);
+				const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+				return diffDays === 6;
+			}
+
+			function isMonthly(startDate, endDate) 
+			{
+				const start = new Date(startDate);
+				const end = new Date(endDate);
+				return start.getMonth() === end.getMonth() && start.getFullYear() === end.getFullYear() && start.getDate() === 1 && end.getDate() === getLastDayOfMonth(end);
+			}
+
+			function getLastDayOfMonth(date) 
+			{
+				return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+			}
+				
+			document.getElementById('generate-report').addEventListener('click', () => 
+			{		
+				const reportType = document.getElementById('report-type').value;
+				const startDate = document.getElementById('start-date').value;
+				const endDate = document.getElementById('end-date').value;								
+
+				// Validate dates
+				if (!startDate || !endDate) 
+				{
+					alert('Please select a start and end date.');
+					return;
+				}
+
+				if (new Date(startDate) > new Date(endDate)) 
+				{
+					alert('Start date cannot be after the end date.');
+					return;
+				}
+
+				if (reportType === 'daily' && !isDaily(startDate, endDate)) 
+				{
+					alert('Daily reports should cover exactly 1 day.');
+					return;
+				}
+				
+				if (reportType === 'weekly' && !isWeekly(startDate, endDate)) 
+				{
+					alert('Weekly reports should cover exactly 7 days.');
+					return;
+				}
+
+				if (reportType === 'monthly' && !isMonthly(startDate, endDate)) 
+				{
+					alert('Monthly reports should cover the entire month.');
+					return;
+				}
+
+				// Fetch data and generate the report
+				fetchTicketSalesData(startDate, endDate, reportType);
+				fetchFBSalesData(startDate, endDate, reportType);
+			});
+
+			function filterDataByDate(data, startDate, endDate) 
+			{
+				const start = new Date(startDate);
+				const end = new Date(endDate);
+
+				return data.filter((item) => 
+				{
+					const itemDate = new Date(item.date);
+					return itemDate >= start && itemDate <= end;
+				});
+			}	
+
+			function fetchFBSalesData(startDate, endDate, reportType) 
+			{
+				fetch('fetch_fb_sales_data.php')
+				.then(response => response.json())
+				.then(data => 
+				{
+					// Filter data by date
+					const filteredData = filterDataByDate(data, startDate, endDate);
+
+					// Calculate total sales for each customer profile
+					const salesByProfile = {};
+					filteredData.forEach(row => 
+					{
+						window.customerProfiles.forEach(profile => 
+						{
+							const profileId = profile.id;
+							const price = row[profileId] || 0;
+							salesByProfile[profileId] = (salesByProfile[profileId] || 0) + price;
+						});
+						
+						// Check if new combo item has been added to the row
+						Object.keys(row).forEach((key) => 
+						{
+							if (!window.customerProfiles.some(profile => profile.id === key)) 
+							{
+								const price = row[key] || 0;
+								salesByProfile[key] = (salesByProfile[key] || 0) + price;
+								// Add the new combo item to the customerProfiles array if it doesn't exist
+								if (!window.customerProfiles.some(profile => profile.id === key)) 
+								{
+									window.customerProfiles.push
+									({
+										id: key,
+										name: key
+									});
+								}
+							}
+						});
+					});
+
+					// Update table with sales data
+					updateTable('fb-sales', filteredData, salesByProfile);
+
+					// Update total sales
+					const totalSales = Object.values(salesByProfile).reduce((sum, value) => sum + value, 0);
+					document.getElementById('fb-total-sales').textContent = `$${totalSales.toFixed(2)}`;
+				});
+			}			
+
+			function updateTable(tableId, data, salesByProfile) 
+			{
+				const table = document.getElementById(tableId);
+				const tbody = table.getElementsByTagName('tbody')[0];
+				tbody.innerHTML = '';
+
+				data.forEach(row => 
+				{
+					const tr = document.createElement('tr');
+
+					// Add date cell
+					const dateCell = document.createElement('td');
+					dateCell.textContent = row.date;
+					tr.appendChild(dateCell);
+
+					// Add cells for each customer profile
+					window.customerProfiles.forEach(profile => 
+					{
+						const profileId = profile.id;
+						const salesCell = document.createElement('td');
+						salesCell.textContent = salesByProfile[profileId] ? `$${salesByProfile[profileId].toFixed(2)}` : '$0.00';
+						tr.appendChild(salesCell);
+					});
+
+				tbody.appendChild(tr);
+				});
+			}
+			
+			function fetchCustomerProfiles() 
+			{
+				fetch('fetch_customer_profiles.php')
+				.then(response => response.json())
+				.then(profiles => 
+				{
+					// Save profiles for later use when updating the tables
+					window.customerProfiles = profiles;
+
+					// Update the table headers for ticket and F&B sales
+					updateTableHeaders('ticket-sales', profiles);
+					updateTableHeaders('fb-sales', profiles);
+				});
+			}
+
+			function updateTableHeaders(tableId, profiles) 
+			{
+				const table = document.getElementById(tableId);
+				const thead = table.getElementsByTagName('thead')[0];
+				const tr = thead.getElementsByTagName('tr')[0];
+
+				// Remove old header cells (except for the date cell)
+				while (tr.childElementCount > 1) 
+				{
+					tr.removeChild(tr.lastChild);
+				}
+
+				// Add new header cells for each customer profile
+				profiles.forEach(profile => 
+				{
+					const th = document.createElement('th');
+					th.textContent = profile.name;
+					tr.appendChild(th);
+				});
+			}
+
+			document.addEventListener('DOMContentLoaded', fetchCustomerProfiles);
+			
+			function logout() 
+			{
+				// Code to handle logout
+				console.log("Logged out");
+				window.location.href = 'index.html'; // redirect to login page after logout
+			}
+		</script>
+	</body>
+</html>
+
