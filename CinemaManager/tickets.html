@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-		<title>Cinema Manager - Cinema Rooms</title>
+		<title>Cinema Manager - Tickets' Profile</title>
         <meta charset = "utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Movie listing</title>
@@ -10,6 +10,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,300;0,400;0,800;1,100;1,400&display=swap" rel="stylesheet">
     </head>
+	
 	<style>
 		.search-results 
 		{
@@ -116,32 +117,42 @@
 
 			<hr>
 			<br><br>
+			
 			<div class="search-container">			
-					<input type="text" id="search" placeholder="Search by room no.">
+					<input type="text" id="search" placeholder="Search by customer profile">
 					<div class="search-results"></div>
 			</div>
-			<table id="roomTable" border="1">
-			<tr>
-				<th>Room No.</th>
-				<th>Capacities</th>
-				<th>Seat Types</th>
-				<th>Actions</th>
-			</tr>
-			<tr>
-				<td contenteditable="true">1</td>
-				<td contenteditable="true">135</td>
-				<td class="editable">Not Set</td>
-				<td>		
-					<label class="switch">
-						<input type="checkbox" class="toggleSwitch" checked>
-						<span class="slider round"></span>
-					</label>
-				</td>	
-			</tr>		
+			
+			<table id="ticketTable" border="1">
+				<tr>
+					<th>Customer Profiles</th>
+					<th>Prices</th>
+					<th>Status</th>
+				</tr>
+				<tr>
+					<td contenteditable="true">Adult</td>
+					<td contenteditable="true">$12.50</td>
+					<td>		
+						<label class="switch">
+							<input type="checkbox" class="toggleSwitch" checked>
+							<span class="slider round"></span>
+						</label>
+					</td>	
+				</tr>
+				<tr>
+					<td contenteditable="true">Student</td>
+					<td contenteditable="true">$8.50</td>
+					<td>		
+						<label class="switch">
+							<input type="checkbox" class="toggleSwitch" checked>
+							<span class="slider round"></span>
+						</label>
+					</td>		
+				</tr>			
 			</table><br>
 			
-			<button onclick="addRoom()">Add Room</button>
-			<button onclick="updateRoom()">Update Room</button>		
+			<button onclick="addTicket()">Add Ticket</button>
+			<button onclick="updateTicket()">Update Ticket</button>		
 		</div>
 		
 		<script>
@@ -151,13 +162,13 @@
 				document.getElementById('search').addEventListener('input', function(e) 
 				{
 					var searchVal = e.target.value.toLowerCase();
-					var table = document.getElementById('roomTable');
+					var table = document.getElementById('ticketTable');
 
 					for (var i = 1, row; row = table.rows[i]; i++) 
 					{
-						var room = row.cells[0].innerText;				
+						var ticket = row.cells[0].innerText;				
 
-						if (room.toLowerCase().includes(searchVal)) 
+						if (ticket.toLowerCase().includes(searchVal)) 
 						{
 							row.style.display = "";
 						}	 
@@ -168,51 +179,6 @@
 					}
 				});
 			});
-				
-			var seat = document.querySelectorAll(".editable");
-
-			for(var i = 0; i < seat.length; i++)
-			{
-				seat[i].addEventListener("mousedown", function(e)
-				{
-					if (!this.querySelector('select'))
-					{
-						var select = document.createElement('select');
-						var options = ['Standard', 'Premium', 'VIP']; 
-					}
-				
-					// Create options and append to select
-					for(var j = 0; j < options.length; j++)
-					{
-						var option = document.createElement('option');
-						option.value = options[j];
-						option.text = options[j];
-						select.appendChild(option);
-					}
-				
-					// When an option is selected, replace the select with the chosen option
-					select.addEventListener('change', function(e)
-					{
-						this.parentElement.innerText = this.value;
-					});
-					
-					select.addEventListener('click', function(e)
-					{
-						e.stopPropagation();
-					});
-				
-					// Replace cell content with select
-					this.innerText = '';
-					this.appendChild(select);					
-					// Check if the toggle switch is checked and disable the dropdown box accordingly
-					var toggleSwitch = this.closest("tr").querySelector(".toggleSwitch");
-					if (toggleSwitch) 
-					{
-						select.disabled = !toggleSwitch.checked;
-					}
-					select.focus();				
-				});
-			}
 			
 			function updateToggleSwitchListeners() 
 			{
@@ -239,30 +205,22 @@
 				}
 			}
 			
-			function addRoom() 
+			function addTicket() 
 			{
-				var table = document.getElementById('roomTable');
+				var table = document.getElementById('ticketTable');
 				var row = table.insertRow(-1);
 
 				var cell1 = row.insertCell(0);
 				var cell2 = row.insertCell(1);
 				var cell3 = row.insertCell(2);
-				var cell4 = row.insertCell(3);
 
 				cell1.contentEditable = "true";
 				cell2.contentEditable = "true";
-				cell4.innerHTML = '<label class="switch"><input type="checkbox" class="toggleSwitch" checked><span class="slider round"></span></label>';
+				cell3.innerHTML = '<label class="switch"><input type="checkbox" class="toggleSwitch" checked><span class="slider round"></span></label>';
 
-				cell1.innerHTML = "New Room No.";
-				cell2.innerHTML = " ";
+				cell1.innerHTML = "New Ticket";
+				cell2.innerHTML = "$0";
 				
-				// Create the select element and options for the seat type
-				var select = document.createElement('select');
-				select.innerHTML = '<option value="Standard">Standard</option><option value="Premium">Premium</option><option value="VIP">VIP</option>';
-				select.className = 'editable';
-
-				// Append the select element to the third cell
-				cell3.appendChild(select);
 				updateToggleSwitchListeners();
 			}
 			
@@ -270,36 +228,21 @@
 			{
 				for (var i = 0; i < row.cells.length; i++) 
 				{
-					var cell = row.cells[i];
-					if (cell.querySelector('select')) 
+					if (i !== row.cells.length - 1) 
 					{
-						cell.querySelector('select').disabled = !editable;
-					} 
-					else if (i !== row.cells.length - 1) 
-					{
-						cell.contentEditable = editable ? "true" : "false";
-						if (!editable)
-						{
-							cell.style.backgroundColor = "grey";							
-						}
-						else
-						{
-							cell.style.backgroundColor = "";
-						}
+						row.cells[i].contentEditable = editable ? "true" : "false";
 					}
 				}
 			}
 			
-			function updateRoom() 
+			function updateTicket() 
 			{
-				var table = document.getElementById('roomTable');
+				var table = document.getElementById('ticketTable');
 				for (var i = 1, row; row = table.rows[i]; i++) 
 				{
-					var room = row.cells[0].innerText;
-					var capacities = row.cells[1].innerText;
-					var seatTypeDropdown = row.cells[2].querySelector('select');
-					var seatType = seatTypeDropdown ? seatTypeDropdown.value : "Not Set";
-					console.log('Room No.: ' + room + ', Capacities: ' + capacities + ', Seat Type: ' + seatType);
+					var ticket = row.cells[0].innerText;
+					var price = row.cells[1].innerText;
+					console.log('Ticket: ' + ticket + ', Price: ' + price);
 				}
 			}
 			
@@ -312,4 +255,3 @@
 		</script>
 	</body>
 </html>
-
