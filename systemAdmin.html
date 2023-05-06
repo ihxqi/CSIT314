@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<title>System Admin - Profile Management</title>
+        <meta charset = "utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel ="stylesheet" href = "styles.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,300;0,400;0,800;1,100;1,400&display=swap" rel="stylesheet">
+    </head>
+	
+	<style>
+		.search-results 
+		{
+			margin-top: 20px;
+		}
+		
+		.box 
+		{
+			display: block;
+		}
+		
+		.hidden
+		{
+			display: none;
+		}
+		
+		.topnav 
+		{
+			overflow: hidden;
+		}	
+
+		.navDropdown 
+		{
+			overflow: hidden;
+		}
+
+		.navDropdown .dropbtn 
+		{
+			float: right;
+			font-size: 90%;
+			font-family: 'Montserrat', sans-serif;
+			border: none;
+			outline: none;
+			color: black;
+			padding: 14px 16px;
+			background-color: inherit;
+			margin: 0;
+		}
+
+		.topnav a:hover, .navDropdown:hover .dropbtn 
+		{
+			background-image:linear-gradient(to right, #008080, #DCAE96);
+			background-position:right center;
+			color: white;
+			box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+			text-decoration: none;
+		}
+
+		.dropContent 
+		{
+			float: none;
+			right: 0;
+			display: none;
+			position: absolute;
+			background-color: #f9f9f9;
+			min-width: 160px;
+			box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+			z-index: 1;
+		}
+
+		.dropContent a 
+		{			
+			color: black;
+			padding: 12px 16px;
+			text-decoration: none;
+			display: block;
+			text-align: left;
+		}
+
+		.dropContent a:hover 
+		{
+			background-color: #ddd;
+		}
+
+		.navDropdown:hover .dropContent 
+		{
+			display: block;
+		}
+
+		.switch 
+		{			
+			position: relative;
+			display: inline-block;
+			width: 60px;
+			height: 34px;
+		}
+
+		.switch input 
+		{ 
+			opacity: 0;
+			width: 0;
+			height: 0;
+		}
+
+		.slider 
+		{
+			position: absolute;
+			cursor: pointer;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: #FF160C;
+			-webkit-transition: .4s;
+			transition: .4s;
+		}
+
+		.slider:before 
+		{
+			position: absolute;
+			content: "";
+			height: 26px;
+			width: 26px;
+			left: 4px;
+			bottom: 4px;
+			background-color: black;
+			-webkit-transition: .4s;
+			transition: .4s;
+		}
+
+		input:checked + .slider 
+		{
+			background-color: #0FFF50;
+		}
+
+		input:focus + .slider 
+		{
+			box-shadow: 0 0 1px #2196F3;
+		}
+
+		input:checked + .slider:before 
+		{
+			-webkit-transform: translateX(26px);
+			-ms-transform: translateX(26px);
+			transform: translateX(26px);
+		}
+
+		/* Rounded sliders */
+		.slider.round 
+		{
+			border-radius: 34px;
+		}
+
+		.slider.round:before 
+		{
+			border-radius: 50%;
+		}
+	</style>
+	<body>
+		<div class="white-box">
+			<section>
+				<div class="container1">
+					<div class="logo">
+						<img src="Images/cinemethologo.jpeg">
+					</div>
+		
+					<div class="topnav">
+						<a href="index.html" onclick="logout()">LOG OUT</a>							
+						<a href="systemAdmin.html">PROFILE</a>
+						<a href="preferenceManagement.html">PREFERENCE</a>
+						<div class="navDropdown">
+							<button class="dropbtn">USERS</button>
+							<div class="dropContent">
+								<a href="manageCustomer.html">CUSTOMER</a>
+								<a href="manageCinemaManager.html">CINEMA MANAGER</a>
+								<a href="manageCinemaOwner.html">CINEMA OWNER</a>
+								<a href="manageSystemAdmin.html">SYSTEM ADMIN</a>
+							</div>
+						</div>
+					</div>
+				</div> 
+			</section>
+
+			<hr>
+			<br><br>
+			<div class="search-container">			
+				<input type="text" id="search" placeholder="Search by user profile">
+				<div class="search-results"></div>
+			</div>
+			<table id="profileTable" border="1">
+				<tr>
+					<th>User Profile</th>									
+					<th>Status</th>
+				</tr>
+				<tr>
+					<td contenteditable="true">System Admin</td>									
+					<td>		
+						<label class="switch">
+							<input type="checkbox" class="toggleSwitch" checked>
+							<span class="slider round"></span>
+						</label>
+					</td>					
+				</tr>		
+			</table><br>
+				
+				<button onclick="addProfile()">Add Profile</button>
+				<button onclick="updateProfile()">Update Profile</button>		
+		</div>
+		
+		<script>
+			document.addEventListener("DOMContentLoaded", function() 
+			{
+				updateToggleSwitchListeners();
+
+				document.getElementById('search').addEventListener('input', function(e) 
+				{
+					var searchVal = e.target.value.toLowerCase();
+					var table = document.getElementById('profileTable');
+
+					for (var i = 1, row; row = table.rows[i]; i++) 
+					{
+						var food = row.cells[0].innerText;
+
+						if (food.toLowerCase().includes(searchVal)) 
+						{
+							row.style.display = "";
+						} 
+						else 
+						{
+							row.style.display = ('none');
+						}
+					}
+				});
+			});
+
+			function updateToggleSwitchListeners() 
+			{
+				var switches = document.querySelectorAll('.toggleSwitch');
+				for (var i = 0; i < switches.length; i++) 
+				{
+					switches[i].removeEventListener('change', toggleSwitchListener);
+					switches[i].addEventListener('change', toggleSwitchListener);
+				}
+			}
+
+			function toggleSwitchListener() 
+			{
+				var row = this.closest('tr');
+				var checkboxes = row.querySelectorAll('input[type="checkbox"]:not(.toggleSwitch)');
+				
+				if (!this.checked) 
+				{
+					row.style.backgroundColor = 'grey';
+					setRowEditable(row, false);
+					setCheckboxesEnabled(checkboxes, false);
+				} 
+				else 
+				{
+					row.style.backgroundColor = '';
+					setRowEditable(row, true);
+					setCheckboxesEnabled(checkboxes, true);
+				}
+			}						
+
+			function addProfile() 
+			{
+				var table = document.getElementById('profileTable');
+				var row = table.insertRow(-1);
+
+				var cell1 = row.insertCell(0);
+				var cell2 = row.insertCell(1);							
+
+				cell1.contentEditable = "true";
+				cell2.innerHTML = '<label class="switch"><input type="checkbox" class="toggleSwitch" checked><span class="slider round"></span></label>';
+
+				cell1.innerHTML = "New Profile";
+
+				updateToggleSwitchListeners();
+			}
+
+			function setRowEditable(row, editable) 
+			{
+				for (var i = 0; i < row.cells.length; i++) 
+				{
+					if (i !== row.cells.length - 1) 
+					{
+						row.cells[i].contentEditable = editable ? "true" : "false";
+					}
+				}
+			}
+
+			function updateProfile() 
+			{
+				var table = document.getElementById('profileTable');
+				for (var i = 1, row; row = table.rows[i]; i++) 
+				{
+					var profile = row.cells[0].innerText;
+					console.log('Profile: ' + profile);
+				}
+			}
+
+			function logout() 
+			{			
+				console.log("Logged out");
+				window.location.href = 'index.html';
+			}
+		</script>
+	</body>
+</html>
