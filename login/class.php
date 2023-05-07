@@ -16,43 +16,51 @@ class User {
         $db = new DB;
     }
     
-    public function register( $username, $email, $pass, $profile) {
+    public function register( $username, $email, $pass, $cust_profile) {
         $conn = mysqli_connect(HOST, USER, PASS, DB);
         $pass = md5($pass);
         $checkuser = mysqli_query($conn, "SELECT user_id FROM user WHERE email='$email'");
         $result = mysqli_num_rows($checkuser);
         if ($result == 0) {
-            $register = mysqli_query($conn, "INSERT INTO user (username, email, password, profile) VALUES ('$username','$email','$pass','$profile')") or die(mysqli_error($conn));
+            $register = mysqli_query($conn, "INSERT INTO user (username, email, password, cust_profile) VALUES ('$username','$email','$pass','$cust_profile')") or die(mysqli_error($conn));
             return $register;
         } else {
             return false;
         }
     }
-    
-    public function login($username, $pass) {
+    public function login($username, $password) {
         $conn = mysqli_connect(HOST, USER, PASS, DB);
-        $pass = md5($pass);
-        $check = mysqli_query($conn, "SELECT * FROM user WHERE username='$username'");
-        $data = mysqli_fetch_array($check);
-        $result = mysqli_num_rows($check);
-        if($result == 1 && $data['password'] == $pass) {
+        $password = md5($password);
+        $stmt = $conn->prepare("SELECT user_id, user_profile, username FROM user WHERE username=? AND password=?");
+        $stmt->bind_param("ss", $username, $password);
+        $stmt->execute();
+        $stmt->bind_result($user_id, $user_profile, $username);
+        $stmt->store_result();
+        if($stmt->num_rows > 0) {
+            $stmt->fetch();
+            $user = array(
+                "user_id" => $user_id,
+                "user_profile" => $user_profile,
+                "username" => $username
+            );
             $_SESSION['login'] = true;
-            $_SESSION['user_type'] = $data['user_type'];
-            $_SESSION['user_id'] = $data['user_id'];
-            return true;
+            $_SESSION['user_profile'] = $user['user_profile'];
+            $_SESSION['user_id'] = $user['user_id'];
+            return $user;
         } else {
             return false;
         }
     }
     
-    /*
-    public function fullname($user_id) {
+    
+    public function fullname($username) {
         $conn = mysqli_connect(HOST, USER, PASS, DB);
-        $result = mysqli_query($conn, "SELECT * FROM user WHERE user_id='$user_id'");
+        $result = mysqli_query($conn, "SELECT * FROM user WHERE username='$username'");
         $row = mysqli_fetch_array($result);
         return $row['name'];
     }
     
+    /*
     public function session() {
         if(isset($_SESSION['login'])) {
             return $_SESSION['login'];

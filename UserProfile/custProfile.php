@@ -5,7 +5,7 @@ session_start();
 include_once($_SERVER['DOCUMENT_ROOT'].'/cinemetho/login/class.php');
 
 $user_id = $_SESSION['user_id'];
-$user_type = $_SESSION['user_type'];
+$user_profile = $_SESSION['user_profile'];
 if(!isset($_SESSION['login'])){
 	header("location:../login/login.php");
 	exit();
@@ -42,7 +42,7 @@ if (isset($_POST['logout'])) {
 				<div class="topnav">
 					<a href="../UserProfile/custProfile.php">PROFILE</a>
 					<a href="custHistory.html">PUCHASED TICKETS</a>
-					<a href="booking.html">BUY TICKETS</a>
+					<a href="../UserBooking/booking.php">BUY TICKETS</a>
 					<a href="#cinemas location">CINEMAS</a>
 					<a href="../MovieListing/movieListing.php">MOVIES</a>
 				</div>

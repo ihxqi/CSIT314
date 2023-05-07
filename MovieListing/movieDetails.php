@@ -71,7 +71,7 @@ $movie = $movieObj->getMovieById($MovieID);
 
                         <br>
                         <h3>SYNOPSIS</h3>
-                        <p><?php echo $movie['MovieDescription']; ?><p>
+                        <p><?php echo $movie['MovieSynopsis']; ?><p>
                     </div>
                 </div>
             </section>

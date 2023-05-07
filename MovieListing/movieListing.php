@@ -32,7 +32,7 @@ $movies = $movieObj->getAllMovies();
                     <div class="topnav">
                         <a href="../UserProfile/custProfile.php">PROFILE</a>
                         <a href="custHistory.html">PUCHASED TICKETS</a>
-                        <a href="booking.html">BUY TICKETS</a>
+                        <a href="../UserBooking/booking.php">BUY TICKETS</a>
                         <a href="#cinemas location">CINEMAS</a>
                         <a href="movielisting.php">MOVIES</a>
                     </div>
@@ -62,8 +62,8 @@ $movies = $movieObj->getAllMovies();
                                 <h2><?php echo $movie['MovieTitle']; ?><br></h2>
                                 <h2><?php echo $movie['MPARating']; ?><br></h2>
                                 <p><?php echo $movie['MovieGenre']; ?><br></p>
-                        <p><?php echo $movie['MovieDuration']; ?><br></p>
-                        <p><?php echo $movie['MovieLanguage']; ?></p>
+                                <p><?php echo $movie['MovieDuration']; ?><br></p>
+                                <p><?php echo $movie['MovieLanguage']; ?></p>
                     </div>
                 </div>
             </div>
