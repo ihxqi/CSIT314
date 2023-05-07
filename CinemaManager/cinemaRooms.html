@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-	<title>Cinema Manager - Cinema Rooms</title>
+		<title>Cinema Manager - Cinema Rooms</title>
         <meta charset = "utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">      
+        <meta name="viewport" content="width=device-width, initial-scale=1">        
         <link rel ="stylesheet" href = "styles.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -122,14 +122,24 @@
 			<table id="roomTable" border="1">
 			<tr>
 				<th>Room No.</th>
-				<th>Capacities</th>
+				<th>Capacity</th>
 				<th>Seat Types</th>
+				<th>Movie</th>
+				<th>Show Date</th>
+				<th>Show time</th>
 				<th>Status</th>
 			</tr>
 			<tr>
 				<td contenteditable="true">1</td>
 				<td contenteditable="true">135</td>
 				<td class="editable">Not Set</td>
+				<td class="editable">Not Set</td>
+				<td>
+					<input type="date" name="showDate">
+				</td>
+				<td>
+					<input type="time" name="showTime">
+				</td>
 				<td>		
 					<label class="switch">
 						<input type="checkbox" class="toggleSwitch" checked>
@@ -213,6 +223,51 @@
 				});
 			}
 			
+			var movie = document.querySelectorAll(".editableMovie");
+
+			for(var i = 0; i < movie.length; i++)
+			{
+				movie[i].addEventListener("mousedown", function(e)
+				{
+					if (!this.querySelector('select'))
+					{
+						var select = document.createElement('select');
+						var options = ['Not Set', 'John Wick', 'Suzumi']; 
+					}
+				
+					// Create options and append to select
+					for(var j = 0; j < options.length; j++)
+					{
+						var option = document.createElement('option');
+						option.value = options[j];
+						option.text = options[j];
+						select.appendChild(option);
+					}
+				
+					// When an option is selected, replace the select with the chosen option
+					select.addEventListener('change', function(e)
+					{
+						this.parentElement.innerText = this.value;
+					});
+					
+					select.addEventListener('click', function(e)
+					{
+						e.stopPropagation();
+					});
+				
+					// Replace cell content with select
+					this.innerText = '';
+					this.appendChild(select);					
+					// Check if the toggle switch is checked and disable the dropdown box accordingly
+					var toggleSwitch = this.closest("tr").querySelector(".toggleSwitch");
+					if (toggleSwitch) 
+					{
+						select.disabled = !toggleSwitch.checked;
+					}
+					select.focus();				
+				});
+			}
+			
 			function updateToggleSwitchListeners() 
 			{
 				var switches = document.querySelectorAll('.toggleSwitch');
@@ -247,21 +302,42 @@
 				var cell2 = row.insertCell(1);
 				var cell3 = row.insertCell(2);
 				var cell4 = row.insertCell(3);
+				var cell5 = row.insertCell(4);
+				var cell6 = row.insertCell(5);
+				var cell7 = row.insertCell(6);
 
 				cell1.contentEditable = "true";
 				cell2.contentEditable = "true";
-				cell4.innerHTML = '<label class="switch"><input type="checkbox" class="toggleSwitch" checked><span class="slider round"></span></label>';
+				cell7.innerHTML = '<label class="switch"><input type="checkbox" class="toggleSwitch" checked><span class="slider round"></span></label>';
 
 				cell1.innerHTML = "New Room No.";
 				cell2.innerHTML = " ";
 				
 				// Create the select element and options for the seat type
 				var select = document.createElement('select');
-				select.innerHTML = '<option value="Standard">Standard</option><option value="Premium">Premium</option><option value="VIP">VIP</option>';
+				select.innerHTML = '<option value="Not Set">Not Set</option><option value="Standard">Standard</option><option value="Premium">Premium</option><option value="VIP">VIP</option>';
 				select.className = 'editable';
-
 				// Append the select element to the third cell
 				cell3.appendChild(select);
+				
+				// For the movie
+				var select = document.createElement('select');
+				select.innerHTML = '<option value="Not Set">Not Set</option><option value="john wick">John Wick</option><option value="suzumi">Suzumi</option>';
+				select.className = 'editableMovie';
+				cell4.appendChild(select);
+				
+				// For the show date
+				var dateInput = document.createElement('input');
+				dateInput.type = 'date';
+				dateInput.name = 'show_date';
+				cell5.appendChild(dateInput);
+
+				// For the show time
+				var timeInput = document.createElement('input');
+				timeInput.type = 'time';
+				timeInput.name = 'show_time';
+				cell6.appendChild(timeInput);
+				
 				updateToggleSwitchListeners();
 			}
 			
@@ -270,24 +346,38 @@
 				for (var i = 0; i < row.cells.length; i++) 
 				{
 					var cell = row.cells[i];
-					if (cell.querySelector('select')) 
+				
+					if (i !== row.cells.length - 1) 
 					{
-						cell.querySelector('select').disabled = !editable;
-					} 
-					else if (i !== row.cells.length - 1) 
-					{
-						cell.contentEditable = editable ? "true" : "false";
-						if (!editable)
+						if (cell.querySelector('select')) 
 						{
-							cell.style.backgroundColor = "grey";							
+							cell.querySelector('select').disabled = !editable;
+						} 
+						else if (cell.querySelector('input[type="date"]')) 
+						{
+							cell.querySelector('input[type="date"]').disabled = !editable;
+						} 
+						else if (cell.querySelector('input[type="time"]')) 
+						{
+							cell.querySelector('input[type="time"]').disabled = !editable;
+						} 
+						else 
+						{
+							cell.contentEditable = editable ? "true" : "false";
 						}
-						else
+
+						if (!editable) 
+						{
+							cell.style.backgroundColor = "grey";
+						} 
+						else 
 						{
 							cell.style.backgroundColor = "";
 						}
 					}
 				}
 			}
+
 			
 			function updateRoom() 
 			{
@@ -298,7 +388,9 @@
 					var capacities = row.cells[1].innerText;
 					var seatTypeDropdown = row.cells[2].querySelector('select');
 					var seatType = seatTypeDropdown ? seatTypeDropdown.value : "Not Set";
-					console.log('Room No.: ' + room + ', Capacities: ' + capacities + ', Seat Type: ' + seatType);
+					var movieDropdown = row.cells[3].querySelector('select');
+					var movie = movieDropdown ? movieDropdown.value : "Not Set";
+					console.log('Room No.: ' + room + ', Capacities: ' + capacities + ', Seat Type: ' + seatType + ', Movie: ' + movie + ', Show Date: ' + showDate + ', Show Time' + showTime);
 				}
 			}
 			
