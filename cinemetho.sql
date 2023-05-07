@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2023 at 05:26 PM
+-- Generation Time: May 07, 2023 at 05:48 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -24,27 +24,44 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `booking`
+-- Table structure for table `cinema`
 --
 
-CREATE TABLE `booking` (
-  `ticket_id` int(11) NOT NULL,
-  `noOfTicket` int(11) NOT NULL
+CREATE TABLE `cinema` (
+  `RoomNo` int(11) NOT NULL,
+  `Capacity` varchar(3) NOT NULL,
+  `SeatNo` int(50) NOT NULL,
+  `SeatType` varchar(11) NOT NULL,
+  `movieShowtime` varchar(11) NOT NULL,
+  `roomStatus` varchar(100) NOT NULL,
+  `cinemaAction` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cinema`
+-- Table structure for table `cust_prof`
 --
 
-CREATE TABLE `cinema` (
-  `roomNo` int(11) NOT NULL,
-  `cinema_avail` varchar(3) NOT NULL,
-  `numOfSeats` int(50) NOT NULL,
-  `seat_type` varchar(11) NOT NULL,
-  `seat_price` varchar(11) NOT NULL,
-  `movieShowtime` varchar(100) NOT NULL
+CREATE TABLE `cust_prof` (
+  `userProfID` int(10) NOT NULL,
+  `birthday` date NOT NULL,
+  `seatPreference` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fnb`
+--
+
+CREATE TABLE `fnb` (
+  `ComboID` int(10) NOT NULL,
+  `ComboName` varchar(200) NOT NULL,
+  `ComboDescription` varchar(200) NOT NULL,
+  `ComboPrice` varchar(50) NOT NULL,
+  `ComboQuantity` int(2) NOT NULL,
+  `ComboAction` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -88,9 +105,9 @@ INSERT INTO `movie` (`MovieID`, `MovieTitle`, `MovieSynopsis`, `MovieGenre`, `Mo
 --
 
 CREATE TABLE `payment` (
-  `payment_id` int(11) NOT NULL,
-  `total_amount` varchar(100) NOT NULL,
-  `payment_mode` varchar(100) NOT NULL
+  `TransactionID` int(11) NOT NULL,
+  `TotalCost` varchar(100) NOT NULL,
+  `QRCode` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -100,9 +117,23 @@ CREATE TABLE `payment` (
 --
 
 CREATE TABLE `report` (
-  `report_id` int(11) NOT NULL,
-  `report_name` varchar(100) NOT NULL,
-  `report_type` varchar(100) NOT NULL
+  `ReportID` int(11) NOT NULL,
+  `ReportName` varchar(100) NOT NULL,
+  `ReportStartDate` date NOT NULL,
+  `ReportEndDate` date NOT NULL,
+  `ReportType` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ticket`
+--
+
+CREATE TABLE `ticket` (
+  `TicketID` int(10) NOT NULL,
+  `TicketQuantity` int(2) NOT NULL,
+  `TicketPrice` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -118,24 +149,23 @@ CREATE TABLE `user` (
   `password` varchar(50) NOT NULL,
   `cust_profile` varchar(50) NOT NULL,
   `user_profile` varchar(100) NOT NULL DEFAULT 'user',
-  `login_date` date NOT NULL,
-  `seat_pref` varchar(200) NOT NULL
+  `login_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `username`, `email`, `password`, `cust_profile`, `user_profile`, `login_date`, `seat_pref`) VALUES
-(12, 'cinemaManager', 'cinemaManager@gmail.com', '1253208465b1efa876f982d8a9e73eef', '', 'cinemaManager', '2023-05-07', ''),
-(13, 'cinemaOwner', 'cinemaOwner@gmail.com', '1253208465b1efa876f982d8a9e73eef', '', 'cinemaOwner', '2023-05-07', ''),
-(17, 'systemAdmin', 'systemAdmin@gmail.com', '1253208465b1efa876f982d8a9e73eef', '', 'systemAdmin', '2023-05-07', ''),
-(26, 'JohnGreen', 'johngreen@gmail.com', '792a62cd83eb4226d2564062e0c17697', 'Student', 'user', '2023-05-07', ''),
-(27, 'AdamWhite123', 'adamwhite123@gmail.com', '0fc39ad2b48ffb0057155be302a7d2ab', 'Senior Citizen(Above 65yo)', 'user', '2023-05-07', ''),
-(28, 'Lisa1234', 'lisa1234@hotmail.com', '77424d0dd227f0ef8eecb54da4252be8', 'Child(Below 8yo)', 'user', '2023-05-07', ''),
-(29, 'Mary00', 'mary00@gmail.com', '399f7212965e92ad6139e4521ed18acc', 'Adult', 'user', '2023-05-07', ''),
-(30, 'Mary01', 'mary01@gmail.com', '94cfc6afee347a9aa2bde465402f8a79', 'Adult', 'user', '2023-05-07', ''),
-(31, 'test2', 'test2@gmail.com', 'ad0234829205b9033196ba818f7a872b', 'Adult', 'user', '2023-05-07', '');
+INSERT INTO `user` (`user_id`, `username`, `email`, `password`, `cust_profile`, `user_profile`, `login_date`) VALUES
+(12, 'cinemaManager', 'cinemaManager@gmail.com', '1253208465b1efa876f982d8a9e73eef', '', 'cinemaManager', '2023-05-07'),
+(13, 'cinemaOwner', 'cinemaOwner@gmail.com', '1253208465b1efa876f982d8a9e73eef', '', 'cinemaOwner', '2023-05-07'),
+(17, 'systemAdmin', 'systemAdmin@gmail.com', '1253208465b1efa876f982d8a9e73eef', '', 'systemAdmin', '2023-05-07'),
+(26, 'JohnGreen', 'johngreen@gmail.com', '792a62cd83eb4226d2564062e0c17697', 'Student', 'user', '2023-05-07'),
+(27, 'AdamWhite123', 'adamwhite123@gmail.com', '0fc39ad2b48ffb0057155be302a7d2ab', 'Senior Citizen(Above 65yo)', 'user', '2023-05-07'),
+(28, 'Lisa1234', 'lisa1234@hotmail.com', '77424d0dd227f0ef8eecb54da4252be8', 'Child(Below 8yo)', 'user', '2023-05-07'),
+(29, 'Mary00', 'mary00@gmail.com', '399f7212965e92ad6139e4521ed18acc', 'Adult', 'user', '2023-05-07'),
+(30, 'Mary01', 'mary01@gmail.com', '94cfc6afee347a9aa2bde465402f8a79', 'Adult', 'user', '2023-05-07'),
+(31, 'test2', 'test2@gmail.com', 'ad0234829205b9033196ba818f7a872b', 'Adult', 'user', '2023-05-07');
 
 --
 -- Indexes for dumped tables
@@ -145,13 +175,31 @@ INSERT INTO `user` (`user_id`, `username`, `email`, `password`, `cust_profile`, 
 -- Indexes for table `cinema`
 --
 ALTER TABLE `cinema`
-  ADD PRIMARY KEY (`roomNo`);
+  ADD PRIMARY KEY (`RoomNo`);
+
+--
+-- Indexes for table `cust_prof`
+--
+ALTER TABLE `cust_prof`
+  ADD PRIMARY KEY (`userProfID`);
+
+--
+-- Indexes for table `fnb`
+--
+ALTER TABLE `fnb`
+  ADD PRIMARY KEY (`ComboID`);
 
 --
 -- Indexes for table `movie`
 --
 ALTER TABLE `movie`
   ADD PRIMARY KEY (`MovieID`);
+
+--
+-- Indexes for table `ticket`
+--
+ALTER TABLE `ticket`
+  ADD PRIMARY KEY (`TicketID`);
 
 --
 -- Indexes for table `user`
@@ -167,13 +215,31 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `cinema`
 --
 ALTER TABLE `cinema`
-  MODIFY `roomNo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `RoomNo` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `cust_prof`
+--
+ALTER TABLE `cust_prof`
+  MODIFY `userProfID` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `fnb`
+--
+ALTER TABLE `fnb`
+  MODIFY `ComboID` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `movie`
 --
 ALTER TABLE `movie`
   MODIFY `MovieID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `ticket`
+--
+ALTER TABLE `ticket`
+  MODIFY `TicketID` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user`
