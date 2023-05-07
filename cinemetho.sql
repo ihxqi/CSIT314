@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2023 at 10:56 AM
+-- Generation Time: May 07, 2023 at 12:03 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -85,12 +85,12 @@ CREATE TABLE `movie` (
 --
 
 INSERT INTO `movie` (`MovieID`, `MovieTitle`, `MovieDescription`, `MovieGenre`, `MovieLanguage`, `MovieDuration`, `MovieShowtime`, `MovieDate`, `MPARating`, `MovieImage`, `MovieCast`, `MovieDirector`, `MovieAction`) VALUES
-(1, 'Dungeons & Dragons (English Sub) PG13', 'A charming thief and a band of unlikely adventurers undertake an epic heist to retrieve a lost relic, but things go dangerously awry when they run afoul of the wrong people. Dungeons & Dragons: Honor Among Thieves brings the rich world and playful spirit of the legendary roleplaying game to the big screen in a hilarious and action-packed adventure.', 'Action, Fantasy', 'English', '134 mins', '7pm- 9pm', '2023-05-08', 'PG13 - Some Violence', '../image/dnd.jpeg', 'Chris Pine, Hugh Grant, Michelle Rodriguez, Sophia Lillis , Justice Smith, Rege- Jean Page', 'Jonathan M. Goldstein, John Francis Daley', 0),
-(2, 'John Wick: Chapter 4', 'John Wick (Keanu Reeves) uncovers a path to defeating The High Table. But before he can earn his freedom, Wick must face off against a new enemy with powerful alliances across the globe and forces that turn old friends into foes.', 'Action', 'English', '170 mins', '5pm-7pm', '2023-05-08', 'M18 - Violence', '../image/johnwick4.jpeg', '', '', 0),
-(3, 'The Super Mario Bros. Movie&#40;English Sub&#41;', 'From Nintendo and Illumination comes a new animated film based on the world of Super Mario Bros.', 'Animation', 'English', '92 mins', '1pm-3pm', '2023-05-08', 'PG', '../image/mario.jpeg', '', '', 0),
-(4, 'Suzume', 'As the skies turn red and the planet trembles, Japan stands on the brink of disaster. However, a determined teenager named Suzume sets out on a mission to save her country. Able to see supernatural forces that others cannot, it\'s up to her to close the mysterious doors that are spreading chaos across the land. A perilous journey awaits as the fate of Japan rests on her shoulders.', 'Anime', 'Japanese', '122 mins', '2pm', '2023-05-10', 'PG', '../image/suzume.jpeg', '', '', 0),
-(5, 'Renfield', 'Evil doesn\'t span eternity without a little help.\r\n\r\nIn this modern monster tale of Dracula\'s loyal servant, Nicholas Hoult stars as Renfield, the tortured aide to history\'s most narcissistic boss, Dracula. Renfield is forced to procure his master\'s prey and do his every bidding, no matter how debased. But now, after centuries of servitude, Renfield is ready to see if there\'s a life outside the shadow of The Prince of Darkness. If only he can figure out how to end his codependency.', 'Comedy', 'English', '93 mins', '3pm', '2023-05-17', 'M18 - Violence and Gore', '../image/renfield.jpeg', '', '', 0),
-(6, 'Guardians of the Galaxy Vol. 3', 'In Marvel Studios \"Guardians of the Galaxy Vol. 3\" our beloved band of misfits are looking a bit different these days. Peter Quill, still reeling from the loss of Gamora, must rally his team around him to defend the universe along with protecting one of their own. A mission that, if not completed successfully, could quite possibly lead to the end of the Guardians as we know them.', 'Sci-Fi', 'English', '150 mins', '5pm', '2023-05-18', 'PG13 - Some Violence and Coarse Language', '../image/gotg3.jpeg', '', '', 0);
+(1, 'Dungeons & Dragons (English Sub) PG13', 'A charming thief and a band of unlikely adventurers undertake an epic heist to retrieve a lost relic, but things go dangerously awry when they run afoul of the wrong people. Dungeons & Dragons: Honor Among Thieves brings the rich world and playful spirit of the legendary roleplaying game to the big screen in a hilarious and action-packed adventure.', 'Action, Fantasy', 'English', '134 mins', '7pm- 9pm', '2023-05-08', 'PG13 - Some Violence', '../images/dnd.jpeg', 'Chris Pine, Hugh Grant, Michelle Rodriguez, Sophia Lillis , Justice Smith, Rege- Jean Page', 'Jonathan M. Goldstein, John Francis Daley', 0),
+(2, 'John Wick: Chapter 4', 'John Wick (Keanu Reeves) uncovers a path to defeating The High Table. But before he can earn his freedom, Wick must face off against a new enemy with powerful alliances across the globe and forces that turn old friends into foes.', 'Action', 'English', '170 mins', '5pm-7pm', '2023-05-08', 'M18 - Violence', '../images/johnwick4.jpeg', 'Donnie Yen , Scott Adkins, Keanu Reeves, Laurence Fishburne , Bill Skarsgard, Lance Reddick, Hiroyuki Sanada', 'Chad Stahelski', 0),
+(3, 'The Super Mario Bros. Movie&#40;English Sub&#41;', 'From Nintendo and Illumination comes a new animated film based on the world of Super Mario Bros.', 'Animation', 'English', '92 mins', '1pm-3pm', '2023-05-08', 'PG', '../images/mario.jpeg', 'Jack Black, Seth Rogen, Chris Pratt, Keegan Michael Key, Charlie Day , Anya Taylor-Joy, Michael Jelenic, Fred Armisen, Kevin Michael Richardson, Sebastian Maniscalco', 'Aaron Horvath', 0),
+(4, 'Suzume', 'As the skies turn red and the planet trembles, Japan stands on the brink of disaster. However, a determined teenager named Suzume sets out on a mission to save her country. Able to see supernatural forces that others cannot, it\'s up to her to close the mysterious doors that are spreading chaos across the land. A perilous journey awaits as the fate of Japan rests on her shoulders.', 'Anime', 'Japanese', '122 mins', '2pm', '2023-05-10', 'PG', '../images/suzume.jpeg', 'Nanoka Hara, Hokuto Matsumura, Eri Fukatsu', 'Makoto Shinkai', 0),
+(5, 'Renfield', 'Evil doesn\'t span eternity without a little help.\r\n\r\nIn this modern monster tale of Dracula\'s loyal servant, Nicholas Hoult stars as Renfield, the tortured aide to history\'s most narcissistic boss, Dracula. Renfield is forced to procure his master\'s prey and do his every bidding, no matter how debased. But now, after centuries of servitude, Renfield is ready to see if there\'s a life outside the shadow of The Prince of Darkness. If only he can figure out how to end his codependency.', 'Comedy', 'English', '93 mins', '3pm', '2023-05-17', 'M18 - Violence and Gore', '../images/renfield.jpeg', 'Nicholas Hoult, Nicolas Cage, Awkwafina, Ben Schwartz, Adrian Martinez', 'Chris McKay', 0),
+(6, 'Guardians of the Galaxy Vol. 3', 'In Marvel Studios \"Guardians of the Galaxy Vol. 3\" our beloved band of misfits are looking a bit different these days. Peter Quill, still reeling from the loss of Gamora, must rally his team around him to defend the universe along with protecting one of their own. A mission that, if not completed successfully, could quite possibly lead to the end of the Guardians as we know them.', 'Sci-Fi', 'English', '150 mins', '5pm', '2023-05-18', 'PG13 - Some Violence and Coarse Language', '../images/gotg3.jpeg', 'Bradley Cooper, Vin Diesel, Zoe Saldana, Chris Pratt, Dave Bautista , Karen Gillan', 'James Gunn', 0);
 
 -- --------------------------------------------------------
 
@@ -136,23 +136,13 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `username`, `email`, `password`, `profile`, `user_type`) VALUES
-(2, 'Adam123', 'adam123@gmail.com', 'adam123', 'Student', 'user'),
-(3, 'test3', 'test3@gmail.com', '202cb962ac59075b964b07152d234b70', 'Adult', 'user'),
-(4, 'test2', 'test2@gmail.com', '202cb962ac59075b964b07152d234b70', 'Adult', 'user'),
-(5, 'test11', 'test11@gmail.com', '202cb962ac59075b964b07152d234b70', 'Adult', 'user'),
-(6, 'elaine', 'elaine@gmail.com', '202cb962ac59075b964b07152d234b70', 'Adult', 'user'),
-(12, 'cinemaManager', 'staff1@gmail.com', '1253208465b1efa876f982d8a9e73eef', '', 'cinemaManager'),
-(13, 'cinemaOwner', 'staff2@gmail.com', '1253208465b1efa876f982d8a9e73eef', '', 'cinemaOwner'),
-(14, 'helpme', 'help@gmail.com', '202cb962ac59075b964b07152d234b70', 'Adult', 'user'),
-(15, 'gg123', 'gg123@gmail.com', '202cb962ac59075b964b07152d234b70', 'Adult', 'user'),
-(16, 'test23', 'test23@gmail.com', '202cb962ac59075b964b07152d234b70', 'Adult', 'user'),
+(12, 'cinemaManager', 'cinemaManager@gmail.com', '1253208465b1efa876f982d8a9e73eef', '', 'cinemaManager'),
+(13, 'cinemaOwner', 'cinemaOwner@gmail.com', '1253208465b1efa876f982d8a9e73eef', '', 'cinemaOwner'),
 (17, 'systemAdmin', 'systemAdmin@gmail.com', '1253208465b1efa876f982d8a9e73eef', '', 'systemAdmin'),
-(18, 'JohnGreen', 'johngreen@gmail.com', '792a62cd83eb4226d2564062e0c17697', 'Senior', 'user'),
-(19, 'Adam', 'adam@gmail.com', '202cb962ac59075b964b07152d234b70', 'Adult', 'user'),
-(22, 'alex123', 'alex123@gmail.com', '202cb962ac59075b964b07152d234b70', 'Adult', 'user'),
-(23, 'Adam1234', 'adam1234@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 'Child', 'user'),
-(24, 'sc1234', 'sc1234@hotmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 'Senior', 'user'),
-(25, 'stu123', 'student@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 'Student', 'user');
+(26, 'JohnGreen', 'johngreen@gmail.com', '792a62cd83eb4226d2564062e0c17697', 'Student', 'user'),
+(27, 'AdamWhite123', 'adamwhite123@gmail.com', '0fc39ad2b48ffb0057155be302a7d2ab', 'Senior Citizen(Above 65yo)', 'user'),
+(28, 'Lisa1234', 'lisa1234@hotmail.com', '77424d0dd227f0ef8eecb54da4252be8', 'Child(Below 8yo)', 'user'),
+(29, 'Mary00', 'mary00@gmail.com', '399f7212965e92ad6139e4521ed18acc', 'Adult', 'user');
 
 --
 -- Indexes for dumped tables
@@ -196,7 +186,7 @@ ALTER TABLE `movie`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
