@@ -14,8 +14,8 @@ Password: staff
 Users:
 
 Adult:
-Username: mary00
-Password: mary00
+Username: Mary01
+Password: mary01
 
 Child:
 Username: Lisa1234
