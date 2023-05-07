@@ -18,6 +18,8 @@ if(isset($_POST['register'])) {
 
         if($register) {
             echo 'Registration successful';
+			$_SESSION['user_id'] = $register;
+  			$_SESSION['username'] = $username;
 			header('location: ../cinemetho/UserProfile/custProfile.php');
 
 			
@@ -34,21 +36,27 @@ if(isset($_POST['login'])) {
         
     $login = $user->login($username, $password);
         
-    if($login) {
+	if($login) {
+		$user_id = $login['user_id'];
+		$user_type = $login['user_type'];
+		$_SESSION['user_id'] = $user_id;
+		$_SESSION['user_type'] = $user_type;
+		$_SESSION['username'] = $username;
+		
 		if($_SESSION['user_type'] == 'cinemaManager'){
-		   header('location: ../cinemetho/cinemaManager/cinemaManager.php');
-		}elseif($_SESSION['user_type'] == 'cinemaOwner'){
-		   header('location: ../cinemetho/UserProfile/custProfile.php');
-		}elseif($_SESSION['user_type'] == 'systemAdmin'){
+			header('location: ../cinemetho/cinemaManager/cinemaManager.php');
+		} elseif($_SESSION['user_type'] == 'cinemaOwner') {
 			header('location: ../cinemetho/UserProfile/custProfile.php');
-		}elseif($_SESSION['user_type'] == 'user'){
+		} elseif($_SESSION['user_type'] == 'systemAdmin') {
 			header('location: ../cinemetho/UserProfile/custProfile.php');
-		}else{
-		   $message[] = 'no user found!';
+		} elseif($_SESSION['user_type'] == 'user') {
+			header('location: ../cinemetho/UserProfile/custProfile.php');
+		} else {
+			$message[] = 'No user found!';
 		}
-	 }else{
-		$message[] = 'incorrect email or password!';
-	 }
+	} else {
+		$message[] = 'Incorrect email or password!';
+	}
 }
 
 if(!empty($message)){

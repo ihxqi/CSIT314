@@ -2,15 +2,14 @@
 
 <?php
 session_start();
-include_once($_SERVER['DOCUMENT_ROOT'].'\cinemetho\login\class.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/cinemetho/login/class.php');
 
-// check if user is logged in
-if (!isset($_SESSION['login']) || !$_SESSION['login']) {
-	// redirect to login page
-	header("Location: index.php");
+$user_id = $_SESSION['user_id'];
+$user_type = $_SESSION['user_type'];
+if(!isset($_SESSION['login'])){
+	header("location:../login/login.php");
 	exit();
-  }
-  
+}
 
 $user = new User();
 
@@ -20,6 +19,7 @@ if (isset($_POST['logout'])) {
   exit();
 }
 ?>
+
 <html>
   <head>
     <title>Customer's profile</title>
@@ -40,7 +40,7 @@ if (isset($_POST['logout'])) {
 				</div>
 		
 				<div class="topnav">
-					<a href="custProfile.html">PROFILE</a>
+					<a href="../UserProfile/custProfile.php">PROFILE</a>
 					<a href="custHistory.html">PUCHASED TICKETS</a>
 					<a href="booking.html">BUY TICKETS</a>
 					<a href="#cinemas location">CINEMAS</a>
@@ -57,7 +57,7 @@ if (isset($_POST['logout'])) {
 					<form>
 						<div class="user-details">         
 							<div class="input-box">
-								<input type="text" placeholder="Username" readonly>
+							<input type="text" placeholder="Username" readonly value="<?php echo isset($_SESSION['username']) ? $_SESSION['username'] : ''; ?>">
 							</div><br>
 							<div class="input-box">
 								<span class="details">Birthday: (optional)</span>
