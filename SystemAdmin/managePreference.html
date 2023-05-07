@@ -24,70 +24,7 @@
 		.hidden
 		{
 			display: none;
-		}
-		
-		.topnav 
-		{
-			overflow: hidden;
-		}	
-
-		.navDropdown 
-		{
-			overflow: hidden;
-		}
-
-		.navDropdown .dropbtn 
-		{
-			float: right;
-			font-size: 90%;
-			font-family: 'Montserrat', sans-serif;
-			border: none;
-			outline: none;
-			color: black;
-			padding: 14px 16px;
-			background-color: inherit;
-			margin: 0;
-		}
-
-		.topnav a:hover, .navDropdown:hover .dropbtn 
-		{
-			background-image:linear-gradient(to right, #008080, #DCAE96);
-			background-position:right center;
-			color: white;
-			box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-			text-decoration: none;
-		}
-
-		.dropContent 
-		{
-			float: none;
-			right: 0;
-			display: none;
-			position: absolute;
-			background-color: #f9f9f9;
-			min-width: 160px;
-			box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-			z-index: 1;
-		}
-
-		.dropContent a 
-		{			
-			color: black;
-			padding: 12px 16px;
-			text-decoration: none;
-			display: block;
-			text-align: left;
-		}
-
-		.dropContent a:hover 
-		{
-			background-color: #ddd;
-		}
-
-		.navDropdown:hover .dropContent 
-		{
-			display: block;
-		}
+		}					
 
 		.switch 
 		{			
@@ -169,16 +106,8 @@
 					<div class="topnav">
 						<a href="index.html" onclick="logout()">LOG OUT</a>							
 						<a href="systemAdmin.html">PROFILE</a>
-						<a href="managePreference.html">PREFERENCE</a>
-						<div class="navDropdown">
-							<button class="dropbtn">USERS</button>
-							<div class="dropContent">
-								<a href="manageCustomer.html">CUSTOMER</a>
-								<a href="manageCinemaManager.html">CINEMA MANAGER</a>
-								<a href="manageCinemaOwner.html">CINEMA OWNER</a>
-								<a href="manageSystemAdmin.html">SYSTEM ADMIN</a>
-							</div>
-						</div>
+						<a href="managePreference.html">PREFERENCE</a>						
+						<a href="manageUser.html">USER</a>																					
 					</div>
 				</div> 
 			</section>
