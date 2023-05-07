@@ -36,7 +36,7 @@ if (isset($_POST['logout'])) {
 		<section>
 			<div class="container1">
 				<div class="logo">
-					<img src="../images/cinemethologo.jpeg">
+					<img src="../Images/cinemethologo.jpeg">
 				</div>
 		
 				<div class="topnav">
