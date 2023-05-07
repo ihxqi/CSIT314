@@ -36,7 +36,7 @@ if (isset($_POST['logout'])) {
 		<section>
 			<div class="container1">
 				<div class="logo">
-					<img src="../image/cinemethologo.jpeg">
+					<img src="../images/cinemethologo.jpeg">
 				</div>
 		
 				<div class="topnav">
@@ -44,7 +44,7 @@ if (isset($_POST['logout'])) {
 					<a href="custHistory.html">PUCHASED TICKETS</a>
 					<a href="booking.html">BUY TICKETS</a>
 					<a href="#cinemas location">CINEMAS</a>
-					<a href="movielisting.html">MOVIES</a>
+					<a href="../MovieListing/movieListing.php">MOVIES</a>
 				</div>
 			</div> 
 		</section>

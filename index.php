@@ -11,13 +11,20 @@ if(isset($_POST['register'])) {
     $password = strip_tags($_POST['password']);
     $profile = strip_tags($_POST['profile']);
         
-    $register = $user->register($username, $email, $password, $profile);
-        
-    if($register) {
-        echo 'Registration successful';
+    if (!preg_match("/^[a-zA-Z1234567890 ]*$/", $username)) {
+        $message[] = "Username can only contain letters and numbers";
     } else {
-        echo 'Registration failed. Email already exists please try again';
-    }
+        $register = $user->register($username, $email, $password, $profile);
+
+        if($register) {
+            echo 'Registration successful';
+			header('location: ../cinemetho/UserProfile/custProfile.php');
+
+			
+        } else {
+            echo 'Registration failed. Email already exists please try again';
+        }
+	}
 }
 
 // Login
@@ -30,9 +37,9 @@ if(isset($_POST['login'])) {
     if($login) {
 		if($_SESSION['user_type'] == 'cinemaManager'){
 		   header('location: ../cinemetho/cinemaManager/cinemaManager.php');
-		}elseif($_SESSION['user_type'] == 'reportManager'){
+		}elseif($_SESSION['user_type'] == 'cinemaOwner'){
 		   header('location: ../cinemetho/UserProfile/custProfile.php');
-		}elseif($_SESSION['user_type'] == 'user adminstator'){
+		}elseif($_SESSION['user_type'] == 'systemAdmin'){
 			header('location: ../cinemetho/UserProfile/custProfile.php');
 		}elseif($_SESSION['user_type'] == 'user'){
 			header('location: ../cinemetho/UserProfile/custProfile.php');
@@ -42,6 +49,11 @@ if(isset($_POST['login'])) {
 	 }else{
 		$message[] = 'incorrect email or password!';
 	 }
+}
+
+if(!empty($message)){
+    $message_string = implode("\n", $message);
+    echo "<script>alert('$message_string');</script>";
 }
 ?>
 
@@ -189,16 +201,13 @@ if(isset($_POST['login'])) {
    				 <input type="checkbox" class="check-box">
    				 <span>Remember password ?</span>
    				 <input type="submit" name="login" class="submit-btn" value="Login">
+					<div id="alert-message"></div>
+
 			</form>
 			<?php
-         if(isset($message)){
-            foreach($message as $msg){
-               echo '<p>'.$msg.'</p>';
-            }
-         }
          ?>
 		
-		<form method="post" id="register" class="user-input">
+		<form method="post" id="register" class="user-input" onsubmit="return checkForm(this);">
 			<label for="profile">Customer profile:</label>
 			<select name="profile" id="profile">
 			<option value="Adult">Adult</option>
@@ -209,17 +218,10 @@ if(isset($_POST['login'])) {
 			<input type="text" name="username" class="input-field" placeholder="Username" required>
 			<input type="email" name="email" class="input-field" placeholder="Email" required>
 			<input type="text" name="password" class="input-field" placeholder="Password" required><br><br>
-			<input type="checkbox" class="check-box">
+			<input type="checkbox" class="check-box" required name="terms">
 			<span>I agree to the <a href="#">terms & conditions</a></span>
 			<input type="submit" name="register" class="submit-btn" value="Register">
 		</form>
-		<?php
-         if(isset($message)){
-            foreach($message as $msg){
-               echo '<p>'.$msg.'</p>';
-            }
-         }
-         ?>
 		</div>
 	</div>
 	
@@ -242,8 +244,29 @@ if(isset($_POST['login'])) {
 		z.style.left = "0px";
 	}
 	
+	var checkForm = function(form) {
+    if(!form.terms.checked) {
+      alert("Please indicate that you accept the Terms and Conditions");
+      form.terms.focus();
+      return false;
+    }
+    return true;
+  };
+
+
 	</script>
 	<script>
+
+
+  	window.onload = function() {
+    var alertDiv = document.getElementById('alert-message');
+    var alertMessage = alertMessage || '';
+    if (alertMessage.length > 0) {
+      alertDiv.innerHTML = '<p>' + alertMessage + '</p>';
+    }
+  };
+
+
 	function registerSuccess()
 	{
 		alert("You have successfully registered!")

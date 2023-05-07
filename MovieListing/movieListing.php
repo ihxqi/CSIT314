@@ -26,11 +26,11 @@ $movies = $movieObj->getAllMovies();
             <section>
                 <div class="container1">
                     <div class="logo">
-                        <img src="../image/cinemethologo.jpeg">
+                        <img src="../images/cinemethologo.jpeg">
                     </div>
 
                     <div class="topnav">
-                        <a href="custProfile.html">PROFILE</a>
+                        <a href="../UserProfile/custProfile.php">PROFILE</a>
                         <a href="custHistory.html">PUCHASED TICKETS</a>
                         <a href="booking.html">BUY TICKETS</a>
                         <a href="#cinemas location">CINEMAS</a>
