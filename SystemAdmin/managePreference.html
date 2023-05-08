@@ -120,11 +120,13 @@
 			</div>
 			<table id="preferenceTable" border="1">
 				<tr>
-					<th>Preference</th>									
+					<th>Preference</th>	
+					<th>User Profile</th>
 					<th>Status</th>
 				</tr>
 				<tr>
 					<td contenteditable="true">Create a user profile</td>									
+					<td class="editable">Not Set</td>
 					<td>		
 						<label class="switch">
 							<input type="checkbox" class="toggleSwitch" checked>
@@ -142,7 +144,6 @@
 			document.addEventListener("DOMContentLoaded", function() 
 			{
 				updateToggleSwitchListeners();
-
 				document.getElementById('search').addEventListener('input', function(e) 
 				{
 					var searchVal = e.target.value.toLowerCase();
@@ -164,6 +165,51 @@
 				});
 			});
 
+			var user = document.querySelectorAll(".editable");
+
+			for(var i = 0; i < user.length; i++)
+			{
+				user[i].addEventListener("mousedown", function(e)
+				{
+					if (!this.querySelector('select'))
+					{
+						var select = document.createElement('select');
+						var options = ['Not Set', 'System Admin', 'Cinema Manager', 'Cinema Owner', 'Customer']; 
+					}
+				
+					// Create options and append to select
+					for(var j = 0; j < options.length; j++)
+					{
+						var option = document.createElement('option');
+						option.value = options[j];
+						option.text = options[j];
+						select.appendChild(option);
+					}
+				
+					// When an option is selected, replace the select with the chosen option
+					select.addEventListener('change', function(e)
+					{
+						this.parentElement.innerText = this.value;
+					});
+					
+					select.addEventListener('click', function(e)
+					{
+						e.stopPropagation();
+					});
+				
+					// Replace cell content with select
+					this.innerText = '';
+					this.appendChild(select);					
+					// Check if the toggle switch is checked and disable the dropdown box accordingly
+					var toggleSwitch = this.closest("tr").querySelector(".toggleSwitch");
+					if (toggleSwitch) 
+					{
+						select.disabled = !toggleSwitch.checked;
+					}
+					select.focus();				
+				});
+			}
+			
 			function updateToggleSwitchListeners() 
 			{
 				var switches = document.querySelectorAll('.toggleSwitch');
@@ -196,13 +242,20 @@
 				var row = table.insertRow(-1);
 
 				var cell1 = row.insertCell(0);
-				var cell2 = row.insertCell(1);							
+				var cell2 = row.insertCell(1);	
+				var cell3 = row.insertCell(2);
 
 				cell1.contentEditable = "true";
-				cell2.innerHTML = '<label class="switch"><input type="checkbox" class="toggleSwitch" checked><span class="slider round"></span></label>';
+				cell3.innerHTML = '<label class="switch"><input type="checkbox" class="toggleSwitch" checked><span class="slider round"></span></label>';
 
 				cell1.innerHTML = "New Preference";
+				
+				// Create the select element and options for the profile type
+				var select = document.createElement('select');
+				select.innerHTML = '<option value="not set">Not Set</option><option value="system admin">System Admin</option><option value="cinema manager">Cinema Manager</option><option value="cinema owner">Cinema Owner</option><option value="Customer">Customer</option>';
+				select.className = 'editable';
 
+				cell2.appendChild(select);
 				updateToggleSwitchListeners();
 			}
 
@@ -210,9 +263,22 @@
 			{
 				for (var i = 0; i < row.cells.length; i++) 
 				{
-					if (i !== row.cells.length - 1) 
+					var cell = row.cells[i];
+					if (cell.querySelector('select')) 
 					{
-						row.cells[i].contentEditable = editable ? "true" : "false";
+						cell.querySelector('select').disabled = !editable;
+					} 
+					else if (i !== row.cells.length - 1) 
+					{
+						cell.contentEditable = editable ? "true" : "false";
+						if (!editable)
+						{
+							cell.style.backgroundColor = "grey";							
+						}
+						else
+						{
+							cell.style.backgroundColor = "";
+						}
 					}
 				}
 			}
@@ -223,7 +289,9 @@
 				for (var i = 1, row; row = table.rows[i]; i++) 
 				{
 					var preference = row.cells[0].innerText;
-					console.log('Preference: ' + preference);
+					var profileDropdown = row.cells[1].querySelector('select');
+					var profile = profileDropdown ? profileDropdown.value : "Not Set";
+					console.log('Preference: ' + preference + ', Profile: ' + profile);
 				}
 			}
 
