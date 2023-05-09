@@ -16,7 +16,7 @@
 			<section>
 				<div class="container1">
 					<div class="logo">
-						<img src="/Users/lydia/Desktop/Cinementho/image/cinemethologo.jpeg">
+						<img src="../Images/cinemethologo.jpeg">
 					</div>
 		
 					<div class="topnav">
@@ -60,7 +60,7 @@
 				</tr>
 				<tr>
 					<td>
-						<input type="file" id="movieImage" accept="image/*" name="movieImage" onchange="previewImage(event)">
+						<input type="file" id="movieImage" accept="Images/*" name="movieImage" onchange="previewImage(event)">
 						<img class="preview" id="preview" style="width: 100px; height: 100px;">
 					</td>
 					<td contenteditable="true">John Wick: Chapter 4</td>			
@@ -269,7 +269,7 @@
 
 				var input = document.createElement('input');
 				input.type = "file";
-				input.accept = "image/*";
+				input.accept = "Images/*";
 				input.onchange = previewImage;
 				cell1.appendChild(input);
 				var img = document.createElement('img');
