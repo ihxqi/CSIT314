@@ -14,8 +14,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="jquery.seat-charts.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="script.js"></script>
     <script>
-      var count = 5; // Timer
+      var count = 30; // Timer
       var redirect = "custHistory.html"; // Target URL
 
       function countDown() {
@@ -73,6 +74,7 @@
                           <h4>Movie details:</h4>
                           <p>Movie name: <b><span id="moviename"></span></b></p>
                           <p>Cinema location: <b><span id="cinemalocation"></span></b></p>
+                          <p>Seat type: <b><span id="seattype"></span></b></p>
                           <p>Date: <b><span id="dayselected"></span></b></p>
                           <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>4</b></span></h4>
                           <p><a >Selected seats</a> <span class="price">$<span id="total"></span></span></p>
@@ -85,10 +87,7 @@
               </tr>
                 <tr>
                   <td colspan="2" style="text-align: center;">
-                    <p id="timer">
-                      <script type="text/javascript">
-                      countDown();
-                    </script></p>
+                    
                   </td>
                 </tr>
                   
@@ -99,14 +98,23 @@
             </div>
         </section>
     </div>
-    <script src="script.js">
-      document.getElementById("moviename").innerHTML=localStorage.getItem("selectedmovie");
-      document.getElementById("cinemalocation").innerHTML=localStorage.getItem("selectedcinema");
-      document.getElementById("dayselected").innerHTML=localStorage.getItem("selectedday");
+    <script>
+      console.log('selected movie:', localStorage.getItem("selectedmovie"));
+      document.getElementById("moviename").innerHTML = localStorage.getItem("selectedmovie");
+
+      console.log('seat type:', localStorage.getItem("seattypes"));
+      document.getElementById("seatttype").innerHTML = localStorage.getItem("seattypes");
+
+      console.log('selected cinema:', localStorage.getItem("selectedcinema"));
+      document.getElementById("cinemalocation").innerHTML = localStorage.getItem("selectedcinema");
+
+      console.log('selected day:', localStorage.getItem("selectedday"));
+      document.getElementById("dayselected").innerHTML = localStorage.getItem("selectedday");
+
+      console.log('total amount:', localStorage.getItem("totalamt"));
       document.getElementById("total").innerHTML = localStorage.getItem("totalamt");
       document.getElementById("total1").innerHTML = localStorage.getItem("totalamt");
-      
-      
+
       </script>
 
 

@@ -15,13 +15,24 @@
     <script src="jquery.seat-charts.js"></script>
     <script>
         function passval(){
-        var movie = document.getElementById("movieselection").value;
-        localStorage.setItem("selectedmovie",movie);
-        var cinema = document.getElementById("cinemaselection").value;
-        localStorage.setItem("selectedcinema",cinema);
-        var day = document.getElementById("day").value;
-        localStorage.setItem("selectedday",day);
-        return true;
+            var seattype = document.getElementById("seatselection").value;
+            console.log('seattype:', seattype);
+            localStorage.setItem("seattypes", seattype);
+
+            var movie = document.getElementById("movieselection").value;
+            console.log('movie:', movie);
+            localStorage.setItem("selectedmovie", movie);
+
+            var cinema = document.getElementById("cinemaselection").value;
+            console.log('cinema:', cinema);
+            localStorage.setItem("selectedcinema", cinema);
+
+            var day = document.getElementById("day").value;
+            console.log('honolulu:', day);
+            localStorage.setItem("selectedday", day);
+            
+            return true;
+
     }
     </script>
     
@@ -64,6 +75,17 @@
                             <div class="selection">
                                 <form id="details" >
                                     <div class="custom-select" style="width:200px;">
+                                        <label for="seatselection">Choose seat types:</label>
+                                        <select name="seatselection" id="seatselection">
+                                            <option value="">Select Seating type</option>
+                                            <option value="Economy" data-relation-id="e-movie-seat-map">Economy</option>
+                                            <option value="Premium" data-relation-id="p-movie-seat-map">Premium</option>
+                                            <option value="VIP" data-relation-id="v-movie-seat-map">VIP</option>
+                                        </select>
+                                    </div>
+                                    <br><br>
+
+                                    <div class="custom-select" style="width:200px;">
                                         <label for="movieselection">Choose the movie:</label>
                                         <select name="movieselection" id="movieselection">
                                             <option value="">Select movie</option>
@@ -105,6 +127,7 @@
                                 </form>
                             </div>
                         </td>
+                        
                         <td>
                             <div class="wrapper">
                                 <div class="container3">
@@ -113,7 +136,9 @@
                                             <div id="seat-map" style="visibility: hidden;" >
                                                 <div class="front-indicator">Movie screen</div>
                                                 <br><br>
-                                                <div id="bus-seat-map"></div>
+                                                <div id="e-movie-seat-map" class="sections"></div>
+                                                <div id="p-movie-seat-map" class="sections"></div>
+                                                <div id="v-movie-seat-map" class="sections"></div>
                                                 <p style="margin:0.5em; margin-left: 10%;">End of Seat Row</p>
                                               <!-- <div id="legend"></div> -->
                                             </div>
