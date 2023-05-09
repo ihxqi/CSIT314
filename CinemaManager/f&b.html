@@ -1,126 +1,53 @@
 <!DOCTYPE html>
 <html>
     <head>
-	<title>Cinema Manager - F&B</title>
-        <meta charset = "utf-8">
+        <title>Cinema Manager - F&B</title>
+        <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel ="stylesheet" href = "styles.css">
+        <link rel="stylesheet" href="styles.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,300;0,400;0,800;1,100;1,400&display=swap" rel="stylesheet">
     </head>
-	
-	<style>
-		.search-results 
-		{
-			margin-top: 20px;
-		}
-		
-		.box 
-		{
-			display: block;
-		}
-		
-		.hidden
-		{
-			display: none;
-		}
-		
-		.switch 
-		{			
-			position: relative;
-			display: inline-block;
-			width: 60px;
-			height: 34px;
-		}
-
-		.switch input 
-		{ 
-			opacity: 0;
-			width: 0;
-			height: 0;
-		}
-
-		.slider 
-		{
-			position: absolute;
-			cursor: pointer;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			background-color: #FF160C;
-			-webkit-transition: .4s;
-			transition: .4s;
-		}
-
-		.slider:before 
-		{
-			position: absolute;
-			content: "";
-			height: 26px;
-			width: 26px;
-			left: 4px;
-			bottom: 4px;
-			background-color: black;
-			-webkit-transition: .4s;
-			transition: .4s;
-		}
-
-		input:checked + .slider 
-		{
-			background-color: #0FFF50;
-		}
-
-		input:focus + .slider 
-		{
-			box-shadow: 0 0 1px #2196F3;
-		}
-
-		input:checked + .slider:before 
-		{
-			-webkit-transform: translateX(26px);
-			-ms-transform: translateX(26px);
-			transform: translateX(26px);
-		}
-
-		/* Rounded sliders */
-		.slider.round 
-		{
-			border-radius: 34px;
-		}
-
-		.slider.round:before 
-		{
-			border-radius: 50%;
-		}
-	</style>
-	<body>
-		<div class="white-box">
-			<section>
-				<div class="container1">
-					<div class="logo">
-						<img src="Images/cinemethologo.jpeg">
-					</div>
-		
-					<div class="topnav">
-						<a href="#" onclick="logout()">LOG OUT</a>
-						<a href="tickets.html">TICKETS</a>
-						<a href="cinemaRooms.html">CINEMA ROOMS</a>  
-						<a href="movies.html">MOVIES</a>    
-						<a href="f&b.html">F&B</a>                				
-						<a class="active" href="cinemaManager.html">HOME</a>
-					</div>
-				</div> 
-			</section>
-
-			<hr>
-			<br><br>
-			<div class="search-container">			
-				<input type="text" id="search" placeholder="Search by combo name">
-				<div class="search-results"></div>
-			</div>
-			<table id="foodTable" border="1">
+    <body>
+        <div class="white-box">
+            <section>
+                <div class="container1">
+                    <div class="logo">
+                        <img src="/Users/lydia/Desktop/Cinementho/image/cinemethologo.jpeg">
+                    </div>
+                    <div class="topnav">
+                        <a href="#" onclick="logout()">LOG OUT</a>
+                        <a href="tickets.html">TICKETS</a>
+                        <a href="cinemaRooms.html">CINEMA ROOMS</a>
+                        <a href="movies.html">MOVIES</a>
+                        <a href="f&b.html">F&B</a>
+                        <a class="active" href="cinemaManager.html">HOME</a>
+                    </div>
+                </div>
+            </section>
+            <hr>
+            <br>
+            <br>
+            <div class="container1" style="margin-top: -3%; margin-bottom: 3%; ">
+                <div class="search">
+                    <input type="text" class="searchTerm" id="search" placeholder="Search by room no.">
+                    <button type="submit" class="searchButton">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+                <div class="topnav" style="margin-top: 1%;">
+                    <a1 onclick="addFood()" style="margin-left: 5%;">
+                        <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Add Food
+                    </a1>
+                    <a1 onclick="updateFood()">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;&nbsp;Update Food
+                    </a1>
+                </div>
+            </div>
+        
+			<table id="foodTable" class="CMtable" style="width:100%">
 				<tr>
 					<th>Combo Names</th>
 					<th>Description</th>
@@ -133,18 +60,21 @@
 					<td contenteditable="true">Include a sandwich and a drink of your choice</td>
 					<td contenteditable="true">$12.50</td>
 					<td contenteditable="true">50</td>
-					<td>		
-						<label class="switch">
-							<input type="checkbox" class="toggleSwitch" checked>
-							<span class="slider round"></span>
-						</label>
-					</td>					
-				</tr>		
-			</table><br>
-				
-				<button onclick="addFood()">Add Food</button>
-				<button onclick="updateFood()">Update Food</button>		
-		</div>
+					<td>
+						<div class="toggle-button-cover">
+							<div class="button r" id="button-2">
+								<input type="checkbox" class="checkbox toggleSwitch" checked>
+								<div class="knobs"></div>
+								<div class="layer"></div>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+        <br>
+        <br>
+        </div>
+		
 		
 		<script>
 			document.addEventListener("DOMContentLoaded", function() 
@@ -212,7 +142,7 @@
 				cell2.contentEditable = "true";
 				cell3.contentEditable = "true";
 				cell4.contentEditable = "true";
-				cell5.innerHTML = '<label class="switch"><input type="checkbox" class="toggleSwitch" checked><span class="slider round"></span></label>';
+				cell5.innerHTML = '<div class="toggle-button-cover"><div class="button r" id="button-2"><input type="checkbox" class="checkbox toggleSwitch" checked><div class="knobs"></div><div class="layer"><span class="slider round"></span></label>';
 
 				cell1.innerHTML = "New Food";
 				cell2.innerHTML = " ";
