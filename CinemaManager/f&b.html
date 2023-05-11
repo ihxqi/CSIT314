@@ -4,7 +4,7 @@
         <title>Cinema Manager - F&B</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="cm_style.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +15,7 @@
             <section>
                 <div class="container1">
                     <div class="logo">
-                        <img src="../Images/cinemethologo.jpeg">
+                        <img src="Images/cinemethologo.jpeg">
                     </div>
                     <div class="topnav">
                         <a href="#" onclick="logout()">LOG OUT</a>
@@ -32,7 +32,7 @@
             <br>
             <div class="container1" style="margin-top: -3%; margin-bottom: 3%; ">
                 <div class="search">
-                    <input type="text" class="searchTerm" id="search" placeholder="Search by room no.">
+                    <input type="text" class="searchTerm" id="search" placeholder="Search by Combo Name">
                     <button type="submit" class="searchButton">
                         <i class="fa fa-search"></i>
                     </button>
@@ -174,6 +174,8 @@
 					var quantity = row.cells[3].innerText;
 					console.log('Food: ' + food + ', Description: ' + description + ', Price: ' + price + ', Quantity: ' + quantity);
 				}
+							
+				alert("Update succuessfully!");
 			}
 
 			function logout() 
