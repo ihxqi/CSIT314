@@ -1,12 +1,13 @@
-/*--------economy--------------*/
 var firstSeatLabel = 1;
 var booked = !!localStorage.getItem('booked') ? $.parseJSON(localStorage.getItem('booked')) : [];
 $(document).ready(function() {
     var $cart = $('#selected-seats'),
         $counter = $('#counter'),
         $total = $('#total'),
-        sc = $('#e-movie-seat-map').seatCharts({
+        sc = $('#bus-seat-map').seatCharts({
             map: [
+                'ff_fff_ff',
+                'ff_fff_ff',
                 'ee_eee_ee',
                 'ee_eee_ee',
                 'eeeeeeeee',
@@ -15,115 +16,12 @@ $(document).ready(function() {
                 f: {
                     price: 75,
                     classes: 'first-class', //your custom CSS class
-                    category: 'VIP'
+                    category: 'Premium'
                 },
                 e: {
-                    price: 25,
+                    price: 50,
                     classes: 'economy-class', //your custom CSS class
                     category: 'Standard'
-                },
-                p: {
-                    price: 50,
-                    classes: 'premium', //your custom CSS class
-                    category: 'Premium'
-                }
-
-            },
-            naming: {
-                top: false,
-                getLabel: function(character, row, column) {
-                    return firstSeatLabel++;
-                },
-            },
-            click: function() {
-                if (this.status() == 'available') {
-                    //let's create a new <li> which we'll add to the cart items
-                    $('<li>' + this.data().category + ' Seat # ' + this.settings.label + ': <b>$' + this.data().price + '</b> <a href="#" class="cancel-cart-item">[cancel]</a></li>')
-                        .attr('id', 'cart-item-' + this.settings.id)
-                        .data('seatId', this.settings.id)
-                        .appendTo($cart);
-
-                    /*
-                     * Lets update the counter and total
-                     *
-                     * .find function will not find the current seat, because it will change its stauts only after return
-                     * 'selected'. This is why we have to add 1 to the length and the current seat price to the total.
-                     */
-                    $counter.text(sc.find('selected').length + 1);
-                    $total.text(recalculateTotal(sc) + this.data().price);
-
-                    var totalamt = 0;
-                    totalamt = recalculateTotal(sc) + this.data().price;
-                    localStorage.setItem("totalamt",totalamt);
-
-                    return 'selected';
-
-                } else if (this.status() == 'selected') {
-
-                    //update the counter
-                    $counter.text(sc.find('selected').length - 1);
-
-                    //and total
-                    $total.text(recalculateTotal(sc) - this.data().price);
-                    
-
-                    //remove the item from our cart
-                    $('#cart-item-' + this.settings.id).remove();
-
-                    //seat has been vacated
-                    return 'available';
-
-                } else if (this.status() == 'unavailable') {
-                    //seat has been already booked
-                    return 'unavailable';
-                } else {
-                    return this.style();
-                }
-            }
-        });
-
-    //this will handle "[cancel]" link clicks
-    $('#selected-seats').on('click', '.cancel-cart-item', function() {
-        //let's just trigger Click event on the appropriate seat, so we don't have to repeat the logic here
-        sc.get($(this).parents('li:first').data('seatId')).click();
-    });
-
-    //let's pretend some seats have already been booked
-    // sc.get(['1_2', '4_1', '7_1', '7_2']).status('unavailable');
-    sc.get(booked).status('unavailable');
-
-    
-});
-
-/*------------------------------------------------------------------------------------------------*/
-/*--------VIP--------------*/
-
-var firstSeatLabel = 1;
-var booked = !!localStorage.getItem('booked') ? $.parseJSON(localStorage.getItem('booked')) : [];
-$(document).ready(function() {
-    var $cart = $('#selected-seats'),
-        $counter = $('#counter'),
-        $total = $('#total'),
-        sc = $('#v-movie-seat-map').seatCharts({
-            map: [
-                'ff_fff_ff',
-                'fffffffff',
-            ],
-            seats: {
-                f: {
-                    price: 75,
-                    classes: 'first-class', //your custom CSS class
-                    category: 'VIP'
-                },
-                e: {
-                    price: 25,
-                    classes: 'economy-class', //your custom CSS class
-                    category: 'Standard'
-                },
-                p: {
-                    price: 50,
-                    classes: 'premium', //your custom CSS class
-                    category: 'Premium'
                 }
 
             },
@@ -200,115 +98,6 @@ $(document).ready(function() {
 
     
 });
-
-/*------------------------------------------------------------------------------------------------*/
-/*--------Premium--------------*/
-
-var firstSeatLabel = 1;
-var booked = !!localStorage.getItem('booked') ? $.parseJSON(localStorage.getItem('booked')) : [];
-$(document).ready(function() {
-    var $cart = $('#selected-seats'),
-        $counter = $('#counter'),
-        $total = $('#total'),
-        sc = $('#p-movie-seat-map').seatCharts({
-            map: [
-                'pp_ppp_pp',
-                'pp_ppp_pp',
-                'ppppppppp',
-            ],
-            seats: {
-                f: {
-                    price: 75,
-                    classes: 'first-class', //your custom CSS class
-                    category: 'VIP'
-                },
-                e: {
-                    price: 25,
-                    classes: 'economy-class', //your custom CSS class
-                    category: 'Standard'
-                },
-                p: {
-                    price: 50,
-                    classes: 'premium', //your custom CSS class
-                    category: 'Premium'
-                }
-
-            },
-            naming: {
-                top: false,
-                getLabel: function(character, row, column) {
-                    return firstSeatLabel++;
-                },
-            },
-            legend: {
-                node: $('#legend'),
-                items: [
-                    ['f', 'available', 'Premium seat'],
-                    ['e', 'available', 'Standard seat'],
-                    ['f', 'unavailable', 'Already Booked']
-                ]
-            },
-            click: function() {
-                if (this.status() == 'available') {
-                    //let's create a new <li> which we'll add to the cart items
-                    $('<li>' + this.data().category + ' Seat # ' + this.settings.label + ': <b>$' + this.data().price + '</b> <a href="#" class="cancel-cart-item">[cancel]</a></li>')
-                        .attr('id', 'cart-item-' + this.settings.id)
-                        .data('seatId', this.settings.id)
-                        .appendTo($cart);
-
-                    /*
-                     * Lets update the counter and total
-                     *
-                     * .find function will not find the current seat, because it will change its stauts only after return
-                     * 'selected'. This is why we have to add 1 to the length and the current seat price to the total.
-                     */
-                    $counter.text(sc.find('selected').length + 1);
-                    $total.text(recalculateTotal(sc) + this.data().price);
-
-                    var totalamt = 0;
-                    totalamt = recalculateTotal(sc) + this.data().price;
-                    localStorage.setItem("totalamt",totalamt);
-
-                    return 'selected';
-
-                } else if (this.status() == 'selected') {
-
-                    //update the counter
-                    $counter.text(sc.find('selected').length - 1);
-
-                    //and total
-                    $total.text(recalculateTotal(sc) - this.data().price);
-                    
-
-                    //remove the item from our cart
-                    $('#cart-item-' + this.settings.id).remove();
-
-                    //seat has been vacated
-                    return 'available';
-
-                } else if (this.status() == 'unavailable') {
-                    //seat has been already booked
-                    return 'unavailable';
-                } else {
-                    return this.style();
-                }
-            }
-        });
-
-    //this will handle "[cancel]" link clicks
-    $('#selected-seats').on('click', '.cancel-cart-item', function() {
-        //let's just trigger Click event on the appropriate seat, so we don't have to repeat the logic here
-        sc.get($(this).parents('li:first').data('seatId')).click();
-    });
-
-    //let's pretend some seats have already been booked
-    // sc.get(['1_2', '4_1', '7_1', '7_2']).status('unavailable');
-    sc.get(booked).status('unavailable');
-
-    
-});
-
-/*------------------------------------------------------------------------------------------------*/
 
 function recalculateTotal(sc) {
     var total = 0;
@@ -343,7 +132,7 @@ $(function() {
         }
         localStorage.setItem('booked', JSON.stringify(selected))
         alert("Seats has been Reserved successfully.")
-        location.href = 'payment.html'
+        location.href = 'customerF&B.html'
     })
     $('#reset-btn').click(function() {
         if (confirm("are you sure to reset the reservation of the movie?") === true) {
@@ -355,7 +144,6 @@ $(function() {
 })
 
 /*------------------------------------------------------------------------------------------------*/
-
 
 var x, i, j, l, ll, selElmnt, a, b, c;
 /*look for any elements with the class "custom-select":*/
@@ -439,41 +227,16 @@ document.getElementById('details').addEventListener('submit', function(event) {
 
     var x = document.getElementById("seat-map");
 
-    var selected = $('#seatselection option:selected').data("relation-id");
-    var seatselection = document.forms["details"]["seatselection"].value;
     var movieselection = document.forms["details"]["movieselection"].value;
     var cinemaselection = document.forms["details"]["cinemaselection"].value;
     var day = document.forms["details"]["day"].value;
-    
-    if (movieselection == "" || cinemaselection == "" || day == "" || seatselection =="") {
+    if (movieselection == "" || cinemaselection == "" || day == "") {
         alert("Please fill in all required fields.");
         return false;
-    } else{
-        x.style.visibility = "visible";
-        $(".sections").hide();
-        if (selected) {
-            $("#" + selected).show();
-        }
-    }
+    } else{x.style.visibility = "visible";}
         
     } 
     // your code to handle the button click here
   );
 
-/*-------------------------------------------------------------------------------------------------------*/
 
-var count = 20; // Timer
-var redirect = "/"; // Target URL
-
-function countDown() {
-var timer = document.getElementById("timer"); // Timer ID
-if (count > 0) {
-    count--;
-    timer.innerHTML = "This page will redirect in " + count + " seconds."; // Timer Message
-    setTimeout("countDown()", 1000);
-} else {
-    window.location.href = redirect;
-}
-}
-
-/*---------------------------------------------------------------------------------------------------------*/

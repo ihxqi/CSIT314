@@ -22,10 +22,10 @@
                 </div>
     
                 <div class="topnav">
+				<a href="index.html" onclick="logout()">LOG OUT</a>
                 <a href="custProfile.html">PROFILE</a>
                 <a href="custHistory.html">E-TICKETS</a>
                 <a href="booking.html">BUY TICKETS</a>
-                <a href="#cinemas location">CINEMAS</a>
                 <a href="movieListing.html">MOVIES</a>
                 </div>
             </div> 
@@ -45,25 +45,27 @@
 
                         <tr>
                             <td><input type="checkbox" id="cb1" />
-                                <label for="cb1"><img src="/Users/lydia/Downloads/Cinementho/Images/combo1.jpg" /></label>
-                                <p>Combo 1: Thicc snaccs</p>
+                                <label for="cb1"><img src="Images/comboA.jpg" /></label>
+                                <p>Combo A: Thicc snaccs</p>
                                 <p>Price: $14</p>
                             </td>
                             
                             <td><input type="checkbox" id="cb2" />
-                                <label for="cb2"><img src="/Users/lydia/Downloads/Cinementho/Images/combo2.jpg" /></label>
-                                <p>Combo 2: Couple snaccs</p>
+                                <label for="cb2"><img src="Images/comboB.jpg" /></label>
+                                <p>Combo B: Couple snacks</p>
                                 <p>Price: $30</p>
                             </td>
 
                             <td><input type="checkbox" id="cb3" />
-                                <label for="cb3"><img src="/Users/lydia/Downloads/Cinementho/Images/combo3.jpg" /></label>
-                                <p>Combo 3: Popcorns</p>
+                                <label for="cb3"><img src="Images/comboC.jpg" /></label>
+                                <p>Combo C: Popcorns</p>
                                 <p>Price: $10</p>
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="3"><input class="button5" type="submit" value="Submit Food selection" ></td>
+                            <td colspan="3">
+							<td colspan="3"><a href="payment.html"><input class="button5"  value="Submit Food selection" ></a></td>
+							</td>
                         </tr>
                         
                     </form>
@@ -73,7 +75,14 @@
         </section>
     </div>
 
-<script src="script.js"></script>
+<script src="script.js">
+function logout() 
+			{
+				// Code to handle logout
+				console.log("Logged out");
+				window.location.href = 'index.html'; // redirect to login page after logout
+			}
+</script>
 
     
     
