@@ -4,7 +4,7 @@
         <title>System Admin - User</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="ua_style.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,13 +15,12 @@
             <section>
                 <div class="container1">
                     <div class="logo">
-                        <img src="../Images/cinemethologo.jpeg">
+                        <img src="Images/cinemethologo.jpeg">
                     </div>
                     <div class="topnav">
                         <a href="index.html" onclick="logout()">LOG OUT</a>
                         <a href="manageUser.html">USER</a>
-                        <a href="systemAdmin.html">PROFILE</a>
-                        <a href="managePreference.html">PREFERENCE</a>
+                        <a href="userAdmin.html">PROFILE</a>
                     </div>
                 </div>
             </section>
@@ -30,7 +29,7 @@
             <br>
             <div class="container1" style="margin-top: -3%; margin-bottom: 3%; ">
                 <div class="search">
-                    <input type="text" class="searchTerm" id="search" placeholder="Search by preference">
+                    <input type="text" class="searchTerm" id="search" placeholder="Search by Username">
                     <button type="submit" class="searchButton">
                         <i class="fa fa-search"></i>
                     </button>
@@ -59,14 +58,7 @@
                     <td contenteditable="true">ihxqi@gmail.com</td>
                     <td contenteditable="true">Last week</td>
                     <td contenteditable="true">HelloWorld99</td>
-                    <td style="margin-right: 10px;">
-                        <div class="toggle-button-cover">
-                            <div class="button r" id="button-2" style="margin: auto auto auto 1.5ch;">
-                                <input type="checkbox" class="checkbox toggleSwitch" checked>
-                                <div class="knobs"></div>
-                                <div class="layer"></div>
-                            </div>
-                        </div>
+                    <td style="margin-right: 10px;">                       
                     </td>
                 </tr>
             </table>
@@ -76,7 +68,6 @@
 		<script>			
 			document.addEventListener("DOMContentLoaded", function() 
 			{
-				updateToggleSwitchListeners();
 				document.getElementById('search').addEventListener('input', function(e) 
 				{
 					var searchVal = e.target.value.toLowerCase();
@@ -84,7 +75,7 @@
 
 					for (var i = 1, row; row = table.rows[i]; i++) 
 					{
-						var userProfile = row.cells[0].innerText;				
+						var userProfile = row.cells[1].innerText;				
 
 						if (userProfile.toLowerCase().includes(searchVal)) 
 						{
@@ -132,41 +123,10 @@
 				
 					// Replace cell content with select
 					this.innerText = '';
-					this.appendChild(select);					
-					// Check if the toggle switch is checked and disable the dropdown box accordingly
-					var toggleSwitch = this.closest("tr").querySelector(".toggleSwitch");
-					if (toggleSwitch) 
-					{
-						select.disabled = !toggleSwitch.checked;
-					}
+					this.appendChild(select);										
 					select.focus();				
 				});
-			}
-			
-			function updateToggleSwitchListeners() 
-			{
-				var switches = document.querySelectorAll('.toggleSwitch');
-				for (var i = 0; i < switches.length; i++) 
-				{
-					switches[i].removeEventListener('change', toggleSwitchListener);
-					switches[i].addEventListener('change', toggleSwitchListener);
-				}
-			}
-
-			function toggleSwitchListener() 
-			{
-				var row = this.closest('tr');
-				if (!this.checked) 
-				{
-					row.style.backgroundColor = 'grey';
-					setRowEditable(row, false);
-				} 
-				else 
-				{
-					row.style.backgroundColor = '';
-					setRowEditable(row, true);
-				}
-			}
+			}						
 			
 			function addUser() 
 			{
@@ -184,7 +144,6 @@
 				cell3.contentEditable = "true";
 				cell4.contentEditable = "true";
 				cell5.contentEditable = "true";
-				cell6.innerHTML = '<div class="toggle-button-cover"><div class="button r" id="button-2" style="margin: auto auto auto 1.5ch;"><input type="checkbox" class="checkbox toggleSwitch" checked><div class="knobs"></div><div class="layer"><span class="slider round"></span></label>';
 				
 				// Create the select element and options for the profile type
 				var select = document.createElement('select');
@@ -193,7 +152,6 @@
 
 				// Append the select element to the third cell
 				cell1.appendChild(select);
-				updateToggleSwitchListeners();
 			}
 			
 			function setRowEditable(row, editable) 

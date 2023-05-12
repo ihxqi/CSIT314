@@ -50,14 +50,7 @@
                 </tr>
                 <tr>
                     <td contenteditable="true">System Admin</td>
-                    <td style="margin-right: 10px;">
-                        <div class="toggle-button-cover">
-                            <div class="button r" id="button-2" style="margin: auto auto auto 14.5ch;">
-                                <input type="checkbox" class="checkbox toggleSwitch" checked>
-                                <div class="knobs"></div>
-                                <div class="layer"></div>
-                            </div>
-                        </div>
+                    <td style="margin-right: 10px;">                                               
                     </td>
                 </tr>
             </table>
@@ -66,8 +59,7 @@
 		
 		<script>
 			document.addEventListener("DOMContentLoaded", function() 
-			{
-				updateToggleSwitchListeners();
+			{				
 
 				document.getElementById('search').addEventListener('input', function(e) 
 				{
@@ -88,33 +80,7 @@
 						}
 					}
 				});
-			});
-
-			function updateToggleSwitchListeners() 
-			{
-				var switches = document.querySelectorAll('.toggleSwitch');
-				for (var i = 0; i < switches.length; i++) 
-				{
-					switches[i].removeEventListener('change', toggleSwitchListener);
-					switches[i].addEventListener('change', toggleSwitchListener);
-				}
-			}
-
-			function toggleSwitchListener() 
-			{
-				var row = this.closest('tr');
-				
-				if (!this.checked) 
-				{
-					row.style.backgroundColor = 'grey';
-					setRowEditable(row, false);
-				} 
-				else 
-				{
-					row.style.backgroundColor = '';
-					setRowEditable(row, true);
-				}
-			}						
+			});								
 
 			function addProfile() 
 			{
@@ -125,11 +91,8 @@
 				var cell2 = row.insertCell(1);							
 
 				cell1.contentEditable = "true";
-				cell2.innerHTML = '<div class="toggle-button-cover"><div class="button r" id="button-2" style="margin: auto auto auto 14.5ch;"><input type="checkbox" class="checkbox toggleSwitch" checked><div class="knobs"></div><div class="layer"><span class="slider round"></span></label>';
 
 				cell1.innerHTML = "New Profile";
-
-				updateToggleSwitchListeners();
 			}
 
 			function setRowEditable(row, editable) 
