@@ -73,7 +73,35 @@ function addUserAccount($username, $password, $email, $user_profile)
 ?>
 
 <html>
+
+<head>
+    <title>User Admin</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,300;0,400;0,800;1,100;1,400&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+
 <body>
+<div class="white-box">
+        <section>
+            <div class="container1">
+                <div class="logo">
+                    <img src="../Images/cinemethologo.jpeg">
+                </div>
+                <div class="topnav">
+                    <a href="index.php" onclick="logout()">LOG OUT</a>
+                    <a href="manageUser.php">USER</a>
+                    <a href="userAdmin.php">PROFILE</a>
+                </div>
+            </div>
+        </section>
+        <hr>
 	<div class="backgroundImage">
 		<div class="form-box">
 			<div class="button-box">
@@ -85,25 +113,29 @@ function addUserAccount($username, $password, $email, $user_profile)
 			<?php
          ?>
 		
-		<form method="post" id="addUser" class="user-input" onsubmit="return checkForm(this);">
+		<form method="post" id="addUser" class="user-input" onsubmit="return checkForm(this);" style="width:50%">
+		
 			<label for="user_profile">User profile:</label>
-			<select name="user_profile" id="user_profile">
+			<select name="user_profile" id="user_profile" >
 			<option value="User Admin">User Admin</option>
 			<option value="Cinema Owner">Cinema Owner</option>
 			<option value="Cinema Manager">Cinema Manager</option>
 			<option value="Customer">Customer</option>			
 			</select>
-			<input type="text" name="username" class="input-field" placeholder="Username" required>
+			<br><br>
+			<input type="text" name="username" class="input-field" placeholder="Username" required >
 			<span>
      		  <?php echo $e1 ?>
   			</span>
-			<input type="email" name="email" class="input-field" placeholder="Email" required>
+			<input type="email" name="email" class="input-field" placeholder="Email" required style="width:200%; height:10%; border: 1px solid #808080;">
+			<br><br>
 			<input type="text" name="password" class="input-field" placeholder="Password" required><br><br>
 		
-			<input type="submit" name="addUser" class="submit-btn" value="Add User">
+			<input type="submit" name="addUser" class="submit-btn button3" value="Add User">
 		</form>
 		</div>
 	</div>
+</div>
 	</html>
 	<script>
 	var y = document.getElementById("addUser");	
