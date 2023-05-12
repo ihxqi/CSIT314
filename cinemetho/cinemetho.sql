@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 12, 2023 at 06:13 AM
+-- Generation Time: May 12, 2023 at 05:12 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -138,7 +138,7 @@ CREATE TABLE `user` (
   `cust_profile` varchar(50) NOT NULL,
   `user_profile` varchar(100) NOT NULL DEFAULT 'Customer',
   `login_date` date NOT NULL,
-  `user_status` varchar(50) NOT NULL DEFAULT 'active'
+  `user_status` varchar(50) NOT NULL DEFAULT 'Active'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -146,18 +146,20 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `username`, `email`, `password`, `cust_profile`, `user_profile`, `login_date`, `user_status`) VALUES
-(12, 'cinemaManager', 'cinemaManager@gmail.com', '1253208465b1efa876f982d8a9e73eef', '', 'Cinema Manager', '2023-05-07', 'active'),
-(13, 'cinemaOwner', 'cinemaOwner@gmail.com', '1253208465b1efa876f982d8a9e73eef', '', 'Cinema Owner', '2023-05-07', 'active'),
-(17, 'userAdmin', 'userAdmin@gmail.com', '1253208465b1efa876f982d8a9e73eef', '', 'User Admin', '2023-05-07', 'active'),
-(26, 'JohnGreen', 'johngreen@gmail.com', '792a62cd83eb4226d2564062e0c17697', 'Student', 'Customer', '2023-05-07', 'active'),
-(27, 'AdamWhite123', 'adamwhite123@gmail.com', '0fc39ad2b48ffb0057155be302a7d2ab', 'Senior Citizen(Above 65yo)', 'Customer', '2023-05-07', 'active'),
-(28, 'Lisa1234', 'lisa1234@hotmail.com', '77424d0dd227f0ef8eecb54da4252be8', 'Child(Below 8yo)', 'Customer', '2023-05-07', 'active'),
-(29, 'Mary00', 'mary00@gmail.com', '399f7212965e92ad6139e4521ed18acc', 'Adult', 'Customer', '2023-05-07', 'active'),
-(30, 'Mary01', 'mary01@gmail.com', '94cfc6afee347a9aa2bde465402f8a79', 'Adult', 'Customer', '2023-05-07', 'active'),
-(37, 'test2', 'test2@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 'Adult', 'Customer', '0000-00-00', 'active'),
-(42, 'adult1', 'adult@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 'Adult', 'Customer', '0000-00-00', 'active'),
-(45, 'cinemaOwner1', 'cinemaOwner1@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '', 'Cinema Owner', '0000-00-00', 'active'),
-(46, 'cinemaManager1', 'cinemaManager1@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '', 'Cinema Manager', '0000-00-00', 'active');
+(12, 'cinemaManager', 'cinemaManager@gmail.com', '1253208465b1efa876f982d8a9e73eef', '', 'Cinema Manager', '2023-05-07', 'Active'),
+(13, 'cinemaOwner', 'cinemaOwner@gmail.com', '1253208465b1efa876f982d8a9e73eef', '', 'Cinema Owner', '2023-05-07', 'Active'),
+(17, 'userAdmin', 'userAdmin@gmail.com', '1253208465b1efa876f982d8a9e73eef', '', 'User Admin', '2023-05-07', 'Active'),
+(26, 'JohnGreen', 'johngreen@gmail.com', '792a62cd83eb4226d2564062e0c17697', 'Student', 'Customer', '2023-05-07', 'Active'),
+(27, 'AdamWhite', 'adamwhite123@gmail.com', 'a1Bz20ydqelm8m1wql8e4736afc2dc319d59c2cbd5e64c21b6', 'Senior Citizen(Above 65yo)', 'Customer', '2023-05-07', 'Active'),
+(28, 'Lisa1234', 'lisa1234@hotmail.com', '77424d0dd227f0ef8eecb54da4252be8', 'Child(Below 8yo)', 'Customer', '2023-05-07', 'Active'),
+(29, 'Mary00', 'mary00@gmail.com', '399f7212965e92ad6139e4521ed18acc', 'Adult', 'Customer', '2023-05-07', 'Active'),
+(30, 'Mary01', 'mary01@gmail.com', '94cfc6afee347a9aa2bde465402f8a79', 'Adult', 'Customer', '2023-05-07', 'Active'),
+(37, 'test2', 'test2@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 'Adult', 'Customer', '0000-00-00', 'Active'),
+(45, 'cinemaOwner1', 'cinemaOwner1@gmail.com', 'a1Bz20ydqelm8m1wql760c0d63da5d52af25d1c6175b094ae7', '', 'Cinema Owner', '0000-00-00', 'Active'),
+(46, 'cinemaManager123', 'cinemaManager12@gmail.com', 'a1Bz20ydqelm8m1wql760c0d63da5d52af25d1c6175b094ae7', '', 'Cinema Manager', '0000-00-00', 'Active'),
+(47, 'useradmin22', 'useradmin2@gmail.com', 'a1Bz20ydqelm8m1wqlec6a6536ca304edf844d1d248a4f08dc', '', 'User Admin', '0000-00-00', 'Active'),
+(48, 'cinemaOwner123', 'cinemaOwner123@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '', 'Cinema Owner', '0000-00-00', 'Active'),
+(49, 'cinemaManager1234', 'cinemaManager1234@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '', 'Cinema Manager', '0000-00-00', 'Active');
 
 --
 -- Indexes for dumped tables
@@ -225,7 +227,7 @@ ALTER TABLE `ticket`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
