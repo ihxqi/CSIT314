@@ -4,7 +4,7 @@
 	<title>Cinema Manager - Cinema Rooms</title>
         <meta charset = "utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">      
-        <link rel ="stylesheet" href = "styles.css">
+        <link rel ="stylesheet" href = "cm_style.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -20,7 +20,7 @@
 			<section>
 				<div class="container1">
 					<div class="logo">
-						<img src="../Images/cinemethologo.jpeg">
+						<img src="Images/cinemethologo.jpeg">
 					</div>
 		
 					<div class="topnav">
@@ -38,7 +38,7 @@
 			<br><br>
 			<div class="container1" style="margin-top: -5%;">
 				<div class="search">
-					<input type="text" class="searchTerm" id="search" placeholder="Search by room no.">
+					<input type="text" class="searchTerm" id="search" placeholder="Search by Room No.">
 					<button type="submit" class="searchButton">
 						<i class="fa fa-search"></i>
 					</button>
@@ -64,13 +64,7 @@
 				<td contenteditable="true">1</td>
 				<td contenteditable="true">135</td>
 				<td class="editable" >Not Set</td>
-				<td >		
-					<div class="toggle-button-cover">
-					<div class="button r" id="button-2" style="margin: auto auto auto 6ch;">
-					<input type="checkbox" class="checkbox toggleSwitch" checked>
-					<div class="knobs"></div>
-					<div class="layer"></div>
-					</div></div>
+				<td >							
 				</td>	
 			</tr>		
 			</table><br>
@@ -80,7 +74,6 @@
 		<script>
 			document.addEventListener("DOMContentLoaded", function() 
 			{
-				updateToggleSwitchListeners();
 				document.getElementById('search').addEventListener('input', function(e) 
 				{
 					var searchVal = e.target.value.toLowerCase();
@@ -136,41 +129,10 @@
 				
 					// Replace cell content with select
 					this.innerText = '';
-					this.appendChild(select);					
-					// Check if the toggle switch is checked and disable the dropdown box accordingly
-					var toggleSwitch = this.closest("tr").querySelector(".toggleSwitch");
-					if (toggleSwitch) 
-					{
-						select.disabled = !toggleSwitch.checked;
-					}
+					this.appendChild(select);										
 					select.focus();				
 				});
-			}
-			
-			function updateToggleSwitchListeners() 
-			{
-				var switches = document.querySelectorAll('.toggleSwitch');
-				for (var i = 0; i < switches.length; i++) 
-				{
-					switches[i].removeEventListener('change', toggleSwitchListener);
-					switches[i].addEventListener('change', toggleSwitchListener);
-				}
-			}
-
-			function toggleSwitchListener() 
-			{
-				var row = this.closest('tr');
-				if (!this.checked) 
-				{
-					row.style.backgroundColor = 'grey';
-					setRowEditable(row, false);
-				} 
-				else 
-				{
-					row.style.backgroundColor = '';
-					setRowEditable(row, true);
-				}
-			}
+			}					
 			
 			function addRoom() 
 			{
@@ -184,7 +146,6 @@
 
 				cell1.contentEditable = "true";
 				cell2.contentEditable = "true";
-				cell4.innerHTML = '<div class="toggle-button-cover"><div class="button r" id="button-2" style="margin: auto auto auto 6ch;"><input type="checkbox" class="checkbox toggleSwitch" checked><div class="knobs"></div><div class="layer"><span class="slider round"></span></label>';
 
 				cell1.innerHTML = "New Room";
 				cell2.innerHTML = " ";
@@ -196,7 +157,6 @@
 
 				// Append the select element to the third cell
 				cell3.appendChild(select);
-				updateToggleSwitchListeners();
 			}
 			
 			function setRowEditable(row, editable) 
@@ -234,6 +194,7 @@
 					var seatType = seatTypeDropdown ? seatTypeDropdown.value : "Not Set";
 					console.log('Room No.: ' + room + ', Capacities: ' + capacities + ', Seat Type: ' + seatType);
 				}
+				alert("Update succuessfully!");
 			}
 			
 			function logout() 

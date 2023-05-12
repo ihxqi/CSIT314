@@ -69,13 +69,7 @@
 					<td class="editableLanguage">Not Set</td>
 					<td contenteditable="true">135</td>
 					<td contenteditable="true"> A movie</td>
-					<td>		
-						<div class="toggle-button-cover">
-							<div class="button r" id="button-2">
-							<input type="checkbox" class="checkbox toggleSwitch" checked>
-							<div class="knobs"></div>
-							<div class="layer"></div>
-							</div></div>
+					<td>								
 					</td>
 				</tr>		
 			</table><br>
@@ -85,7 +79,6 @@
 		<script>
 			document.addEventListener("DOMContentLoaded", function() 
 			{						
-				updateToggleSwitchListeners();
 			});						
 
 			var genre = document.querySelectorAll(".editable");
@@ -169,13 +162,7 @@
 						// Replace cell content with select
 						this.innerText = '';
 						this.appendChild(select);
-						
-						// Check if the toggle switch is checked and disable the dropdown box accordingly
-						var toggleSwitch = this.closest("tr").querySelector(".toggleSwitch");
-						if (toggleSwitch) 
-						{
-							select.disabled = !toggleSwitch.checked;
-						}
+												
 						select.focus();
 					});
 				}
@@ -221,32 +208,7 @@
 							select.focus();
 						}
 					});
-				}								
-							
-			function updateToggleSwitchListeners() 
-			{
-				var switches = document.querySelectorAll('.toggleSwitch');
-				for (var i = 0; i < switches.length; i++) 
-				{
-					switches[i].removeEventListener('change', toggleSwitchListener);
-					switches[i].addEventListener('change', toggleSwitchListener);
-				}
-			}
-
-			function toggleSwitchListener() 
-			{
-				var row = this.closest('tr');
-				if (!this.checked) 
-				{
-					row.style.backgroundColor = 'grey';
-					setRowEditable(row, false);
-				} 
-				else 
-				{
-					row.style.backgroundColor = '';
-					setRowEditable(row, true);
-				}
-			}						
+				}																					
 		
 			function addMovie() 
 			{
@@ -265,7 +227,6 @@
 				cell2.contentEditable = "true";				
 				cell6.contentEditable = "true";
 				cell7.contentEditable = "true";
-				cell8.innerHTML = '<div class="toggle-button-cover"><div class="button r" id="button-2"><input type="checkbox" class="checkbox toggleSwitch" checked><div class="knobs"></div><div class="layer"><span class="slider round"></span></label>';
 
 				var input = document.createElement('input');
 				input.type = "file";
@@ -303,9 +264,7 @@
 				select.className = 'editableLanguage';
 
 				// Append the select element to the third cell
-				cell5.appendChild(select);
-				
-				updateToggleSwitchListeners();
+				cell5.appendChild(select);				
 			}	
 							
 			function setRowEditable(row, editable) 

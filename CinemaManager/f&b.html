@@ -60,14 +60,7 @@
 					<td contenteditable="true">Include a sandwich and a drink of your choice</td>
 					<td contenteditable="true">$12.50</td>
 					<td contenteditable="true">50</td>
-					<td style="margin-right: 10px;">
-						<div class="toggle-button-cover">
-							<div class="button r" id="button-2" style="margin: auto auto auto 2ch;">
-								<input type="checkbox" class="checkbox toggleSwitch" checked>
-								<div class="knobs"></div>
-								<div class="layer"></div>
-							</div>
-						</div>
+					<td style="margin-right: 10px;">						
 					</td>
 				</tr>
 			</table>
@@ -79,8 +72,6 @@
 		<script>
 			document.addEventListener("DOMContentLoaded", function() 
 			{
-				updateToggleSwitchListeners();
-
 				document.getElementById('search').addEventListener('input', function(e) 
 				{
 					var searchVal = e.target.value.toLowerCase();
@@ -100,32 +91,7 @@
 						}
 					}
 				});
-			});
-
-			function updateToggleSwitchListeners() 
-			{
-				var switches = document.querySelectorAll('.toggleSwitch');
-				for (var i = 0; i < switches.length; i++) 
-				{
-					switches[i].removeEventListener('change', toggleSwitchListener);
-					switches[i].addEventListener('change', toggleSwitchListener);
-				}
-			}
-
-			function toggleSwitchListener() 
-			{
-				var row = this.closest('tr');
-				if (!this.checked) 
-				{
-					row.style.backgroundColor = 'grey';
-					setRowEditable(row, false);
-				} 
-				else 
-				{
-					row.style.backgroundColor = '';
-					setRowEditable(row, true);
-				}
-			}
+			});			
 
 			function addFood() 
 			{
@@ -142,7 +108,6 @@
 				cell2.contentEditable = "true";
 				cell3.contentEditable = "true";
 				cell4.contentEditable = "true";
-				cell5.innerHTML = '<div class="toggle-button-cover"><div class="button r" id="button-2" style="margin: auto auto auto 2ch;"><input type="checkbox" class="checkbox toggleSwitch" checked><div class="knobs"></div><div class="layer"><span class="slider round"></span></label>';
 
 				cell1.innerHTML = "New Food";
 				cell2.innerHTML = " ";
