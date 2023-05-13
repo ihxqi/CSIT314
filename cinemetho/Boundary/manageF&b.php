@@ -21,7 +21,7 @@
                         <a href="#" onclick="logout()">LOG OUT</a>
                         <a href="../Boundary/custProfile.php">TICKETS</a> <!-- need change -->
                         <a href="../Boundary/custProfile.php">CINEMA ROOMS</a> <!-- need change -->
-                        <a href="../Boundary/movies.php">MOVIES</a>
+                        <a href="../Boundary/manageMovies.php">MOVIES</a>
                         <a href="../Boundary/manageF&b.php">F&B</a>
                         <a class="active" href="cinemaManager.html">HOME</a> <!-- need change -->
                     </div>
@@ -36,7 +36,7 @@
                     </button>
                 </div>
                 <div class="topnav" style="margin-top: -2%;">
-                    <a onclick="location.href='addf&b.php';" style="margin-left: 5%;">
+                    <a onclick="location.href='addF&b.php';" style="margin-left: 5%;">
                         <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Add Food
                     </a>
                 </div>
@@ -58,7 +58,7 @@
                             echo "<td>" . $userAccount['combo_description'] . "</td>";
                             echo "<td>" . $userAccount['combo_price'] . "</td>";
                             echo "<td>" . $userAccount['combo_quantity'] . "</td>";
-                            echo "<td><a href=\"updatef&b.php?user_id={$userAccount['combo_id']}\" class='button'>Update</a> | <a href=\"suspendf&b.php?user_id={$userAccount['combo_id']}\" onClick=\"return confirm('Are you sure you want to suspend?')\" class='button'>Suspend</a>| <a href=\"activatef&b.php?user_id={$userAccount['combo_id']}\" onClick=\"return confirm('Are you sure you want to activate?')\" class='button'>Activate</a></td>";
+                            echo "<td><a href=\"updateF&b.php?combo_id={$userAccount['combo_id']}\" class='button'>Update</a> | <a href=\"suspendF&b.php?user_id={$userAccount['combo_id']}\" onClick=\"return confirm('Are you sure you want to suspend?')\" class='button'>Suspend</a>| <a href=\"activatef&b.php?user_id={$userAccount['combo_id']}\" onClick=\"return confirm('Are you sure you want to activate?')\" class='button'>Activate</a></td>";
                             echo "</tr>";
                         }
                     ?>
