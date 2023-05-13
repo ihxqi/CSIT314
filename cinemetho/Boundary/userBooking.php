@@ -47,10 +47,11 @@
                 </div>
     
                 <div class="topnav">
-                <a href="../Boundary/custProfile.php">PROFILE</a>
-				<a href="../Boundary/custHistory.php">E-TICKETS</a>
-				<a href="../Boundary/userBooking.php">BUY TICKETS</a>
-				<a href="../Boundary/movieListing.php">MOVIES</a>
+                <a href="index.html" onclick="logout()">LOG OUT</a>
+					<a href="../Boundary/custProfile.php">PROFILE</a>
+					<a href="../Boundary/eTicket.php">E-TICKETS</a>
+					<a href="../Boundary/userBooking.php">BUY TICKETS</a>
+					<a href="../Boundary/movieListing.php">MOVIES</a>
                 </div>
             </div> 
         </section>
