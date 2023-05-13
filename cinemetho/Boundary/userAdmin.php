@@ -60,19 +60,22 @@ ini_set('display_errors', 1);
         <tr>
             <th>User Profile</th>
             <th>Status</th>
-        </tr>
-        <?php foreach ($userProfiles as $profile) { ?>
-            <tr>
-                <td contenteditable="true" id="profileTable" class="CMtable"><?php echo is_array($profile) ? $profile : $profile; ?></td>
-                <td style="margin-right: 10px;">
+            <th>Action</th>
 
-</div>
-</div>
-</td>
-</tr>
+        </tr>
+        <?php foreach ($userProfiles as $userprofile) { ?>
+    <tr>
+        <td contenteditable="true" id="profileTable" class="CMtable"><?php echo is_array($userprofile) ? $userprofile['upName'] : $userprofile; ?></td>
+        <td contenteditable="true" id="profileTable" class="CMtable"><?php echo is_array($userprofile) ? $userprofile['profile_status'] : $userprofile; ?></td>
+        <td>
+            <a href="updateUserProfile.php?userProfile_ID=<?php echo $userprofile['userProfile_ID']; ?>">Update</a> | 
+            <a href="suspendUserProfile.php?userProfile_ID=<?php echo $userprofile['userProfile_ID']; ?>" onClick="return confirm('Are you sure you want to suspend?')">Suspend</a> | 
+            <a href="activateUserProfile.php?userProfile_ID=<?php echo $userprofile['userProfile_ID']; ?>" onClick="return confirm('Are you sure you want to activate?')">Activate</a>
+        </td>
+    </tr>
 <?php } ?>
-</table>
-<br>
+    </table>
+    <br>
 </div>
 
 <script>

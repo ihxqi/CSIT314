@@ -1,7 +1,7 @@
 <?php
 include_once("../Entity/UserAccountEntity.php");
 
-class suspendUserProfile
+class suspendUserProfileCtl
 {
 
     public function suspendUserProfile($user_profile)
