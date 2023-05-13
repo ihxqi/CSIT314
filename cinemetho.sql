@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2023 at 05:48 PM
+-- Generation Time: May 13, 2023 at 09:00 AM
 -- Server version: 10.4.28-MariaDB
--- PHP Version: 8.0.28
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -35,18 +35,6 @@ CREATE TABLE `cinema` (
   `movieShowtime` varchar(11) NOT NULL,
   `roomStatus` varchar(100) NOT NULL,
   `cinemaAction` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `cust_prof`
---
-
-CREATE TABLE `cust_prof` (
-  `userProfID` int(10) NOT NULL,
-  `birthday` date NOT NULL,
-  `seatPreference` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -148,24 +136,53 @@ CREATE TABLE `user` (
   `email` varchar(100) NOT NULL,
   `password` varchar(50) NOT NULL,
   `cust_profile` varchar(50) NOT NULL,
-  `user_profile` varchar(100) NOT NULL DEFAULT 'user',
-  `login_date` date NOT NULL
+  `user_profile` varchar(100) NOT NULL DEFAULT 'Customer',
+  `login_date` date NOT NULL,
+  `user_status` varchar(50) NOT NULL DEFAULT 'Active'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`user_id`, `username`, `email`, `password`, `cust_profile`, `user_profile`, `login_date`) VALUES
-(12, 'cinemaManager', 'cinemaManager@gmail.com', '1253208465b1efa876f982d8a9e73eef', '', 'cinemaManager', '2023-05-07'),
-(13, 'cinemaOwner', 'cinemaOwner@gmail.com', '1253208465b1efa876f982d8a9e73eef', '', 'cinemaOwner', '2023-05-07'),
-(17, 'systemAdmin', 'systemAdmin@gmail.com', '1253208465b1efa876f982d8a9e73eef', '', 'systemAdmin', '2023-05-07'),
-(26, 'JohnGreen', 'johngreen@gmail.com', '792a62cd83eb4226d2564062e0c17697', 'Student', 'user', '2023-05-07'),
-(27, 'AdamWhite123', 'adamwhite123@gmail.com', '0fc39ad2b48ffb0057155be302a7d2ab', 'Senior Citizen(Above 65yo)', 'user', '2023-05-07'),
-(28, 'Lisa1234', 'lisa1234@hotmail.com', '77424d0dd227f0ef8eecb54da4252be8', 'Child(Below 8yo)', 'user', '2023-05-07'),
-(29, 'Mary00', 'mary00@gmail.com', '399f7212965e92ad6139e4521ed18acc', 'Adult', 'user', '2023-05-07'),
-(30, 'Mary01', 'mary01@gmail.com', '94cfc6afee347a9aa2bde465402f8a79', 'Adult', 'user', '2023-05-07'),
-(31, 'test2', 'test2@gmail.com', 'ad0234829205b9033196ba818f7a872b', 'Adult', 'user', '2023-05-07');
+INSERT INTO `user` (`user_id`, `username`, `email`, `password`, `cust_profile`, `user_profile`, `login_date`, `user_status`) VALUES
+(12, 'cinemaManager', 'cinemaManager@gmail.com', '1253208465b1efa876f982d8a9e73eef', '', 'Cinema Manager', '2023-05-07', 'Active'),
+(13, 'cinemaOwner', 'cinemaOwner@gmail.com', '1253208465b1efa876f982d8a9e73eef', '', 'Cinema Owner', '2023-05-07', 'Active'),
+(17, 'userAdmin', 'userAdmin@gmail.com', '1253208465b1efa876f982d8a9e73eef', '', 'User Admin', '2023-05-07', 'Active'),
+(26, 'JohnGreen', 'johngreen@gmail.com', '792a62cd83eb4226d2564062e0c17697', 'Student', 'Customer', '2023-05-07', 'Active'),
+(27, 'AdamWhite', 'adamwhite123@gmail.com', 'a1Bz20ydqelm8m1wql8e4736afc2dc319d59c2cbd5e64c21b6', 'Senior Citizen(Above 65yo)', 'Customer', '2023-05-07', 'Active'),
+(28, 'Lisa1234', 'lisa1234@hotmail.com', '77424d0dd227f0ef8eecb54da4252be8', 'Child(Below 8yo)', 'Customer', '2023-05-07', 'Active'),
+(29, 'Mary00', 'mary00@gmail.com', '399f7212965e92ad6139e4521ed18acc', 'Adult', 'Customer', '2023-05-07', 'Active'),
+(30, 'Mary01', 'mary01@gmail.com', '94cfc6afee347a9aa2bde465402f8a79', 'Adult', 'Customer', '2023-05-07', 'Active'),
+(37, 'test2', 'test2@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 'Adult', 'Customer', '0000-00-00', 'Active'),
+(45, 'cinemaOwner1', 'cinemaOwner1@gmail.com', 'a1Bz20ydqelm8m1wql760c0d63da5d52af25d1c6175b094ae7', '', 'Cinema Owner', '0000-00-00', 'Active'),
+(46, 'cinemaManager123', 'cinemaManager12@gmail.com', 'a1Bz20ydqelm8m1wql760c0d63da5d52af25d1c6175b094ae7', '', 'Cinema Manager', '0000-00-00', 'Active'),
+(47, 'useradmin22', 'useradmin2@gmail.com', 'a1Bz20ydqelm8m1wqlec6a6536ca304edf844d1d248a4f08dc', '', 'User Admin', '0000-00-00', 'Active'),
+(48, 'cinemaOwner123', 'cinemaOwner123@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '', 'Cinema Owner', '0000-00-00', 'Active'),
+(49, 'cinemaManager1234', 'cinemaManager1234@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', '', 'Cinema Manager', '0000-00-00', 'Active');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `userprofile`
+--
+
+CREATE TABLE `userprofile` (
+  `userProfile_ID` int(10) NOT NULL,
+  `upName` varchar(100) NOT NULL,
+  `profile_status` varchar(100) NOT NULL DEFAULT 'Active'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `userprofile`
+--
+
+INSERT INTO `userprofile` (`userProfile_ID`, `upName`, `profile_status`) VALUES
+(1, 'Cinema Owner', 'Active'),
+(2, 'Cinema Manager', 'Active'),
+(3, 'User Admin', 'Active'),
+(4, 'Customer', 'Active'),
+(5, 'test', 'Active');
 
 --
 -- Indexes for dumped tables
@@ -176,12 +193,6 @@ INSERT INTO `user` (`user_id`, `username`, `email`, `password`, `cust_profile`, 
 --
 ALTER TABLE `cinema`
   ADD PRIMARY KEY (`RoomNo`);
-
---
--- Indexes for table `cust_prof`
---
-ALTER TABLE `cust_prof`
-  ADD PRIMARY KEY (`userProfID`);
 
 --
 -- Indexes for table `fnb`
@@ -208,6 +219,12 @@ ALTER TABLE `user`
   ADD PRIMARY KEY (`user_id`);
 
 --
+-- Indexes for table `userprofile`
+--
+ALTER TABLE `userprofile`
+  ADD PRIMARY KEY (`userProfile_ID`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -216,12 +233,6 @@ ALTER TABLE `user`
 --
 ALTER TABLE `cinema`
   MODIFY `RoomNo` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `cust_prof`
---
-ALTER TABLE `cust_prof`
-  MODIFY `userProfID` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `fnb`
@@ -245,7 +256,13 @@ ALTER TABLE `ticket`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `user_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+
+--
+-- AUTO_INCREMENT for table `userprofile`
+--
+ALTER TABLE `userprofile`
+  MODIFY `userProfile_ID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
