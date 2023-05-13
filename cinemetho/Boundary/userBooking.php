@@ -43,15 +43,14 @@
         <section>
             <div class="container1">
                 <div class="logo">
-                    <img src="Images/cinemethologo.jpeg">
+                    <img src="../Images/cinemethologo.jpeg">
                 </div>
     
                 <div class="topnav">
-                <a href="custProfile.html">PROFILE</a>
-                <a href="custHistory.html">E-TICKETS</a>
-                <a href="booking.html">BUY TICKETS</a>
-                <a href="#cinemas location">CINEMAS</a>
-                <a href="movieListing.html">MOVIES</a>
+                <a href="../Boundary/custProfile.php">PROFILE</a>
+				<a href="../Boundary/custHistory.php">E-TICKETS</a>
+				<a href="../Boundary/userBooking.php">BUY TICKETS</a>
+				<a href="../Boundary/movieListing.php">MOVIES</a>
                 </div>
             </div> 
         </section>
