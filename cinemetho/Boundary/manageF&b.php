@@ -22,7 +22,7 @@
                         <a href="../Boundary/custProfile.php">TICKETS</a> <!-- need change -->
                         <a href="../Boundary/custProfile.php">CINEMA ROOMS</a> <!-- need change -->
                         <a href="../Boundary/movies.php">MOVIES</a>
-                        <a href="../Boundary/f&b.php">F&B</a>
+                        <a href="../Boundary/manageF&b.php">F&B</a>
                         <a class="active" href="cinemaManager.html">HOME</a> <!-- need change -->
                     </div>
                 </div>
