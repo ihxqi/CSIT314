@@ -40,6 +40,37 @@ class Movie {
         mysqli_close($conn);
         return $movie;
     }
+
+
+    function addMovie($MovieTitle, $MovieSynopsis, $MovieGenre, $MovieLanguage, $MovieDuration, $MovieDate, $MPARating, $MovieImage, $MovieCast, $MovieDirector){
+        global $connection;
+        $query = "INSERT INTO movie (MovieTitle, MovieSynopsis, MovieGenre, MovieLanguage, MovieDuration, MovieDate, MPARating, MovieImage, MovieCast, MovieDirector) VALUES ('$MovieTitle', '$MovieSynopsis', '$MovieGenre', '$MovieLanguage', '$MovieDuration', '$MovieDate', '$MPARating', '$MovieImage', '$MovieCast', '$MovieDirector')";
+        $exec = mysqli_query($connection, $query);
+        if($exec){
+          return true;
+        }else{
+          return false;
+        }
+      }
+
+      function updateMovie($MovieID, $MovieTitle, $MovieSynopsis, $MovieGenre, $MovieLanguage, $MovieDuration, $MovieDate, $MPARating, $MovieImage, $MovieCast, $MovieDirector){
+        global $connection;
+        $query = "UPDATE movie SET MovieTitle='$MovieTitle', MovieSynopsis='$MovieSynopsis', MovieGenre='$MovieGenre', MovieLanguage='$MovieLanguage', MovieDuration='$MovieDuration', MovieDate='$MovieDate', MPARating='$MPARating', MovieImage='$MovieImage', MovieCast='$MovieCast', MovieDirector='$MovieDirector' WHERE MovieID='$MovieID'";
+        $exec = mysqli_query($connection, $query);
+        if($exec){
+          return true;
+        }else{
+          return false;
+        }
+      }
+
+          //Please do activate yourself//Please do activate yourself//Please do activate yourself
+    //Please do activate yourself//Please do activate yourself//Please do activate yourself
+    //Please do activate yourself//Please do activate yourself//Please do activate yourself
+    //Please do activate yourself//Please do activate yourself//Please do activate yourself
+
+
+
     
 }
 ?>
