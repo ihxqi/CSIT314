@@ -87,10 +87,10 @@ function loginCustomerAccount($userName, $password)
 				</div>
 		
 				<div class="topnav">
-					<a href="../UserProfile/custProfile.php">PROFILE</a>
-					<a href="custHistory.html">PUCHASED TICKETS</a>
-					<a href="../UserBooking/booking.php">BUY TICKETS</a>
-					<a href="#cinemas location">CINEMAS</a>
+					<a href="index.html" onclick="logout()">LOG OUT</a>
+					<a href="../Boundary/custProfile.php">PROFILE</a>
+					<a href="../Boundary/eTicket.php">E-TICKETS</a>
+					<a href="../Boundary/userBooking.php">BUY TICKETS</a>
 					<a href="../Boundary/movieListing.php">MOVIES</a>
 				</div>
 			</div> 
@@ -110,19 +110,6 @@ function loginCustomerAccount($userName, $password)
 								<span class="details">Birthday: (optional)</span>
 								<input type="date">
 							</div><br>
-							<div class="input-checkbox">
-								<span class="details">Seat preference:</span>
-								<input type="checkbox" id="front" name="front" value="front">
-								<label for="front">Front Row</label>
-								<input type="checkbox" id="middle" name="middle" value="middle">					
-								<label for="middle">Middle Row</label>
-								<input type="checkbox" id="back" name="back" value="back">									
-								<label for="back">Back Row</label>
-							</div><br>
-							<div class="loyalty">
-								<span class="details">Loyalty points: </span>
-								<input type="hidden" readonly><span><strong>0 pts<strong></span>
-							</div>
 						</div><br>       
 							<input class="button" type="button" onclick="update()" formaction="cMovie.html" value="Update Profile" style="margin:0.5em;"><br>
 							<input class="button" type="submit" onclick="deactivate()" formaction="index.html" value="Deactivate Account" style="margin:0.5em;"><br>
