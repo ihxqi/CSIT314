@@ -48,9 +48,9 @@ class UserAccount
             $_SESSION['username'] = $user['username'];
 
             if ($_SESSION['user_profile'] == 'Cinema Manager') {
-                header('location: ../cinemetho/cinemaManager/cinemaManager.php');
+                header('location: ../Boundary/cinemaManager.php');
             } elseif ($_SESSION['user_profile'] == 'Cinema Owner') {
-                header('location: ../cinemetho/UserProfile/custProfile.php');
+                header('location: ../Boundary/fnbSalesReport.php');
             } elseif ($_SESSION['user_profile'] == 'User Admin') {
                 header('location: ../Boundary/userAdmin.php');
             } elseif ($_SESSION['user_profile'] == 'Customer') {
