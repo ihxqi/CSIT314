@@ -33,23 +33,6 @@ ini_set('display_errors', 1);
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 </head>
-<style>
-      tr.border-bottom td {
-        border-bottom: 1pt solid grey;
-      }
-
-      tr {
-  font-size: 12px;
-}
-table {
-  border-collapse: collapse; /* This ensures that adjacent cells share borders */
-  width: 100%; /* This makes the table fill the width of its container */
-}
-
-td, th {
-  padding: 10px; /* This adds 10 pixels of padding to all cells */
-}
-    </style>
 
 <body>
     <div class="white-box">
@@ -70,7 +53,7 @@ td, th {
         <br>
         <div class="container1" style="margin-top: -3%; margin-bottom: 3%; ">
             <div class="search">
-                <input type="text" class="searchTerm" id="search" placeholder="Search by user">
+                <input type="text" class="searchTerm" id="search" placeholder="Search by preference">
                 <button type="submit" class="searchButton">
                     <i class="fa fa-search"></i>
                 </button>
@@ -92,16 +75,16 @@ td, th {
                             <th>Password</th>
                             <th>Last Login</th>
                             <th>Status</th>
-                        </tr >
-                        <?php 
+                        </tr>
+                        <?php
                         foreach ($userAccount as $userAccount) {
-                            echo "<tr class='border-bottom'>";
+                            echo "<tr>";
                             echo "<td>" . $userAccount['username'] . "</td>";
                             echo "<td>" . $userAccount['email'] . "</td>";
                             echo "<td>" . $userAccount['password'] . "</td>";
                             echo "<td>" . $userAccount['login_date'] . "</td>";
                             echo "<td>" . $userAccount['user_status'] . "</td>";
-                            echo "<td><a href=\"updateUserAccount.php?user_id={$userAccount['user_id']}\" class='button'>Update</a> | <a href=\"suspendUserAccount.php?user_id={$userAccount['user_id']}\" onClick=\"return confirm('Are you sure you want to suspend?')\" class='button'>Suspend</a>| <a href=\"activateUserAccount.php?user_id={$userAccount['user_id']}\" onClick=\"return confirm('Are you sure you want to activate?')\" class='button'>Activate</a></td>";
+                            echo "<td><a href=\"updateUserAccount.php?user_id={$userAccount['user_id']}\">Update</a> | <a href=\"suspendUserAccount.php?user_id={$userAccount['user_id']}\" onClick=\"return confirm('Are you sure you want to suspend?')\">Suspend</a>| <a href=\"activateUserAccount.php?user_id={$userAccount['user_id']}\" onClick=\"return confirm('Are you sure you want to activate?')\">Activate</a></td>";
                             echo "</tr>";
                         }
                         ?>
