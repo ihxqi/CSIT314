@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 13, 2023 at 12:44 PM
+-- Generation Time: May 14, 2023 at 05:20 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -31,18 +31,17 @@ CREATE TABLE `booking` (
   `booking_id` int(11) NOT NULL,
   `userBooked` int(10) NOT NULL,
   `QRCode` varchar(100) NOT NULL,
-  `bookingDate` date NOT NULL,
-  `fnbTotal` int(10) NOT NULL,
-  `ticketTotal` int(10) NOT NULL
+  `bookingDate` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `booking`
 --
 
-INSERT INTO `booking` (`booking_id`, `userBooked`, `QRCode`, `bookingDate`, `fnbTotal`, `ticketTotal`) VALUES
-(1, 26, '../Images/Scantopay.png', '2023-05-01', 14, 150),
-(2, 26, '../Images/Scantopay.png', '2023-05-01', 30, 20);
+INSERT INTO `booking` (`booking_id`, `userBooked`, `QRCode`, `bookingDate`) VALUES
+(1, 26, '../Images/Scantopay.png', '2023-05-09'),
+(2, 26, '../Images/Scantopay.png', '2023-05-01'),
+(3, 26, '../Images/Scantopay.png', '2023-05-01');
 
 -- --------------------------------------------------------
 
@@ -72,7 +71,7 @@ INSERT INTO `cinema` (`RoomNo`, `Capacity`, `movieShowtime`, `roomStatus`) VALUE
 
 CREATE TABLE `combobooked` (
   `comboBooked_id` int(10) NOT NULL,
-  `booking_id` int(100) NOT NULL,
+  `booking_id` int(11) NOT NULL,
   `comboQuantity` int(10) NOT NULL DEFAULT 1,
   `combo_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -83,7 +82,8 @@ CREATE TABLE `combobooked` (
 
 INSERT INTO `combobooked` (`comboBooked_id`, `booking_id`, `comboQuantity`, `combo_id`) VALUES
 (1, 1, 1, 1),
-(2, 2, 1, 2);
+(2, 2, 1, 2),
+(3, 1, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -163,6 +163,28 @@ INSERT INTO `ticket` (`TicketID`, `TicketPrice`, `Ticket_cust_profile`) VALUES
 (2, 7, 'Student'),
 (3, 4, '	\r\nChild(Below 8yo)'),
 (4, 12, '	\r\nAdult');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ticketbooked`
+--
+
+CREATE TABLE `ticketbooked` (
+  `ticketBooked_id` int(10) NOT NULL,
+  `ticketQuantity` int(10) NOT NULL,
+  `ticket_id` int(10) NOT NULL,
+  `booking_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ticketbooked`
+--
+
+INSERT INTO `ticketbooked` (`ticketBooked_id`, `ticketQuantity`, `ticket_id`, `booking_id`) VALUES
+(1, 1, 2, 1),
+(2, 1, 2, 1),
+(3, 1, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -268,6 +290,14 @@ ALTER TABLE `ticket`
   ADD PRIMARY KEY (`TicketID`);
 
 --
+-- Indexes for table `ticketbooked`
+--
+ALTER TABLE `ticketbooked`
+  ADD PRIMARY KEY (`ticketBooked_id`),
+  ADD KEY `fk_ticket_id` (`ticket_id`),
+  ADD KEY `fk_ticketbooked_booking` (`booking_id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -287,7 +317,7 @@ ALTER TABLE `userprofile`
 -- AUTO_INCREMENT for table `booking`
 --
 ALTER TABLE `booking`
-  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `cinema`
@@ -299,7 +329,7 @@ ALTER TABLE `cinema`
 -- AUTO_INCREMENT for table `combobooked`
 --
 ALTER TABLE `combobooked`
-  MODIFY `comboBooked_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `comboBooked_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `fnb`
@@ -318,6 +348,12 @@ ALTER TABLE `movie`
 --
 ALTER TABLE `ticket`
   MODIFY `TicketID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `ticketbooked`
+--
+ALTER TABLE `ticketbooked`
+  MODIFY `ticketBooked_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -347,6 +383,13 @@ ALTER TABLE `booking`
 ALTER TABLE `combobooked`
   ADD CONSTRAINT `fk_booking_id` FOREIGN KEY (`booking_id`) REFERENCES `booking` (`booking_id`),
   ADD CONSTRAINT `fk_combo_id` FOREIGN KEY (`combo_id`) REFERENCES `fnb` (`ComboID`);
+
+--
+-- Constraints for table `ticketbooked`
+--
+ALTER TABLE `ticketbooked`
+  ADD CONSTRAINT `fk_ticket_id` FOREIGN KEY (`ticket_id`) REFERENCES `ticket` (`TicketID`),
+  ADD CONSTRAINT `fk_ticketbooked_booking` FOREIGN KEY (`booking_id`) REFERENCES `booking` (`booking_id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
