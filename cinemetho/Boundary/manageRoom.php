@@ -143,78 +143,7 @@
 				});
 			}					
 			
-			function addRoom() 
-			{
-				var table = document.getElementById('roomTable');
-				var row = table.insertRow(-1);
-
-				var cell1 = row.insertCell(0);
-				var cell2 = row.insertCell(1);
-				var cell3 = row.insertCell(2);
-				var cell4 = row.insertCell(3);
-				var cell5 = row.insertCell(4);
-				var cell6 = row.insertCell(5);
-				var cell7 = row.insertCell(6);
-
-				cell1.contentEditable = "true";
-				cell2.contentEditable = "true";
-				cell4.contentEditable = "true";
-				cell5.contentEditable = "true";
-
-				cell1.innerHTML = "New Room";
-				cell2.innerHTML = " ";
-				cell4.innerHTML = " ";
-				cell5.innerHTML = " ";
-				
-				// Create the select element and options for the seat type
-				var select = document.createElement('select');
-				select.innerHTML = '<option value="johnwick">John Wick</option><option value="aitw">Alice In The Wonderland</option>';
-				select.className = 'editable';
-
-				// Append the select element to the third cell
-				cell3.appendChild(select);
-			}
-			
-			function setRowEditable(row, editable) 
-			{
-				for (var i = 0; i < row.cells.length; i++) 
-				{
-					var cell = row.cells[i];
-					if (cell.querySelector('select')) 
-					{
-						cell.querySelector('select').disabled = !editable;
-					} 
-					else if (i !== row.cells.length - 1) 
-					{
-						cell.contentEditable = editable ? "true" : "false";
-						if (!editable)
-						{
-							cell.style.backgroundColor = "grey";							
-						}
-						else
-						{
-							cell.style.backgroundColor = "";
-						}
-					}
-				}
-			}
-			
-			function updateRoom() 
-			{
-				var table = document.getElementById('roomTable');
-				for (var i = 1, row; row = table.rows[i]; i++) 
-				{
-					var room = row.cells[0].innerText;
-					var capacities = row.cells[1].innerText;
-					var movieDropdown = row.cells[2].querySelector('select');
-					var movie = movieDropdown ? movieDropdown.value : "Not Set";
-					var showtime = row.cells[4].innerText;
-					var showdate = row.cells[5].innerText;
-					console.log('Room No.: ' + room + ', Capacities: ' + capacities + ', Movie: ' + movie + ', ShowTime: ' + showtime + ', ShowDate: ' + showdate);
-				}
-				alert("Update succuessfully!");
-			}
-			
+									
 			function logout() 
 			{
 				// Code to handle logout
