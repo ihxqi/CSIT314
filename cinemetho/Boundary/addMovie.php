@@ -22,11 +22,11 @@
                 </div>
                 <div class="topnav">
                 <a href="#" onclick="logout()">LOG OUT</a>
-                        <a href="../Boundary/custProfile.php">TICKETS</a> <!-- need change -->
-                        <a href="../Boundary/custProfile.php">CINEMA ROOMS</a> <!-- need change -->
+                        <a href="../Boundary/manageTicket.php">TICKETS</a> <!-- need change -->
+                        <a href="../Boundary/manageRoom.php">CINEMA ROOMS</a> <!-- need change -->
                         <a href="../Boundary/manageMovies.php">MOVIES</a>
                         <a href="../Boundary/manageF&b.php">F&B</a>
-                        <a class="active" href="cinemaManager.html">HOME</a> <!-- need change -->
+                        <a class="active" href="cinemaManager.php">HOME</a> <!-- need change -->
                 </div>
             </div>
         </section>
