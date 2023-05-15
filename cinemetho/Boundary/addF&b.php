@@ -11,7 +11,7 @@ $e4 = "";
 
 
 
-if (isset($_POST["assf&b"])) {
+if (isset($_POST["addf&b"])) {
     validateUsername($e1);
     validatePassword($e2);
     validateEmail($e3);

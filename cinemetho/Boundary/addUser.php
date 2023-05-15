@@ -65,7 +65,7 @@ function addUserAccount($username, $password, $email, $user_profile)
     if ($results == true) {
         echo "Signup SUCCESSFUL";
     } else {
-        echo "SignUP Failed";
+        echo "Sign Up Failed";
         $e1 = "User Name taken";
     }
 }
@@ -117,10 +117,7 @@ function addUserAccount($username, $password, $email, $user_profile)
 		
 			<label for="user_profile">User profile:</label>
 			<select name="user_profile" id="user_profile" >
-			<option value="User Admin">User Admin</option>
-			<option value="Cinema Owner">Cinema Owner</option>
-			<option value="Cinema Manager">Cinema Manager</option>
-			<option value="Customer">Customer</option>			
+			<option value="User Admin">User Admin</option>					
 			</select>
 			<br><br>
 			<input type="text" name="username" class="input-field" placeholder="Username" required >

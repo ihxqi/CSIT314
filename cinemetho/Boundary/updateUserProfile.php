@@ -1,18 +1,12 @@
 <?php
 // including the database connection file
 include("../config.php");
-include_once("../Controller/getUserProfileByIDCtl.php");
+include_once("../Controller/getOneUserProfile.php");
 
 //getting id from url
 $id=isset($_GET['userProfile_ID']) ? $_GET['userProfile_ID'] : die('ERROR: Record ID not found.');
 //selecting data associated with this particular id
-$getProfileByIDCtl = new getProfileByIDCtl();
-$userAccountData = $getProfileByIDCtl->getUserAccountByID($id);
-
-if(!$userAccountData) {
-    die('ERROR: Record not found.');
-}
-
+$getOneUserProfile = new getOneUserProfile($_GET['userProfile_ID']);
 ?>
 
 <!DOCTYPE html>
@@ -43,18 +37,14 @@ if(!$userAccountData) {
             <div class="panel panel-success panel-size-custom">
                 <div class="panel-heading"><h3>Update User Profile</h3></div>
                   <div class="panel-body">
-                    <form action="updateUserAccount.php" method="post">
+                    <form action="updateUserProfileDatabase.php" method="post" id="updateUserProfile">
                         <div class="form group">
-                            <input type="hidden" class="form-control" id="user_id" name="user_id" value=<?php echo $_GET['user_id'];?>>
+                            <input type="hidden" class="form-control" id="user_id" name="user_id" value=<?php echo $_GET['userProfile_ID'];?>>
                             <label for="user_profile">User Profile:</label>
-                            <input type="text" class="form-control" id="user_profile" name="user_profile" value="<?php echo $user_profile;?>">
+                            <input type="text" class="form-control" id="user_profile" name="user_profile" value="<?php echo $_GET['upName'];?>">
                         </div>
                         <br>
-                        <div class="form group">
-                            <button type="submit" class="btn btn-success btn-round" id="submit" name="update">
-                            <i class="now-ui-icons ui-1_check"></i> Update Account
-                            </button>
-                        </div>
+                        <input type="submit" class="btn btn-success btn-round" id="submit" value="update">
                     </form>
                 </div>
             </div>
