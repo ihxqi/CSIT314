@@ -1,9 +1,10 @@
 <?php
-include_once("../Controller/fnbSalesCtl.php");
+include_once("../Controller/generateDailyFnBCtl.php");
+include_once("../Controller/generateWeeklyFnBCtl.php");
+include_once("../Controller/generateMonthlyFnBCtl.php");
+
 
 // Create an object of the DisplayMovierCtl class
-$fnbSalesObj = new getFnBSalesCtl();
-
 $startDate = date('Y-m-d');
 $endDate = date('Y-m-d');
 
@@ -24,9 +25,26 @@ if (isset($_POST['start_date']) && isset($_POST['end_date'])) {
     $endDate = $_POST['end_date'];
 }
 
-// Call the getFnBSales() function with the start date and end date
-$fnbSales = $fnbSalesObj->getFnBSales($startDate, $endDate);
+$reportType = isset($_POST['report_type']) ? $_POST['report_type'] : 'daily';
 
+switch ($reportType) {
+    case 'daily':
+        $fnbSalesObj = new generateDailyFnBCtl();
+        $fnbSales = $fnbSalesObj->getFnBSalesDaily($startDate, $endDate);
+        break;
+    case 'weekly':
+        $fnbSalesObj = new generateWeeklyFnBCtl();
+        $fnbSales = $fnbSalesObj->getFnBSalesWeekly($startDate, $endDate);
+        break;
+    case 'monthly':
+        $fnbSalesObj = new generateMonthlyFnBCtl();
+        $fnbSales = $fnbSalesObj->getFnBSalesMonthly($startDate, $endDate);
+        break;
+    default:
+        $fnbSalesObj = new getFnBSalesCtl();
+        $fnbSales = $fnbSalesObj->getFnBSales($startDate, $endDate);
+        break;
+}
 ?>
 
 
@@ -44,8 +62,6 @@ $fnbSales = $fnbSalesObj->getFnBSales($startDate, $endDate);
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,300;0,400;0,800;1,100;1,400&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-
-
 </head>
 
 <body>
@@ -56,9 +72,9 @@ $fnbSales = $fnbSalesObj->getFnBSales($startDate, $endDate);
                     <img src="../Images/cinemethologo.jpeg">
                 </div>
                 <div class="topnav">
-                    <a href="index.html" onclick="logout()">LOG OUT</a>
-                    <a href="../Boundary/ticketSalesReport.php">TICKETS</a>
-                    <a href="../Boundary/fnbSalesReport.php">F&B</a>
+                    <a href="index.php" onclick="logout()">LOG OUT</a>
+                    <a href="../Boundary/manageTicketReport.php">TICKETS</a>
+                    <a href="../Boundary/manageFnbReport.php">F&B</a>
                 </div>
             </div>
         </section>
@@ -169,8 +185,6 @@ $fnbSales = $fnbSalesObj->getFnBSales($startDate, $endDate);
                 endDate = monthEndDate;
             }
 
-
-
             // Send an HTTP request to the server to generate the report
             $.ajax({
                 method: 'POST',
@@ -187,6 +201,27 @@ $fnbSales = $fnbSalesObj->getFnBSales($startDate, $endDate);
                 }
             });
         });
+
+        function getReportUrl(reportType) {
+            var url = '';
+
+            switch (reportType) {
+                case 'daily':
+                    url = '../Controller/generateDailyCtl.php';
+                    break;
+                case 'weekly':
+                    url = '../Controller/generateWeeklyCtl.php';
+                    break;
+                case 'monthly':
+                    url = '../Controller/generateMonthlyCtl.php';
+                    break;
+                default:
+                    break;
+            }
+
+            return url;
+        }
+
     });
 </script>
 

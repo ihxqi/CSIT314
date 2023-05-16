@@ -1,9 +1,10 @@
 <?php
-include_once("../Controller/ticketSalesCtl.php");
+include_once("../Controller/generateDailyTicketCtl.php");
+include_once("../Controller/generateWeeklyTicketCtl.php");
+include_once("../Controller/generateMonthlyTicketCtl.php");
+
 
 // Create an object of the DisplayMovierCtl class
-$ticketSalesObj = new getTicketSalesCtl();
-
 $startDate = date('Y-m-d');
 $endDate = date('Y-m-d');
 
@@ -24,11 +25,27 @@ if (isset($_POST['start_date']) && isset($_POST['end_date'])) {
     $endDate = $_POST['end_date'];
 }
 
-// Call the getticketSales() function with the start date and end date
-$ticketSales = $ticketSalesObj->getTicketSales($startDate, $endDate);
+$reportType = isset($_POST['report_type']) ? $_POST['report_type'] : 'daily';
 
+switch ($reportType) {
+    case 'daily':
+        $ticketSalesObj = new generateDailyTicketCtl();
+        $ticketSales = $ticketSalesObj->getTicketSalesDaily($startDate, $endDate);
+        break;
+    case 'weekly':
+        $ticketSalesObj = new generateWeeklyTicketCtl();
+        $ticketSales = $ticketSalesObj->getTicketSalesWeekly($startDate, $endDate);
+        break;
+    case 'monthly':
+        $ticketSalesObj = new generateMonthlyTicketCtl();
+        $ticketSales = $ticketSalesObj->getTicketSalesMonthly($startDate, $endDate);
+        break;
+    default:
+        $ticketSalesObj = new getTicketSalesCtl();
+        $ticketSales = $ticketSalesObj->getTicketSales($startDate, $endDate);
+        break;
+}
 ?>
-
 
 <!DOCTYPE html>
 <html>
@@ -56,9 +73,9 @@ $ticketSales = $ticketSalesObj->getTicketSales($startDate, $endDate);
                     <img src="../Images/cinemethologo.jpeg">
                 </div>
                 <div class="topnav">
-                    <a href="index.html" onclick="logout()">LOG OUT</a>
-                    <a href="../Boundary/ticketSalesReport.php">TICKETS</a>
-                    <a href="../Boundary/fnbSalesReport.php">F&B</a>
+                    <a href="index.php" onclick="logout()">LOG OUT</a>
+                    <a href="../Boundary/manageTicketReport.php">TICKETS</a>
+                    <a href="../Boundary/manageFnbReport.php">F&B</a>
                 </div>
             </div>
         </section>
