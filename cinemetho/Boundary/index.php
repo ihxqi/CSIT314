@@ -13,7 +13,7 @@ if (isset($_POST["login"])) {
     validateUserName($e1);
     validatePassword($e2);
     if (empty($e1) && empty($e2)) {
-        loginCustomerAccount($_POST["username"], $_POST["password"]);
+        loginAccount($_POST["username"], $_POST["password"]);
     }
 }
 
