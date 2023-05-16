@@ -12,14 +12,14 @@ class UserAccount
         $db = new DB;
     }
 
-    public function RegisterCustomerAccount($username, $email, $password, $cust_profile)
+    public function RegisterCustomerAccount($username, $email, $password)
     {
         $conn = mysqli_connect(HOST, USER, PASS, DB);
         $password = md5($password);
         $checkuser = mysqli_query($conn, "SELECT user_id FROM user WHERE email='$email'");
         $result = mysqli_num_rows($checkuser);
         if ($result == 0) {
-            $register = mysqli_query($conn, "INSERT INTO user (username, email, password, cust_profile) VALUES ('$username','$email','$password','$cust_profile')") or die(mysqli_error($conn));
+            $register = mysqli_query($conn, "INSERT INTO user (username, email, password) VALUES ('$username','$email','$password')") or die(mysqli_error($conn));
             return $register;
         } else {
             return false;
@@ -58,11 +58,37 @@ class UserAccount
             } else {
                 return $user;
             }
+            return true;
         } else {
             return false;
         }
     }
-
+    function updateLastLoginDate($username)
+    {
+        $conn = mysqli_connect(HOST, USER, PASS, DB);
+        if (!$conn) {
+            echo "Database connection failed: " . mysqli_connect_error();
+            return;
+        }
+        $sql = "UPDATE `user` SET `login_date` = CURDATE() WHERE `username` = ?";
+        $stmt = $conn->prepare($sql);
+        if (!$stmt) {
+            echo "Prepare statement failed: " . $conn->error;
+            $conn->close();
+            return;
+        }
+        $stmt->bind_param("s", $username);
+        if (!$stmt->execute()) {
+            echo "Execute statement failed: " . $stmt->error;
+            $stmt->close();
+            $conn->close();
+            return false;
+        }
+    
+        $stmt->close();
+        $conn->close();
+        return true;
+    }
     public function getUserAccount()
     {
         $conn = mysqli_connect(HOST, USER, PASS, DB);
@@ -177,7 +203,7 @@ class UserAccount
         }
     }
 
-    
+
     public function getOneUserProfile($userProfile_ID)
     {
         $conn = mysqli_connect(HOST, USER, PASS, DB);
@@ -186,7 +212,7 @@ class UserAccount
         if (!$result) {
             die('Error executing query: ' . mysqli_error($conn));
         }
-        $userProfiles = array(); 
+        $userProfiles = array();
         while ($row = mysqli_fetch_assoc($result)) {
             $userProfiles[] = $row;
         }

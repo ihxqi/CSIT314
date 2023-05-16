@@ -4,10 +4,10 @@ include_once("../Entity/UserAccountEntity.php");
 class UserAccountRegisterCtl
 {
 
-    public function RegisterCustomerAccount($username, $password, $email, $cust_profile)
+    public function RegisterCustomerAccount($username, $password, $email)
     {
         $rc = new UserAccount();
-        $results = $rc->RegisterCustomerAccount($username, $password, $email, $cust_profile);
+        $results = $rc->RegisterCustomerAccount($username, $password, $email);
         return $results;
     }
 }

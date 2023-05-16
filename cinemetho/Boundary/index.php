@@ -1,13 +1,14 @@
 <?php
 include_once("../Controller/UserAccountLoginCtl.php");
 include_once("../Controller/UserAccountRegisterCtl.php");
+include_once("../Controller/updateLastLoginCtl.php");
+
 
 $username = "";
 $password = "";
 $e1 = "";
 $e2 = "";
 $e3 = "";
-$e4 = "";
 
 if (isset($_POST["login"])) {
     validateUserName($e1);
@@ -21,9 +22,8 @@ if (isset($_POST["register"])) {
     validateUsername($e1);
     validatePassword($e2);
     validateEmail($e3);
-    validatecustProfile($e4);
-    if (empty($e1) && empty($e2) && empty($e3) && empty($e4)) {
-        RegisterCustomerAccount($_POST["username"], $_POST["email"], $_POST["password"],$_POST["cust_profile"]);
+    if (empty($e1) && empty($e2) && empty($e3)) {
+        RegisterCustomerAccount($_POST["username"], $_POST["email"], $_POST["password"]);
     }
 }
 
@@ -55,14 +55,6 @@ function validateEmail(&$e3)
     }
 }
 
-function validatecustProfile(&$e4)
-{
-    global $custProfile;
-    $custProfile = trim($_POST["cust_profile"]);
-    if (empty($custProfile)) {
-        $e5 = "Please select your profile";
-    }
-}
 
 function loginAccount($username, $password)
 {
@@ -70,18 +62,23 @@ function loginAccount($username, $password)
     $cLGC = new UserAccountLoginCtl();
     $results = $cLGC->loginAccount($username, $password);
     if ($results == true) {
-        echo "Login Successful";
+        $llg = new updateLastLoginCtl();
+        $updateResult = $llg->updateLastLoginDate($username);
+        if ($updateResult == true) {
+            echo "Login Successful";
+        } else {
+            echo "Login Failed. Failed to update last login date.";
+        }
     } else {
         echo "Login Failed";
         $e1 = "Please try again";
     }
 }
-
-function RegisterCustomerAccount($username, $password, $email, $custProfile)
+function RegisterCustomerAccount($username, $password, $email)
 {
     global $e1;
     $cRC = new UserAccountRegisterCtl();
-    $results = $cRC->RegisterCustomerAccount($username, $password, $email, $custProfile);
+    $results = $cRC->RegisterCustomerAccount($username, $password, $email);
     if ($results == true) {
         echo "Signup SUCCESSFUL";
     } else {
@@ -236,13 +233,6 @@ function RegisterCustomerAccount($username, $password, $email, $custProfile)
          ?>
 		
 		<form method="post" id="register" class="user-input" onsubmit="return checkForm(this);">
-			<label for="cust_profile">Customer profile:</label>
-			<select name="cust_profile" id="cust_profile">
-			<option value="Adult">Adult</option>
-			<option value="Child">Child(Below 8yo)</option>
-			<option value="Senior">Senior Citizen(Above 65yo)</option>
-			<option value="Student">Student</option>			
-			</select>
 			<input type="text" name="username" class="input-field" placeholder="Username" required>
 			<span>
      		  <?php echo $e1 ?>
