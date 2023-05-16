@@ -37,10 +37,10 @@ class Sales
     {
         
         $conn = mysqli_connect(HOST, USER, PASS, DB);
-        $query = "SELECT DATE(bookingDate) AS bookingDate, CONCAT('$', FORMAT(SUM(tb.ticketQuantity * t.TicketPrice), 1)) AS totalSale 
+        $query = "SELECT DATE(bookingDate) AS bookingDate, CONCAT('$', FORMAT(SUM(tb.ticketQuantity * t.ticket_price), 1)) AS totalSale 
         FROM booking b 
         LEFT JOIN ticketbooked tb ON tb.booking_id = b.booking_id 
-        LEFT JOIN ticket t ON t.TicketID = tb.ticket_id 
+        LEFT JOIN ticket t ON t.ticket_id = tb.ticket_id 
         WHERE DATE(bookingDate) BETWEEN '$startDate' AND '$endDate'
         GROUP BY DATE(bookingDate)
         ";
