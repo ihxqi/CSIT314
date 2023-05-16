@@ -41,10 +41,37 @@ class Movie {
         return $movie;
     }
 
+    function getMovie()
+    {
+        $conn = mysqli_connect(HOST, USER, PASS, DB);
+        $query = "SELECT * FROM movie ORDER BY movieTitle ASC";
+        $result = mysqli_query($conn, $query);
+        $movies = array(); 
+        if ($result) {
+            while ($res = mysqli_fetch_array($result)) {
+                $movie = array(); 
+                $movie['movie_id'] = $res['movie_id'];
+                $movie['movieTitle'] = $res['movieTitle'];
+                $movie['movieSynopsis'] = $res['movieSynopsis'];
+                $movie['movieGenre'] = $res['movieGenre'];
+                $movie['movieLanguage'] = $res['movieLanguage'];
+                $movie['movieDuration'] = $res['movieDuration'];
+                $movie['mpaRating'] = $res['mpaRating'];
+                $movie['movieImage'] = $res['movieImage'];
+                $movie['movieCast'] = $res['movieCast'];
+                $movie['movieDirector'] = $res['movieDirector'];
+                $movie['movieStatus'] = $res['movieStatus'];
 
-    function addMovie($MovieTitle, $MovieSynopsis, $MovieGenre, $MovieLanguage, $MovieDuration, $MovieDate, $MPARating, $MovieImage, $MovieCast, $MovieDirector){
+                $movies[] = $movie; 
+            }
+        }
+        return $movies;
+    }
+
+
+    function addMovie($movieTitle, $movieSynopsis, $movieGenre, $movieLanguage, $movieDuration, $mpaRating, $movieImage, $movieCast, $movieDirector){
         global $connection;
-        $query = "INSERT INTO movie (MovieTitle, MovieSynopsis, MovieGenre, MovieLanguage, MovieDuration, MovieDate, MPARating, MovieImage, MovieCast, MovieDirector) VALUES ('$MovieTitle', '$MovieSynopsis', '$MovieGenre', '$MovieLanguage', '$MovieDuration', '$MovieDate', '$MPARating', '$MovieImage', '$MovieCast', '$MovieDirector')";
+        $query = "INSERT INTO movie (movieTitle, movieSynopsis, movieGenre, movieLanguage, movieDuration, mpaRating, movieImage, movieCast, movieDirector) VALUES ($movieTitle, $movieSynopsis, $movieGenre, $movieLanguage, $movieDuration, $mpaRating, $movieImage, $movieCast, $movieDirector)";
         $exec = mysqli_query($connection, $query);
         if($exec){
           return true;
@@ -53,9 +80,9 @@ class Movie {
         }
       }
 
-      function updateMovie($MovieID, $MovieTitle, $MovieSynopsis, $MovieGenre, $MovieLanguage, $MovieDuration, $MovieDate, $MPARating, $MovieImage, $MovieCast, $MovieDirector){
+      function updateMovie($movie_id,$movieTitle, $movieSynopsis, $movieGenre, $movieLanguage, $movieDuration, $mpaRating, $movieImage, $movieCast, $movieDirector){
         global $connection;
-        $query = "UPDATE movie SET MovieTitle='$MovieTitle', MovieSynopsis='$MovieSynopsis', MovieGenre='$MovieGenre', MovieLanguage='$MovieLanguage', MovieDuration='$MovieDuration', MovieDate='$MovieDate', MPARating='$MPARating', MovieImage='$MovieImage', MovieCast='$MovieCast', MovieDirector='$MovieDirector' WHERE MovieID='$MovieID'";
+        $query = "UPDATE movie SET movieTitle='$movieTitle', movieSynopsis='$movieSynopsis', movieGenre='$movieGenre', movieLanguage='$movieLanguage', movieDuration='$movieDuration', mpaRating='$mpaRating', movieImage='$movieImage', movieCast='$movieCast', movieDirector='$movieDirector' WHERE movie_id='$movie_id'";
         $exec = mysqli_query($connection, $query);
         if($exec){
           return true;

@@ -1,10 +1,25 @@
+<?php
+include_once("../Controller/getCinemaRoomCtl.php");
+
+$roomNo = "";
+$roomCapacity = "";
+$movieShowtime = "";
+$movieShowDate = "";
+$movie_id = "";
+$roomStatus = "";
+
+$cinemaRoomCtl = new getCinemaRoomCtl();
+$cinemaRooms = $cinemaRoomCtl->getCinemaRoom();
+?>
+
+
 <!DOCTYPE html>
 <html>
     <head>
 	<title>Cinema Manager - Cinema Rooms</title>
         <meta charset = "utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">      
-        <link rel ="stylesheet" href = "cm_style.css">
+        <link rel ="stylesheet" href = "../cm_style.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -20,7 +35,7 @@
 			<section>
 				<div class="container1">
 					<div class="logo">
-						<img src="Images/cinemethologo.jpeg">
+						<img src="../Images/cinemethologo.jpeg">
 					</div>
 		
 					<div class="topnav">
@@ -56,22 +71,23 @@
 			<tr>
 				<th>Room No.</th>
 				<th>Capacities</th>				
-				<th>Movie</th>
 				<th>ShowTime</th>
 				<th>ShowDate</th>
+				<th>Movie ID</th>
 				<th>Status</th>
 			</tr>
 			<tr>
             <?php 
-                foreach ($userAccount as $userAccount) { 
-                echo "<td>" . $userAccount['room_no'] . "</td>";
-                echo "<td>" . $userAccount['room_capacity'] . "</td>";
-                echo "<td>" . $userAccount['room_movie'] . "</td>";
-                echo "<td>" . $userAccount['room_showtime'] . "</td>";
-                echo "<td>" . $userAccount['room_showdate'] . "</td>";
-                echo "<td>" . $userAccount['room_status'] . "</td>";
-                echo "<tr class='border-bottom'>";				
-                echo "<td><a href=\"updateRoom.php?room_no={$userAccount['room_no']}\" class='button'>Update</a> | <a href=\"suspendRoom.php?room_no={$userAccount['room_no']}\" onClick=\"return confirm('Are you sure you want to suspend?')\" class='button'>Suspend</a>| <a href=\"activateRoom.php?room_no={$userAccount['room_no']}\" onClick=\"return confirm('Are you sure you want to activate?')\" class='button'>Activate</a></td>";
+                foreach ($cinemaRooms as $cinemaRoom) { 
+					echo "<td>" . $cinemaRoom['roomNo'] . "</td>";
+					echo "<td>" . $cinemaRoom['roomCapacity'] . "</td>";
+					echo "<td>" . $cinemaRoom['movieShowtime'] . "</td>";
+					echo "<td>" . $cinemaRoom['movieShowDate'] . "</td>";
+					echo "<td>" . $cinemaRoom['movie_id'] . "</td>";
+					echo "<td>" . $cinemaRoom['roomStatus'] . "</td>";
+                echo "<td><a href=\"updateRoom.php?room_no={$cinemaRoom['roomNo']}\" class='button'>Update</a> | 
+				<a href=\"suspendRoom.php?room_no={$cinemaRoom['roomNo']}\" onClick=\"return confirm('Are you sure you want to suspend?')\" class='button'>Suspend</a>| 
+				<a href=\"activateRoom.php?room_no={$cinemaRoom['roomNo']}\" onClick=\"return confirm('Are you sure you want to activate?')\" class='button'>Activate</a></td>";
                 echo "</tr>";
                 }
             ?>				
@@ -104,45 +120,6 @@
 				});
 			});
 				
-			var movie = document.querySelectorAll(".editable");
-
-			for(var i = 0; i < movie.length; i++)
-			{
-				movie[i].addEventListener("mousedown", function(e)
-				{
-					if (!this.querySelector('select'))
-					{
-						var select = document.createElement('select');
-						var options = ['John Wick', 'Alice in the wonderland']; 
-					}
-				
-					// Create options and append to select
-					for(var j = 0; j < options.length; j++)
-					{
-						var option = document.createElement('option');
-						option.value = options[j];
-						option.text = options[j];
-						select.appendChild(option);
-					}
-				
-					// When an option is selected, replace the select with the chosen option
-					select.addEventListener('change', function(e)
-					{
-						this.parentElement.innerText = this.value;
-					});
-					
-					select.addEventListener('click', function(e)
-					{
-						e.stopPropagation();
-					});
-				
-					// Replace cell content with select
-					this.innerText = '';
-					this.appendChild(select);										
-					select.focus();				
-				});
-			}					
-			
 									
 			function logout() 
 			{

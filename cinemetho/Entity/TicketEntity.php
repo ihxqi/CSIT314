@@ -22,29 +22,24 @@ class Ticket {
         }
       }
       
-      // Read Ticket
-      function displayTicket() {
-        global $connection;
-        $query = "SELECT * FROM ticket";
-        $result = mysqli_query($connection, $query);
-        if(mysqli_num_rows($result) > 0) {
-          echo '<table border="1">
-                  <tr>
-                      <th>TicketID</th>
-                      <th>TicketPrice</th>
-                      <th>Ticket_cust_profile</th>
-                  </tr>';
-          while($row = mysqli_fetch_assoc($result)) {
-            echo "<tr>
-                    <td>".$row['TicketID']."</td>
-                    <td>".$row['TicketPrice']."</td>
-                    <td>".$row['Ticket_cust_profile']."</td>
-                    
-                  </tr>";
+      // Read Ticket function getCinemaRoom()
+      function getTicket()
+      { {
+          $conn = mysqli_connect(HOST, USER, PASS, DB);
+          $query = "SELECT * FROM ticket ORDER BY ticket_id ASC";
+          $result = mysqli_query($conn, $query);
+          $tickets = array(); // Changed variable name from $fnbCombo to $fnbCombos
+          if ($result) {
+            while ($res = mysqli_fetch_array($result)) {
+              $ticket = array(); // Changed variable name from $fnbCombo to $fnbCombo
+              $ticket['ticket_id'] = $res['ticket_id'];
+              $ticket['ticket_price'] = $res['ticket_price'];
+              $ticket['ticket_cust_profile'] = $res['ticket_cust_profile'];
+              $ticket['ticket_status'] = $res['ticket_status'];
+              $tickets[] = $ticket; // Changed from $fnbCombo[] to $fnbCombos[]
+            }
           }
-          echo "</table>";
-        } else {
-          echo "No tickets found.";
+          return $tickets;
         }
       }
       
