@@ -1,6 +1,6 @@
 Login for:
-systemAdmin
-Username: systemAdmin
+userAdmin
+Username: userAdmin
 Password: staff
 
 cinemaOwner
