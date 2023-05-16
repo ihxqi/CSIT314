@@ -64,11 +64,11 @@ function validatecustProfile(&$e4)
     }
 }
 
-function loginCustomerAccount($username, $password)
+function loginAccount($username, $password)
 {
     global $e1;
     $cLGC = new UserAccountLoginCtl();
-    $results = $cLGC->loginCustomerAccount($username, $password);
+    $results = $cLGC->loginAccount($username, $password);
     if ($results == true) {
         echo "Login Successful";
     } else {

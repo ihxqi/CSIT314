@@ -5,7 +5,7 @@ include_once("../Controller/updateUserAccountCtl.php");
 include_once("../Controller/suspendUserAccountCtl.php");
 
 
-$userAccountCtl = new getUserAccount();
+$userAccountCtl = new getUserAccountCtl();
 $userAccount = $userAccountCtl->getUserAccount();
 
 //$userAccountCtl = new suspendUserProfile($user_profile);
@@ -53,13 +53,13 @@ ini_set('display_errors', 1);
         <br>
         <div class="container1" style="margin-top: -3%; margin-bottom: 3%; ">
             <div class="search">
-                <input type="text" class="searchTerm" id="search" placeholder="Search by Username">
+                <input type="text" class="searchTerm" id="search" placeholder="Search by preference">
                 <button type="submit" class="searchButton">
                     <i class="fa fa-search"></i>
                 </button>
             </div>
             <div class="topnav" style="margin-top: 1%;">
-                <a onclick="location.href='addUser.php';" style="margin-left: 5%;">
+                <a onclick="location.href='addUserAccount.php';" style="margin-left: 5%;">
                     <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Add User
                 </a>
 
@@ -74,7 +74,6 @@ ini_set('display_errors', 1);
                             <th>Email</th>
                             <th>Password</th>
                             <th>Last Login</th>
-                            <th>User Profile</th>
                             <th>Status</th>
                         </tr>
                         <?php
@@ -84,7 +83,6 @@ ini_set('display_errors', 1);
                             echo "<td>" . $userAccount['email'] . "</td>";
                             echo "<td>" . $userAccount['password'] . "</td>";
                             echo "<td>" . $userAccount['login_date'] . "</td>";
-                            echo "<td>" . $userAccount['user_profile'] . "</td>";
                             echo "<td>" . $userAccount['user_status'] . "</td>";
                             echo "<td><a href=\"updateUserAccount.php?user_id={$userAccount['user_id']}\">Update</a> | <a href=\"suspendUserAccount.php?user_id={$userAccount['user_id']}\" onClick=\"return confirm('Are you sure you want to suspend?')\">Suspend</a>| <a href=\"activateUserAccount.php?user_id={$userAccount['user_id']}\" onClick=\"return confirm('Are you sure you want to activate?')\">Activate</a></td>";
                             echo "</tr>";

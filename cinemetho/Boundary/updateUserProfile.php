@@ -1,13 +1,15 @@
 <?php
 // including the database connection file
-include("../config.php");
-include_once("../Controller/getOneUserProfile.php");
+include_once("../Controller/getOneUserProfileCtl.php");
 
 //getting id from url
 $id=isset($_GET['userProfile_ID']) ? $_GET['userProfile_ID'] : die('ERROR: Record ID not found.');
 //selecting data associated with this particular id
-$getOneUserProfile = new getOneUserProfile($_GET['userProfile_ID']);
+$getOneUserProfile = new getOneUserProfileCtl($id);
+
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -37,7 +39,7 @@ $getOneUserProfile = new getOneUserProfile($_GET['userProfile_ID']);
             <div class="panel panel-success panel-size-custom">
                 <div class="panel-heading"><h3>Update User Profile</h3></div>
                   <div class="panel-body">
-                    <form action="updateUserProfileDatabase.php" method="post" id="updateUserProfile">
+                    <form action="updateUserProfileByID.php" method="post" id="updateUserProfile">
                         <div class="form group">
                             <input type="hidden" class="form-control" id="user_id" name="user_id" value=<?php echo $_GET['userProfile_ID'];?>>
                             <label for="user_profile">User Profile:</label>

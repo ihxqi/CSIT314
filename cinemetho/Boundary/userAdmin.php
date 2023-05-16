@@ -5,7 +5,6 @@ include_once("../Controller/suspendUserProfileCtl.php");
 $userProfileCtl = new getUserProfiles();
 $userProfiles = $userProfileCtl->getUserProfiles();
 
-
 //$userAccountCtl = new suspendUserProfile($user_profile);
 //$userProfiles = $userAccountCtl->suspendUserProfile($user_profile);
 
@@ -65,16 +64,16 @@ ini_set('display_errors', 1);
 
         </tr>
         <?php foreach ($userProfiles as $userprofile) { ?>
-    <tr>
-        <td contenteditable="true" id="profileNameTable" class="CMtable"><?php echo is_array($userprofile) ? $userprofile['upName'] : $userprofile; ?></td>
-        <td contenteditable="false" id="profileStatusTable" class="CMtable"><?php echo is_array($userprofile) ? $userprofile['profile_status'] : $userprofile; ?></td>
-        <td>
-            <a href="updateUserProfile.php?userProfile_ID=<?php echo $userprofile['userProfile_ID']; ?>&upName=<?php echo $userprofile['upName'];?>">Update</a> | 
-            <a href="suspendUserProfile.php?userProfile_ID=<?php echo $userprofile['userProfile_ID']; ?>" onClick="return confirm('Are you sure you want to suspend?')">Suspend</a> | 
-            <a href="activateUserProfile.php?userProfile_ID=<?php echo $userprofile['userProfile_ID']; ?>" onClick="return confirm('Are you sure you want to activate?')">Activate</a>
-        </td>
-    </tr>
-<?php } ?>
+            <tr>
+                <td contenteditable="true" id="profileTable" class="CMtable"><?php echo is_array($userprofile) ? $userprofile['upName'] : $userprofile; ?></td>
+                <td contenteditable="true" id="profileTable" class="CMtable"><?php echo is_array($userprofile) ? $userprofile['profile_status'] : $userprofile; ?></td>
+                <td>
+                    <a href="updateUserProfile.php?userProfile_ID=<?php echo $userprofile['userProfile_ID']; ?>&upName=<?php echo $userprofile['upName']; ?>">Update</a> |
+                    <a href="suspendUserProfile.php?userProfile_ID=<?php echo $userprofile['userProfile_ID']; ?>" onClick="return confirm('Are you sure you want to suspend?')">Suspend</a> |
+                    <a href="activateUserProfile.php?userProfile_ID=<?php echo $userprofile['userProfile_ID']; ?>" onClick="return confirm('Are you sure you want to activate?')">Activate</a>
+                </td>
+            </tr>
+        <?php } ?>
     </table>
     <br>
 </div>
@@ -113,6 +112,26 @@ ini_set('display_errors', 1);
             }
         }
     });
+
+
+
+    function setRowEditable(row, editable) {
+        for (var i = 0; i < row.cells.length; i++) {
+            if (i !== row.cells.length - 1) {
+                row.cells[i].contentEditable = editable ? "true" : "false";
+            }
+        }
+    }
+
+    function updateProfile() {
+        var table = document.getElementById('profileTable');
+        for (var i = 1, row; row = table.rows[i]; i++) {
+            var profile = row.cells[0].innerText;
+            console.log('Profile: ' + profile);
+        }
+
+        alert("You have successfully updated!");
+    }
 
     function logout() {
         console.log("Logged out");
