@@ -130,7 +130,7 @@ $fnbSales = $fnbSalesObj->getFnBSales($startDate, $endDate);
 
             // Check if the report type is "daily" and the start and end dates are the same
             if (reportType == 'daily' && startDate != endDate) {
-                alert("Start date cannot be after the end date.");
+                alert("Start and end date must be the same.");
                 return;
             }
 
