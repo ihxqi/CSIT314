@@ -1,13 +1,13 @@
 <?php
-include_once("../Entity/UserAccountEntity.php");
+include_once("../Entity/UserProfileEntity.php");
 
 class suspendUserProfileCtl
 {
 
-    public function suspendUserProfile($user_id)
+    public function suspendUserProfile($user_profile)
     {
-        $suc = new UserAccount();
-        $results = $suc->suspendUserProfile($user_id);
+        $suc = new UserProfile();
+        $results = $suc->suspendUserProfile($user_profile);
         return $results;
     }
 }

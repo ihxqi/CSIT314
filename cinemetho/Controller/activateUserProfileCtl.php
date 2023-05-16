@@ -1,12 +1,12 @@
 <?php
-include_once("../Entity/UserAccountEntity.php");
+include_once("../Entity/UserProfileEntity.php");
 
 class activateUserProfileCtl
 {
 
     public function activateUserProfile($user_id)
     {
-        $suc = new UserAccount();
+        $suc = new UserProfile();
         $suc->activateUserProfile($user_id);
     }
 }

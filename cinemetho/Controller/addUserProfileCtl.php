@@ -1,11 +1,11 @@
 <?php
-include_once("../Entity/UserAccountEntity.php");
+include_once("../Entity/UserProfileEntity.php");
 
 class addUserProfileCtl
 {
     public function addUserProfile($user_profile)
     {
-        $aua = new UserAccount();
+        $aua = new UserProfile();
         $results = $aua-> addUserProfile($user_profile);
         return $results;
     }

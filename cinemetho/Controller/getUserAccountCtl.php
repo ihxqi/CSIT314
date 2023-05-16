@@ -1,7 +1,7 @@
 <?php
 include_once("../Entity/UserAccountEntity.php");
 
-class getUserAccount
+class getUserAccountCtl
 {
     public function getUserAccount()
     {

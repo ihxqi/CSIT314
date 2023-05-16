@@ -4,10 +4,10 @@ include_once("../Entity/UserAccountEntity.php");
 class UserAccountLoginCtl
 {
 
-    public function LoginCustomerAccount($userName, $password)
+    public function loginAccount($userName, $password)
     {
         $c = new UserAccount();
-        $results = $c->loginCustomerAccount($userName, $password);
+        $results = $c->loginAccount($userName, $password);
         return $results;
     }
 }
