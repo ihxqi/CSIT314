@@ -39,7 +39,7 @@ ini_set('display_errors', 1);
                         <img src="../Images/cinemethologo.jpeg">
                     </div>
                     <div class="topnav">
-                        <a href="index.php" onclick="logout()">LOG OUT</a>
+                        <a href="../Boundary/index.php">LOG OUT</a>
                         <a href="userAdmin.php">PROFILE</a>
                         <a href="manageUser.php">USER</a>
                     </div>
