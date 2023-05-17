@@ -1,76 +1,56 @@
-<?php //need to change
-include_once("../Controller/UserAccountLoginCtl.php");
-include_once("../Controller/addUserAccountCtl.php");
+<?php
+include_once("../Controller/addTicketCtl.php");
 
-$username = "";
-$password = "";
 $e1 = "";
 $e2 = "";
 $e3 = "";
-$e4 = "";
 
-if (isset($_POST["addUser"])) {
-    validateUsername($e1);
-    validatePassword($e2);
-    validateEmail($e3);
-    validateUserProfile($e4);
-    if (empty($e1) && empty($e2) && empty($e3) && empty($e4)) {
-        addUserAccount($_POST["username"], $_POST["email"], $_POST["password"],$_POST["user_profile"]);
+
+if (isset($_POST["addTicket"])) {
+    //$ticket_id = $_POST["ticket_id"];
+    $ticketCustProfile = $_POST["ticket_cust_profile"];
+    $ticket_price = $_POST["ticket_price"];
+
+    //validateTicketId($e1);
+    validateTicketCustProfile($e2);
+    validateTicketPrice($e3);
+
+    if (empty($e3) && empty($e2)) {
+        $aTc = new addTicketCtl();
+        $results = $aTc->addTicket($ticket_price, $ticket_cust_profile);
     }
 }
 
-function validateUserName(&$e1)
+
+function validateTicketId(&$e1)
 {
-    global $username;
-    $username = trim($_POST["username"]);
-    if (empty($username)) {
-        $e1 = "Please fill in Username";
+    global $ticket_id;
+    $ticket_id = trim($_POST["ticket_id"]);
+    if (empty($ticket_id)) {
+        $e1 = "Please fill in ticket Id";
     }
-
 }
 
-function validatePassword(&$e2)
+function validateTicketCustProfile(&$e2)
 {
-    global $password;
-    $password = trim($_POST["password"]);
-    if (empty($password)) {
-        $e2 = "Please fill in password";
+    global $ticket_cust_profile;
+    $ticket_cust_profile = trim($_POST["ticket_cust_profile"]);
+    if (empty($ticket_cust_profile)) {
+        $e2 = "Please fill in ticket customer profile";
     }
 }
 
-function validateEmail(&$e3)
+
+function validateTicketPrice(&$e3)
 {
-    global $email;
-    $email = trim($_POST["email"]);
-    if (empty($email)) {
-        $e3 = "Please fill in email";
+    global $ticket_price;
+    $ticket_price = trim($_POST["ticket_price"]);
+    if (empty($ticket_price)) {
+        $e3 = "Please fill in ticket price";
     }
 }
 
-function validateUserProfile(&$e4)
-{
-    global $custProfile;
-    $custProfile = trim($_POST["user_profile"]);
-    if (empty($custProfile)) {
-        $e5 = "Please select your profile";
-    }
-}
-
-
-function addUserAccount($username, $password, $email, $user_profile)
-{
-    global $e1;
-    $cRC = new addUserAccountCtl();
-    $results = $cRC->addUserAccount($username, $password, $email, $user_profile);
-    if ($results == true) {
-        echo "Signup SUCCESSFUL";
-    } else {
-        echo "SignUP Failed";
-        $e1 = "User Name taken";
-    }
-}
-
-?> 
+?>
 
 <html>
 
@@ -95,11 +75,11 @@ function addUserAccount($username, $password, $email, $user_profile)
                     <img src="../Images/cinemethologo.jpeg">
                 </div>
                 <div class="topnav">
-                <a href="../Boundary/custProfile.php">TICKETS</a> <!-- need change -->
-                        <a href="../Boundary/custProfile.php">CINEMA ROOMS</a> <!-- need change -->
+                <a href="../Boundary/manageTicket.php">TICKETS</a> 
+                        <a href="../Boundary/manageRoom.php">CINEMA ROOMS</a> 
                         <a href="../Boundary/manageMovies.php">MOVIES</a>
-                        <a href="../Boundary/manageF&b.php">F&B</a>
-                        <a class="active" href="cinemaManager.html">HOME</a> <!-- need change -->
+                        <a href="../Boundary/manageFnB.php">F&B</a>
+                        <a class="active" href="cinemaManager.php">HOME</a> <!-- need change -->
                 </div>
             </div>
         </section>
@@ -108,7 +88,7 @@ function addUserAccount($username, $password, $email, $user_profile)
 		<div class="form-box">
 			<div class="button-box">
 				<div id="btn"></div>
-				<button type="button" class="login-btn" onclick="addTicket()"><strong>Add User</strong></button>
+				<button type="button" class="login-btn" onclick="addTicket()"><strong>Add Ticket</strong></button>
 			</div>		
 			<h3></h3>
 			
@@ -116,12 +96,11 @@ function addUserAccount($username, $password, $email, $user_profile)
          ?>
 		
 		<form method="post" id="addTicket" class="user-input" onsubmit="return checkForm(this);" style="width:50%">
-			<br><br>
-			<input type="text" name="Ticket_cust_profile" class="input-field" placeholder="Customer profile" required style="width:200%; height:10%; border: 1px solid #808080;">
-			<br><br>
-			<input type="text" name="TicketPrice" class="input-field" placeholder="TicketPrice" required><br><br>
-		
-			<input type="submit" name="addUser" class="submit-btn button3" value="Add User">
+            <br><br>
+			<input type="text" name="ticket_price" class="input-field" placeholder="ticket_price" required><br><br>
+            <br><br>
+            <input type="text" name="ticket_cust_profile" class="input-field" placeholder="Customer profile" required style="width:200%; height:10%; border: 1px solid #808080;">
+			<input type="submit" name="addTicket" class="submit-btn button3" value="Add User">
 		</form>
 		</div>
 	</div>

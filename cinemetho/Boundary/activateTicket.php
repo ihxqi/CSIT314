@@ -1,14 +1,12 @@
 <?php
-include_once("../Controller/activateUserProfileCtl.php"); //need to change
+include_once("../Controller/activateTicketCtl.php");
 
-if (isset($_GET['Ticket_cust_profile'])) {
-    $Ticket_cust_profile = $_GET['Ticket_cust_profile'];
+if (isset($_GET['ticket_id'])) {
+    $ticket_id = $_GET['ticket_id'];
 
-    // Set user status to "Active"
-    $activateTicketClt = new activateTicketClt();
-    $activateTicketClt->activateTicket($Ticket_cust_profile);
+    $ticketCtl = new activateTicketCtl();
+    $ticketCtl->activateTicket($ticket_id);
 
-    // Redirect to user admin page
     header("Location: ../Boundary/manageTicket.php");
     exit();
 }

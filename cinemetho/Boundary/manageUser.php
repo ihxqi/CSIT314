@@ -84,7 +84,9 @@ ini_set('display_errors', 1);
                             echo "<td>" . $userAccount['password'] . "</td>";
                             echo "<td>" . $userAccount['login_date'] . "</td>";
                             echo "<td>" . $userAccount['user_status'] . "</td>";
-                            echo "<td><a href=\"updateUserAccount.php?user_id={$userAccount['user_id']}\">Update</a> | <a href=\"suspendUserAccount.php?user_id={$userAccount['user_id']}\" onClick=\"return confirm('Are you sure you want to suspend?')\">Suspend</a>| <a href=\"activateUserAccount.php?user_id={$userAccount['user_id']}\" onClick=\"return confirm('Are you sure you want to activate?')\">Activate</a></td>";
+                            echo "<td><a href=\"updateUserAccount.php?user_id={$userAccount['user_id']}&username={$userAccount['username']}&email={$userAccount['email']}&password={$userAccount['password']}&user_profile={$userAccount['user_profile']}\">Update</a> |
+                             <a href=\"suspendUserAccount.php?user_id={$userAccount['user_id']}\" onClick=\"return confirm('Are you sure you want to suspend?')\">Suspend</a>| 
+                             <a href=\"activateUserAccount.php?user_id={$userAccount['user_id']}\" onClick=\"return confirm('Are you sure you want to activate?')\">Activate</a></td>";
                             echo "</tr>";
                         }
                         ?>
@@ -101,22 +103,6 @@ ini_set('display_errors', 1);
 <script>
     var user = document.querySelectorAll(".editable");
     var table = document.getElementById('userTable');
-
-    function setRowEditable(row, editable) {
-        for (var i = 0; i < row.cells.length; i++) {
-            var cell = row.cells[i];
-            if (cell.querySelector('select')) {
-                cell.querySelector('select').disabled = !editable;
-            } else if (i !== row.cells.length - 1) {
-                cell.contentEditable = editable ? "true" : "false";
-                if (!editable) {
-                    cell.style.backgroundColor = "grey";
-                } else {
-                    cell.style.backgroundColor = "";
-                }
-            }
-        }
-    }
 
     function logout() {
         console.log("Logged out");

@@ -31,12 +31,6 @@ $comboPrice = isset($_GET['comboPrice']) ? $_GET['comboPrice'] : die('ERROR: Com
 $comboQuantity = isset($_GET['comboQuantity']) ? $_GET['comboQuantity'] : die('ERROR: Combo quantity not found.');
 
 // Selecting data associated with this particular id
-$fnb = new FnB();
-$fnbData = $fnb->getFnB($comboId); 
-
-if (!$fnbData) {
-    die('ERROR: Combo not found.');
-}
 
 ?>
 
@@ -85,7 +79,7 @@ if (!$fnbData) {
                                         <input type="int" class="form-control" id="comboPrice" name="comboPrice" value="<?php echo $comboPrice; ?>">
                                         <br><br>
                                         <label for="comboQuantity">Combo quantity:</label>
-                                        <input type="int" class="form-control" id="comboQuantity" name="comboQuantity" value="<?php $comboQuantity; ?>">
+                                        <input type="int" class="form-control" id="comboQuantity" name="comboQuantity" value="<?php echo $comboQuantity; ?>">
                                     </div>
                                     <br>
                                     <div class="form group">

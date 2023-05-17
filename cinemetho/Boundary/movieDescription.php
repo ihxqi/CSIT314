@@ -1,18 +1,18 @@
 <?php
-include_once("../Controller/MovieListingCtl.php");
+include_once("../Controller/MovieDescriptionCtl.php");
 
-if(isset($_GET['MovieID'])) {
-    $MovieID = $_GET['MovieID'];
+if(isset($_GET['movie_id'])) {
+    $movie_id = $_GET['movie_id'];
 } else {
     header("Location: movieListing.php");
     exit;
 }
 
 // Create an object of the DisplayMovierCtl class
-$movieCtlObj = new DisplayMovieByIdCtl($MovieID);
+$movieCtlObj = new DisplayMovieByIdCtl($movie_id);
 
 // Call the DisplayMovierCtl() function to get the movie with the specified ID
-$movie = $movieCtlObj->DisplayMovieByIdCtl($MovieID);
+$movie = $movieCtlObj->DisplayMovieByIdCtl($movie_id);
 ?>
 
 <!DOCTYPE html>
@@ -51,10 +51,10 @@ $movie = $movieCtlObj->DisplayMovieByIdCtl($MovieID);
             <section>
                 <div class="container">
                     <div class="image">
-                        <img src="<?php echo $movie['MovieImage']; ?>">
+                        <img src="<?php echo $movie['movieImage']; ?>">
                     </div>
                     <div class="movietext">
-                        <h1><?php echo $movie['MovieTitle']; ?> (<?php echo $movie['MPARating']; ?>)</h1>
+                        <h1><?php echo $movie['movieTitle']; ?> (<?php echo $movie['mpaRating']; ?>)</h1>
 
                         <hr>
                         <button class="button">SHOWTIMES</button>
@@ -62,15 +62,15 @@ $movie = $movieCtlObj->DisplayMovieByIdCtl($MovieID);
 
                         <br>
                         <h3>CAST</h3>
-                        <p><?php echo $movie['MovieCast']; ?></p>
+                        <p><?php echo $movie['movieCast']; ?></p>
 
                         <br>
                         <h3>DIRECTOR</h3>
-                        <p><?php echo $movie['MovieDirector']; ?></p>
+                        <p><?php echo $movie['movieDirector']; ?></p>
 
                         <br>
                         <h3>SYNOPSIS</h3>
-                        <p><?php echo $movie['MovieSynopsis']; ?><p>
+                        <p><?php echo $movie['movieSynopsis']; ?><p>
                     </div>
                 </div>
             </section>

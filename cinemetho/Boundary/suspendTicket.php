@@ -1,14 +1,12 @@
 <?php
-include_once("../Controller/suspendUserAccountCtl.php"); // need to change to controller
+include_once("../Controller/suspendTicketCtl.php");
 
-if (isset($_GET['Ticket_cust_profile'])) {
-    $Ticket_cust_profile = $_GET['Ticket_cust_profile'];
+if (isset($_GET['ticket_id'])) {
+    $ticket_id = $_GET['ticket_id'];
 
-    // Set user status to "Suspended"
-    $ticketClt = new suspendTicketClt();
-    $ticketClt->suspendTicketClt($Ticket_cust_profile);
+    $ticketCtl = new suspendTicketCtl(); 
+    $ticketCtl->suspendTicket($ticket_id);
 
-    // Redirect to user admin page
     header("Location: ../Boundary/manageTicket.php");
     exit();
 }

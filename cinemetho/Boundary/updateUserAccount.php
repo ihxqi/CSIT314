@@ -40,17 +40,10 @@ if(isset($_POST['update']))
 //getting id from url
 $id=isset($_GET['user_id']) ? $_GET['user_id'] : die('ERROR: Record ID not found.');
 //selecting data associated with this particular id
-$userAccount = new UserAccount();
-$userAccountData = $userAccount->getUserAccountByID($id);
-
-if(!$userAccountData) {
-    die('ERROR: Record not found.');
-}
-
-$username = $userAccountData['username'];
-$password = $userAccountData['password'];
-$email = $userAccountData['email'];
-$user_profile = $userAccountData['user_profile'];
+$username = isset($_GET['username']) ? $_GET['username'] : die('ERROR: Record username not found.');
+$password =isset($_GET['password']) ? $_GET['password'] : die('ERROR: Record password not found.');
+$email = isset($_GET['email']) ? $_GET['email'] : die('ERROR: Record email not found.');
+$user_profile = isset($_GET['user_profile']) ? $_GET['user_profile'] : die('ERROR: Record user_profile not found.');
 
 ?>
 

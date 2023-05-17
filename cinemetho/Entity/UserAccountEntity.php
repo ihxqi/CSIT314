@@ -50,7 +50,7 @@ class UserAccount
             if ($_SESSION['user_profile'] == 'Cinema Manager') {
                 header('location: ../Boundary/cinemaManager.php');
             } elseif ($_SESSION['user_profile'] == 'Cinema Owner') {
-                header('location: ../Boundary/fnbSalesReport.php');
+                header('location: ../Boundary/manageFnbReport.php');
             } elseif ($_SESSION['user_profile'] == 'User Admin') {
                 header('location: ../Boundary/userAdmin.php');
             } elseif ($_SESSION['user_profile'] == 'Customer') {
@@ -104,6 +104,7 @@ class UserAccount
                 $userAccount['password'] = $res['password'];
                 $userAccount['login_date'] = $res['login_date'];
                 $userAccount['user_status'] = $res['user_status'];
+                $userAccount['user_profile'] = $res['user_profile'];
                 $userAccounts[] = $userAccount;
             }
         }

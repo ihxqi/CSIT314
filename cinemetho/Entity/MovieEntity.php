@@ -13,7 +13,7 @@ class Movie {
 
     function DisplayMovie() {
         $conn = mysqli_connect(HOST, USER, PASS, DB);
-        $query = "SELECT * FROM movie";
+        $query = "SELECT * FROM movie WHERE movieStatus = 'Active'";
         $result = mysqli_query($conn, $query);
         if (!$result) {
             die("Query failed: " . mysqli_error($conn));
@@ -23,15 +23,15 @@ class Movie {
         return $movies;
     }
     
-    function DisplayMovieById($MovieID) {
+    function DisplayMovieById($movie_id) {
         $conn = mysqli_connect(HOST, USER, PASS, DB);
-        $query = "SELECT * FROM movie WHERE MovieID = $MovieID";
+        $query = "SELECT * FROM movie WHERE movie_id = $movie_id";
         $result = mysqli_query($conn, $query);
         if (!$result) {
             die("Query failed: " . mysqli_error($conn));
         }
-        if(isset($_GET['MovieID'])) {
-            $MovieID = $_GET['MovieID'];
+        if(isset($_GET['movie_id'])) {
+            $movie_id = $_GET['movie_id'];
         } else {
             header("Location: movieListing.php");
             exit;
@@ -40,7 +40,6 @@ class Movie {
         mysqli_close($conn);
         return $movie;
     }
-
     function getMovie()
     {
         $conn = mysqli_connect(HOST, USER, PASS, DB);
