@@ -1,3 +1,9 @@
+<?php
+include_once("../Controller/fetchTicketPricesCtl.php");
+
+$fetchTicketPrices = new fetchTicketPricesCtl();
+$ticket_prices = $fetchTicketPrices->getTickets();
+?>
 <!doctype html>
 
 <html>
@@ -13,6 +19,29 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,300;0,400;0,800;1,100;1,400&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="../jquery.seat-charts.js"></script>
+    <script>
+        function passval(){
+            var seattype = document.getElementById("seatselection").value;
+            console.log('seattype:', seattype);
+            localStorage.setItem("seattypes", seattype);
+
+            var movie = document.getElementById("movieselection").value;
+            console.log('movie:', movie);
+            localStorage.setItem("selectedmovie", movie);            
+
+            var cinema = document.getElementById("cinemaselection").value;
+            console.log('cinema:', cinema);
+            localStorage.setItem("selectedcinema", cinema);
+
+            var day = document.getElementById("day").value;
+            console.log('honolulu:', day);
+            localStorage.setItem("selectedday", day);
+            
+            return true;
+
+    }
+    </script>
+    
 </head>
 
 <body>
@@ -51,18 +80,15 @@
                         <td rowspan="2" style="text-align: center;">
                             <div class="selection">
                                 <form id="details" >
-
-                                    <div class="custom-select" style="width:200px;">
+                                <div class="custom-select" style="width:200px;">
                                         <label for="customerselection">Choose the profile:</label>
                                         <select name="customerselection" id="customerselection">
-                                            <option value="">Select your profile</option>
-                                            <option value="Student">Student</option>
-                                            <option value="Adult">Adult</option>
-                                            <option value="Senior citizen">Senior citizen</option>
+                                            <option value="">Select Profile</option>
+                                            <?php foreach ($ticket_prices as $ticket_price) { ?>                                      
+                                                <option value="<?php echo $ticket_price['ticket_id'];?>"><?php echo $ticket_price['ticket_cust_profile'];?>, Price: <?php echo $ticket_price['ticket_price'];?></option>                                            
+                                                <?php } ?>                                                                                                               
                                         </select>
-                                    </div>
-                                    <br><br>
-
+                                </div><br><br> 
                                     <div class="custom-select" style="width:200px;">
                                         <label for="movieselection">Choose the movie:</label>
                                         <select name="movieselection" id="movieselection">
@@ -100,7 +126,7 @@
                                         </select>
                                     </div>
                                     <br><br>
-                                    <input class="button4" type="submit" value="Submit movie selection"  >
+                                    <input class="button4" type="submit" value="Submit movie selection" onclick="passval()" >
                                     <br><br>
                                 </form>
                             </div>
@@ -136,7 +162,7 @@
                                                     <ul id="selected-seats"></ul>
                         
                         
-                                                    <button type="button" id="checkout-button" >Submit Book</button>
+                                                    <button type="button" id="checkout-button">Submit Book</button>
                         
                                                 </form>
                                                <button id="reset-btn" type="button">Reset seat selection</button>
