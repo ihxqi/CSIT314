@@ -782,3 +782,20 @@ select {
   display: inline-block;
   margin: 0 1%;
 }
+
+.text-input {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: none;
+  outline: none;
+  width: 20%;
+  height: 5%;
+}
+
+.text-input:focus {
+  border-color: blue;
+  box-shadow: 0 0 5px blue;
+}
+
