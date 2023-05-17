@@ -25,13 +25,17 @@ ini_set('display_errors', 1);
     <title>User Admin</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../ua_style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,300;0,400;0,800;1,100;1,400&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+    <style>
+        body {
+            background-image: url("../Images/background.jpeg");
+        }
+    </style>
 </head>
 
 <body>
@@ -43,8 +47,8 @@ ini_set('display_errors', 1);
                 </div>
                 <div class="topnav">
                     <a href="index.php" onclick="logout()">LOG OUT</a>
-                    <a href="manageUser.php">USER</a>
                     <a href="userAdmin.php">PROFILE</a>
+                    <a href="manageUser.php">USER</a>
                 </div>
             </div>
         </section>
@@ -59,16 +63,16 @@ ini_set('display_errors', 1);
                 </button>
             </div>
             <div class="topnav" style="margin-top: 1%;">
-                <a onclick="location.href='addUserAccount.php';" style="margin-left: 5%;">
+                <a1 onclick="location.href='addUserAccount.php';" style="margin-left: 5%;">
                     <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Add User
-                </a>
+                </a1>
 
             </div>
         </div>
-        <table id="userTable">
+        <table id="userTable" >
             <thead>
                 <tr>
-                    <table class="table table-condensed table-striped" id="profileTable">
+                    <table class="table table-condensed table-striped CMtable" id="profileTable" style="font-size: 11.5px; width:100%;">
                         <tr>
                             <th>Username</th>
                             <th>Email</th>
@@ -84,9 +88,7 @@ ini_set('display_errors', 1);
                             echo "<td>" . $userAccount['password'] . "</td>";
                             echo "<td>" . $userAccount['login_date'] . "</td>";
                             echo "<td>" . $userAccount['user_status'] . "</td>";
-                            echo "<td><a href=\"updateUserAccount.php?user_id={$userAccount['user_id']}&username={$userAccount['username']}&email={$userAccount['email']}&password={$userAccount['password']}&user_profile={$userAccount['user_profile']}\">Update</a> |
-                             <a href=\"suspendUserAccount.php?user_id={$userAccount['user_id']}\" onClick=\"return confirm('Are you sure you want to suspend?')\">Suspend</a>| 
-                             <a href=\"activateUserAccount.php?user_id={$userAccount['user_id']}\" onClick=\"return confirm('Are you sure you want to activate?')\">Activate</a></td>";
+                            echo "<td><a href=\"updateUserAccount.php?user_id={$userAccount['user_id']}\">Update</a> | <a href=\"suspendUserAccount.php?user_id={$userAccount['user_id']}\" onClick=\"return confirm('Are you sure you want to suspend?')\">Suspend</a>| <a href=\"activateUserAccount.php?user_id={$userAccount['user_id']}\" onClick=\"return confirm('Are you sure you want to activate?')\">Activate</a></td>";
                             echo "</tr>";
                         }
                         ?>
@@ -103,6 +105,22 @@ ini_set('display_errors', 1);
 <script>
     var user = document.querySelectorAll(".editable");
     var table = document.getElementById('userTable');
+
+    function setRowEditable(row, editable) {
+        for (var i = 0; i < row.cells.length; i++) {
+            var cell = row.cells[i];
+            if (cell.querySelector('select')) {
+                cell.querySelector('select').disabled = !editable;
+            } else if (i !== row.cells.length - 1) {
+                cell.contentEditable = editable ? "true" : "false";
+                if (!editable) {
+                    cell.style.backgroundColor = "grey";
+                } else {
+                    cell.style.backgroundColor = "";
+                }
+            }
+        }
+    }
 
     function logout() {
         console.log("Logged out");
