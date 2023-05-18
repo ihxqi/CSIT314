@@ -40,7 +40,7 @@ ini_set('display_errors', 1);
                     </div>
                     <div class="topnav">
                         <a href="../Boundary/index.php">LOG OUT</a>
-                        <a href="userAdmin.php">PROFILE</a>
+                        <a href="userProfile.php">PROFILE</a>
                         <a href="manageUser.php">USER</a>
                     </div>
                 </div>

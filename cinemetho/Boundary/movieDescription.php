@@ -38,7 +38,7 @@ $movie = $movieCtlObj->DisplayMovieByIdCtl($movie_id);
                     <div class="topnav">
                         <a href="../Boundary/index.php" onclick="logout()">LOG OUT</a>
                         <a href="../Boundary/custProfile.php">PROFILE</a>
-                        <a href="../Boundary/custHistory">PUCHASED TICKETS</a>
+                        <a href="../Boundary/custHistory">E-TICKETS</a>
                         <a href="../Boundary/userBooking.php">BUY TICKETS</a>
                         <a href="../Boundary/movieListing.php">MOVIES</a>
                     </div>
