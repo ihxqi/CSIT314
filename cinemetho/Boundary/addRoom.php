@@ -1,3 +1,82 @@
+<?php
+include_once("../Controller/addRoomCtl.php");
+
+$e1 = "";
+$e2 = "";
+$e3 = "";
+$e4 = "";
+$e5 = "";
+
+
+if (isset($_POST["addRoom"])) {
+
+    // $roomNo = $_POST["room__no"];
+    $roomCapacity = $_POST["room_capacity"];
+    $movie_id = $_POST["room_movieid"];
+    $movieShowtime = $_POST["room_showtime"];
+    $movieShowDate = $_POST["room_showdate"];
+
+    //validateTicketId($e1);
+    // validateRoomNo($e1);
+    validateRoomCapacity($e2);
+    validateMovieId($e3);
+    validateMovieShowtime($e4);
+    validateMovieShowDate($e5);
+
+    if (empty($e2) && empty($e3) && empty($e4) && empty($e5)) {
+        $aRc = new addRoomCtl();
+        $results = $aRc->addRoom($roomCapacity,$movieShowtime, $movieShowDate, $movie_id);
+    }
+}
+
+
+// function validateRoomNo(&$e1)
+// {
+//     global $roomNo;
+//     $roomNo = trim($_POST["room__no"]);
+//     if (empty($roomNo)) {
+//         $e1 = "Please fill in room number";
+//     }
+// }
+
+function validateRoomCapacity(&$e2)
+{
+    global $roomCapacity;
+    $roomCapacity = trim($_POST["room_capacity"]);
+    if (empty($roomCapacity)) {
+        $e2 = "Please fill in room capacity";
+    }
+}
+
+function validateMovieId(&$e3)
+{
+    global $movie_id;
+    $movie_id = trim($_POST["room_movieid"]);
+    if (empty($movie_id)) {
+        $e3 = "Please fill in movie Id";
+    }
+}
+
+function validateMovieShowtime(&$e4)
+{
+    global $movieShowtime;
+    $movieShowtime = trim($_POST["room_showtime"]);
+    if (empty($movieShowtime)) {
+        $e4 = "Please fill in movie showtime";
+    }
+}
+
+function validateMovieShowDate(&$e5)
+{
+    global $movieShowDate;
+    $movieShowDate = trim($_POST["room_showdate"]);
+    if (empty($movieShowDate)) {
+        $e5 = "Please fill in movie show date";
+    }
+}
+
+?>
+
 <html>
 <head>
     <title>Cinema Manger - Add Room</title>
@@ -20,22 +99,18 @@
                 </div>
                 <div class="topnav">
                 <a href="#" onclick="logout()">LOG OUT</a>
-                        <a href="../Boundary/manageTicket.php">TICKETS</a> <!-- need change -->
-                        <a href="../Boundary/manageRoom.php">CINEMA ROOMS</a> <!-- need change -->
+                        <a href="../Boundary/manageTicket.php">TICKETS</a> 
+                        <a href="../Boundary/manageRoom.php">CINEMA ROOMS</a> 
                         <a href="../Boundary/manageMovies.php">MOVIES</a>
-                        <a href="../Boundary/manageF&b.php">F&B</a>
-                        <a class="active" href="cinemaManager.php">HOME</a> <!-- need change -->
+                        <a href="../Boundary/manageFnB.php">F&B</a>
+                        <a class="active" href="cinemaManager.php">HOME</a> 
                 </div>
             </div>
         </section>
         <hr>
 	<div class="backgroundImage">
 		<div class="form-box">
-			<h2>Add Room</h2>
-			<div class="button-box">
-				<div id="btn"></div>
-				<button type="button" class="login-btn" onclick="addRoom()"><strong>Add Room</strong></button>
-			</div>		
+			<h2>Add Room</h2>	
 			<h3></h3>
 			
 			<?php
@@ -45,11 +120,10 @@
 				
 			</select>
 			<br><br>
-			<input type="text" name="roomno" class="input-field" placeholder="Room No." required><br><br>           				
-			<input type="text" name="roomcapacity" class="input-field" placeholder="Room Capacity" required><br><br>  
-			<input type="text" name="roommovie" class="input-field" placeholder="Room Movie" required><br><br>  
-			<input type="text" name="roomshowtime" class="input-field" placeholder="Room Showtime" required><br><br>  
-			<input type="text" name="roomshowdate" class="input-field" placeholder="Room Showdate" required><br><br>  
+			<input type="text" name="room_capacity" class="input-field" placeholder="Room Capacity" required><br><br>  
+			<input type="text" name="room_movieid" class="input-field" placeholder="Room Movie" required><br><br>  
+			<input type="text" name="room_showtime" class="input-field" placeholder="Room Showtime" required><br><br>  
+			<input type="text" name="room_showdate" class="input-field" placeholder="Room Showdate" required><br><br>  
 			<input type="submit" name="addRoom" class="submit-btn button3" value="Add Room">
 		</form>
 		</div>
