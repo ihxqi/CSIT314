@@ -188,37 +188,13 @@ class UserAccount
         $stmt->close();
     }
 
-
-    public function getUserAccountByID($user_id)
+    public function updateCustUsername($user_id, $username)
     {
         $conn = mysqli_connect(HOST, USER, PASS, DB);
-        $stmt = $conn->prepare("SELECT * FROM user WHERE user_id = ?");
-        $stmt->bind_param("i", $user_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows == 1) {
-            return $result->fetch_assoc();
-        } else {
-            return false;
-        }
-    }
-
-
-    public function getOneUserProfile($userProfile_ID)
-    {
-        $conn = mysqli_connect(HOST, USER, PASS, DB);
-        $query = "SELECT userProfile_ID, upName, profile_status FROM userprofile WHERE userProfile_ID = '$userProfile_ID' ORDER BY upName ASC";
-        $result = mysqli_query($conn, $query);
-        if (!$result) {
-            die('Error executing query: ' . mysqli_error($conn));
-        }
-        $userProfiles = array();
-        while ($row = mysqli_fetch_assoc($result)) {
-            $userProfiles[] = $row;
-        }
-        mysqli_close($conn);
-        return $userProfiles;
+        $stmt = $conn->prepare("UPDATE user SET username = ? WHERE user_id = ?");
+        $stmt->bind_param("si", $username, $user_id);        
+        $stmt->execute(); 
+        return $stmt->affected_rows;
     }
 
 

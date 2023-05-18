@@ -8,7 +8,12 @@ $tickets = $ticketClt->getTicket();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+$searchCtl = new searchTicketCtl();
 
+if (isset($_POST['search'])) {
+    $search = $_POST['search'];
+    $tickets = $searchCtl->searchTicket($search);
+}
 ?>
 
 
@@ -35,7 +40,7 @@ ini_set('display_errors', 1);
                 </div>
 
                 <div class="topnav">
-                    <a href="../Boundary/index.php" onclick="logout()">LOG OUT</a>
+                    <a href="#" onclick="logout()">LOG OUT</a>
                     <a href="../Boundary/manageTicket.php">TICKETS</a> <!-- need change -->
                     <a href="../Boundary/manageRoom.php">CINEMA ROOMS</a> <!-- need change -->
                     <a href="../Boundary/manageMovies.php">MOVIES</a>
