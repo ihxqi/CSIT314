@@ -82,7 +82,7 @@ $user_profile = $userAccountData['user_profile'];
                 </div>
                 <div class="topnav">
                     <a href="../Boundary/index.php">LOG OUT</a>
-                    <a href="userAdmin.php">PROFILE</a>
+                    <a href="userProfile.php">PROFILE</a>
                     <a href="manageUser.php">USER</a>
                 </div>
             </div>
@@ -106,23 +106,19 @@ $user_profile = $userAccountData['user_profile'];
                                         <div class="form group">
                                             <input type="hidden" class="form-control" id="user_id" name="user_id" value=<?php echo $_GET['user_id'];?>>
                                             <label for="username">Username:</label>
-                                            <input type="text" class="form-control" id="username" name="username" value="
-																								<?php echo $username;?>">
+                                            <input type="text" class="form-control" id="username" name="username" value="<?php echo $username;?>">
                                             <br>
                                             <br>
                                             <label for="password">Password: </label>
-                                            <input type="password" class="form-control" id="password" name="password" value="
-																											<?php echo $password;?>">
+                                            <input type="password" class="form-control" id="password" name="password" value="<?php echo $password;?>">
                                             <br>
                                             <br>
                                             <label for="email">Email:</label>
-                                            <input type="text" class="form-control" id="email" name="email" value="
-																														<?php echo $email;?>">
+                                            <input type="text" class="form-control" id="email" name="email" value="<?php echo $email;?>">
                                             <br>
                                             <br>
                                             <label for="user_profile">User Profile:</label>
-                                            <input type="text" class="form-control" id="user_profile" name="user_profile" value="
-																																	<?php echo $user_profile;?>">
+                                            <input type="text" class="form-control" id="user_profile" name="user_profile" value="<?php echo $user_profile;?>">
                                         </div>
                                         <br>
                                         <div class="form group">

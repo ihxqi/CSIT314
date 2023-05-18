@@ -36,11 +36,11 @@ $movie = $movieCtlObj->DisplayMovieByIdCtl($movie_id);
                     </div>
 
                     <div class="topnav">
-                        <a href="../UserProfile/custProfile.php">PROFILE</a>
-                        <a href="custHistory.html">PUCHASED TICKETS</a>
-                        <a href="booking.html">BUY TICKETS</a>
-                        <a href="#cinemas location">CINEMAS</a>
-                        <a href="movielisting.php">MOVIES</a>
+                        <a href="../Boundary/index.php" onclick="logout()">LOG OUT</a>
+                        <a href="../Boundary/custProfile.php">PROFILE</a>
+                        <a href="../Boundary/custHistory">PUCHASED TICKETS</a>
+                        <a href="../Boundary/userBooking.php">BUY TICKETS</a>
+                        <a href="../Boundary/movieListing.php">MOVIES</a>
                     </div>
                 </div> 
             </section>
@@ -57,7 +57,7 @@ $movie = $movieCtlObj->DisplayMovieByIdCtl($movie_id);
                         <h1><?php echo $movie['movieTitle']; ?> (<?php echo $movie['mpaRating']; ?>)</h1>
 
                         <hr>
-                        <button class="button">SHOWTIMES</button>
+                        <button class="button" onclick="redirectToBuyTicket()">BUY TICKETS</button>
                         <hr>
 
                         <br>
@@ -75,5 +75,10 @@ $movie = $movieCtlObj->DisplayMovieByIdCtl($movie_id);
                 </div>
             </section>
         </div>
+        <script>
+            function redirectToBuyTicket() {
+                    window.location.href = "../Boundary/userBooking.php"; // Replace with your desired URL
+                }
+        </script>
     </body>
 </html>

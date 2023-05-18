@@ -40,7 +40,7 @@ $getOneUserProfile = new getOneUserProfileCtl($id);
                 </div>
                 <div class="topnav">
                     <a href="../Boundary/index.php">LOG OUT</a>
-                    <a href="userAdmin.php">PROFILE</a>
+                    <a href="userProfile.php">PROFILE</a>
                     <a href="manageUser.php">USER</a>
                 </div>
             </div>
@@ -53,7 +53,7 @@ $getOneUserProfile = new getOneUserProfileCtl($id);
                 <div class="section section-basic">
                     <div class="container">
                         
-                        <a href='userAdmin.php' class='btn btn-warning btn-round button2'>Back</a>
+                        <a href='userProfile.php' class='btn btn-warning btn-round button2'>Back</a>
                         <br>
                         <div class="col-md-12">
                             <div class="panel panel-success panel-size-custom">
@@ -65,8 +65,7 @@ $getOneUserProfile = new getOneUserProfileCtl($id);
                                         <div class="form group">
                                             <input type="hidden" class="form-control" id="user_id" name="user_id" value=<?php echo $_GET['userProfile_ID'];?>>
                                             <label for="user_profile">User Profile:</label>
-                                            <input type="text" class="form-control" id="user_profile" name="user_profile" value="
-																	<?php echo $_GET['upName'];?>">
+                                            <input type="text" class="form-control" id="user_profile" name="user_profile" value="<?php echo $_GET['upName'];?>">
                                         </div>
                                         <br>
                                         <input type="submit" class="btn btn-success btn-round button4" id="submit" value="Update">

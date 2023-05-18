@@ -33,10 +33,11 @@ $movies = $movieCtlObj->DisplayMovierCtl();
                     <img src="../Images/cinemethologo.jpeg">
                 </div>
                 <div class="topnav">
-                    <a href="../UserProfile/custProfile.php">PROFILE</a>
-                    <a href="custHistory.html">PUCHASED TICKETS</a>
+                <a href="../Boundary/index.php" onclick="logout()">LOG OUT</a>
+                    <a href="../Boundary/custProfile.php">PROFILE</a>
+                    <a href="../Boundary/custHistory">PUCHASED TICKETS</a>
                     <a href="../UserBooking/booking.php">BUY TICKETS</a>
-                    <a href="#cinemas location">CINEMAS</a>
+                    
                     <a href="movielisting.php">MOVIES</a>
                 </div>
             </div>

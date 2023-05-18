@@ -26,12 +26,12 @@ class DisplayFnB
                     <img src="../Images/cinemethologo.jpeg">
                 </div>
                 <div class="topnav">
-                    <a href="#" onclick="logout()">LOG OUT</a>
+                    <a href="../Boundary/index.php" onclick="logout()">LOG OUT</a>
                     <a href="../Boundary/manageTickets.php">TICKETS</a> <!-- need change -->
                     <a href="../Boundary/manageCinemaRooms.php">CINEMA ROOMS</a> <!-- need change -->
                     <a href="../Boundary/manageMovies.php">MOVIES</a>
                     <a href="../Boundary/manageFnb.php">F&B</a>
-                    <a class="active" href="cinemaManager.php">HOME</a> <!-- need change -->
+                     <!-- need change -->
                 </div>
             </div>
         </section>

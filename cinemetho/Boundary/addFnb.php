@@ -89,12 +89,12 @@ function validateComboQuantity(&$e4)
                     <img src="../Images/cinemethologo.jpeg">
                 </div>
                 <div class="topnav">
-                    <a href="#" onclick="logout()">LOG OUT</a>
-                    <a href="../Boundary/custProfile.php">TICKETS</a> <!-- need change -->
-                    <a href="../Boundary/custProfile.php">CINEMA ROOMS</a> <!-- need change -->
+                    <a href="../Boundary/index.php" onclick="logout()">LOG OUT</a>
+                    <a href="../Boundary/manageTicket.php">TICKETS</a> <!-- need change -->
+                    <a href="../Boundary/manageRoom.php">CINEMA ROOMS</a> <!-- need change -->
                     <a href="../Boundary/manageMovies.php">MOVIES</a>
                     <a href="../Boundary/manageFnb.php">F&B</a>
-                    <a class="active" href="cinemaManager.html">HOME</a> <!-- need change -->
+                     <!-- need change -->
                 </div>
             </div>
         </section>
