@@ -14,8 +14,8 @@
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 			<script src="../script.js"></script>
 			<script>
-				var count = 300; // Timer
-				var redirect = "../Boundary/custHistory.php"; // Target URL, does not exist
+				var count = 3; // Timer
+				var redirect = "../Boundary/movieListing.php"; // Target URL, does not exist
 				function countDown() 
 				{
 					var timer = document.getElementById("timer"); // Timer ID
@@ -27,10 +27,12 @@
 					} 
 					else 
 					{
+						alert('Your booking is complete!');
 						window.location.href = redirect;
 					}
 				}
-				  
+				window.onload = countDown;
+
 				function logout() 
 				{
 					// Code to handle logout
@@ -49,11 +51,11 @@
 					</div>
 		
 					<div class="topnav">
-					<a href="../Boundary/index.php" onclick="logout()">LOG OUT</a>
-                    <a href="../Boundary/custProfile.php">PROFILE</a> 
-                    <a href="../Boundary/cu">E-TICKETS</a> <!-- need to wait for the file -->
-                    <a href="../Boundary/userBooking.php">BUY TICKETS</a>
-                    <a href="../Boundary/movieListing.php">MOVIES</a>
+						<a href="../Boundary/index.php" onclick="logout()">LOG OUT</a>
+						<a href="../Boundary/custProfile.php">PROFILE</a> 
+						<a href="../Boundary/cu">E-TICKETS</a> <!-- need to wait for the file -->
+						<a href="../Boundary/userBooking.php">BUY TICKETS</a>
+						<a href="../Boundary/movieListing.php">MOVIES</a>
 					</div>
 				</div> 
 			</section>			
@@ -61,31 +63,28 @@
 			<br><br>
 			<section>
 				<div class="container4">
-				  <table style="width:100%;">
-					<tr>
-					  <th>Pyament QRCode:</th>
-					</tr>
+					<div id="timer"></div>
+				  	<table style="width:100%;">
+						<tr>
+							<th>Pyament QRCode:</th>
+						</tr>
 
-                    <tr>
-					  <td>
-						<p style="text-align: center;"> Scan the QR code to view your items and make payment. </p>
-					  </td>
-				  </tr>
+						<tr>
+							<td>
+								<p style="text-align: center;"> Scan the QR code to view your items and make payment. </p>
+							</td>
+						</tr>
 
-					<tr>
-					  <td>
-						<div class="image" style="text-align: center;">
-						  <img src="../Images/Scantopay.png">
-						</div>
-					  </td>
-				  </tr>
-					<tr>
-					  <td colspan="2" style="text-align: center;">
-						
-					  </td>
-					</tr>					  
-				  </table>						 
-						</div>					 
+						<tr>
+					  		<td>
+								<div class="image" style="text-align: center;">
+						  			<img src="../Images/Scantopay.png">
+								</div>
+					  		</td>
+				  		</tr>
+						<td colspan="2" style="text-align: center;"></td>
+				  	</table>						 
+					</div>					 
 				</div>
 			</section>
 		</div>		
