@@ -33,9 +33,8 @@ if (isset($_POST['update'])) {
 
 				<div class="topnav">
 					<a href="../Boundary/custProfile.php">PROFILE</a>
-					<a href="custHistory.html">PUCHASED TICKETS</a>
+					<a href="../Boundary/etickets.php">PUCHASED TICKETS</a>
 					<a href="../Boundary/userBooking.php">BUY TICKETS</a>
-					<a href="#cinemas location">CINEMAS</a>
 					<a href="../Boundary/movieListing.php">MOVIES</a>
 				</div>
 			</div>

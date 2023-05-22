@@ -9,7 +9,7 @@ $movies = $movieCtlObj->DisplayMovieCtl();
 ?>
 <!DOCTYPE html>
 <html>
-
+ 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -33,10 +33,11 @@ $movies = $movieCtlObj->DisplayMovieCtl();
                     <img src="../Images/cinemethologo.jpeg">
                 </div>
                 <div class="topnav">
-                    <a href="../Boundary/custProfile.php">PROFILE</a>
-                    <a href="custHistory.html">PUCHASED TICKETS</a>
-                    <a href="../Boundary/userBooking.php">BUY TICKETS</a>
-                    <a href="movielisting.php">MOVIES</a>
+                <a href="../Boundary/index.php" onclick="logout()">LOG OUT</a>
+                <a href="../Boundary/custProfile.php">PROFILE</a> 
+                <a href="../Boundary/etickets.php">E-TICKETS</a> <!-- need to wait for the file -->
+                <a href="../Boundary/userBooking.php">BUY TICKETS</a>
+                <a href="../Boundary/movieListing.php">MOVIES</a>
                 </div>
             </div>
         </section>

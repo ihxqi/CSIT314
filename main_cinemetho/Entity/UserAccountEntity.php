@@ -84,7 +84,7 @@ class UserAccount
             $conn->close();
             return false;
         }
-    
+
         $stmt->close();
         $conn->close();
         return true;
@@ -134,7 +134,7 @@ class UserAccount
 
         if ($userExists) {
             $pass1 = md5($password);
- 
+
 
             // Update the user's account details
             $stmt = $conn->prepare("UPDATE user SET username = ?, email = ?, password = ?, user_profile = ? WHERE user_id = ?");
@@ -191,26 +191,52 @@ class UserAccount
     {
         $conn = mysqli_connect(HOST, USER, PASS, DB);
         $stmt = $conn->prepare("UPDATE user SET username = ? WHERE user_id = ?");
-        $stmt->bind_param("si", $username, $user_id);        
-        $stmt->execute(); 
+        $stmt->bind_param("si", $username, $user_id);
+        $stmt->execute();
         return $stmt->affected_rows;
     }
     function searchAccount($search)
     {
-      $conn = mysqli_connect(HOST, USER, PASS, DB);
-      $search = mysqli_real_escape_string($conn, $search);
-      $query = "SELECT * FROM user WHERE username LIKE '%$search%'";
-      $result = mysqli_query($conn, $query);
-  
-      if (!$result) {
-          die("Query failed: " . mysqli_error($conn));
-      }
-  
-      $userAccounts = mysqli_fetch_all($result, MYSQLI_ASSOC);
-      mysqli_close($conn);
-      return $userAccounts;
+        $conn = mysqli_connect(HOST, USER, PASS, DB);
+        $search = mysqli_real_escape_string($conn, $search);
+        $query = "SELECT * FROM user WHERE username LIKE '%$search%'";
+        $result = mysqli_query($conn, $query);
+
+        if (!$result) {
+            die("Query failed: " . mysqli_error($conn));
+        }
+
+        $userAccounts = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        mysqli_close($conn);
+        return $userAccounts;
     }
-  
+
+    function getBookingInfo($user_id)
+    {
+        $conn = mysqli_connect(HOST, USER, PASS, DB);
+
+        // Prepare and execute the query
+        $query = "SELECT booking.booking_id, movie.movieTitle, cinema.movieShowDate, fnb.comboName, booking.seatNo, combobooked.combo_id
+        FROM booking
+        INNER JOIN movie ON booking.movie_id = movie.movie_id
+        INNER JOIN cinema ON booking.roomNo = cinema.roomNo
+        INNER JOIN combobooked ON booking.booking_id = combobooked.booking_id
+        INNER JOIN fnb ON combobooked.combo_id = fnb.comboID
+        WHERE booking.userBooked = ?
+        ORDER BY booking.booking_id DESC
+        LIMIT 1";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param('i', $user_id);
+        $stmt->execute();
+
+        // Fetch the results
+        $result = $stmt->get_result();
+        $results = $result->fetch_all(MYSQLI_ASSOC);
+
+        // Return the results
+        return $results;
+    }
+
 
 
 

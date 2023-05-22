@@ -8,7 +8,7 @@ class FnB
     function addFnB($comboName, $comboImg, $comboPrice, $comboQuantity)
     {
         $conn = mysqli_connect(HOST, USER, PASS, DB); 
-        $sql = "INSERT INTO fnb (ComboName, ComboImg, ComboPrice, ComboQuantity) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO fnb (comboName, comboImg, comboPrice, comboQuantity) VALUES (?, ?, ?, ?)";
         $stmt = mysqli_prepare($conn, $sql);
         mysqli_stmt_bind_param($stmt, "ssii", $comboName, $comboImg, $comboPrice, $comboQuantity);
         if (mysqli_stmt_execute($stmt)) {
@@ -93,5 +93,17 @@ class FnB
       $fnbCombos = mysqli_fetch_all($result, MYSQLI_ASSOC);
       mysqli_close($conn);
       return $fnbCombos;
+    }
+
+    function DisplayFnb() {
+        $conn = mysqli_connect(HOST, USER, PASS, DB);
+        $query = "SELECT * FROM fnb WHERE comboStatus = 'Active'";
+        $result = mysqli_query($conn, $query);
+        if (!$result) {
+            die("Query failed: " . mysqli_error($conn));
+        }
+        $movies = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        mysqli_close($conn);
+        return $movies;
     }
 }

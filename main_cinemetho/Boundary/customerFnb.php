@@ -1,3 +1,12 @@
+<?php
+include_once("../Controller/fnbListingCtl.php");
+
+// Create an object of the DisplayMovierCtl class
+$fnbCtlObj = new DisplayFnbCtl();
+
+// Call the DisplayMovierCtl() function to get all movies
+$fnbs = $fnbCtlObj->DisplayFnbCtl();
+?>
 <!doctype html>
 
 <html>
@@ -11,6 +20,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,300;0,400;0,800;1,100;1,400&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> 
+    <style>
+        .box {
+            margin: 10px; /* Add padding around each movie */
+        }
+        
+        
+    </style>
 </head>
 
 <body>
@@ -24,7 +40,7 @@
                 <div class="topnav">
 				<a href="../Boundary/index.php" onclick="logout()">LOG OUT</a>
                 <a href="../Boundary/custProfile.php">PROFILE</a> 
-                <a href="../Boundary/cu">E-TICKETS</a> <!-- need to wait for the file -->
+                <a href="../Boundary/etickets.php">E-TICKETS</a> <!-- need to wait for the file -->
                 <a href="../Boundary/userBooking.php">BUY TICKETS</a>
                 <a href="../Boundary/movieListing.php">MOVIES</a>
                 </div>
@@ -32,44 +48,41 @@
         </section>
         
 
-
+ 
         <br><br>
 
-        <section>
+     <section>
             <div class="container">
                 <table style="width:225%;">
                     <form style="display: inline-block;">
                         <tr>
-                            <th colspan="3"><h1>Food combos:</h1></th>
+                            <th colspan="3">
+                                <h1>Food combos:</h1>
+                            </th>
                         </tr>
 
-                        <tr>
-                            <td><input type="checkbox" id="cb1" />
-                                <label for="cb1"><img src="../Images/combo1.jpg" /></label>
-                                <p>Combo A: Thicc snaccs</p>
-                                <p>Price: $14</p>
-                            </td>
-                            
-                            <td><input type="checkbox" id="cb2" />
-                                <label for="cb2"><img src="../Images/combo2.jpg" /></label>
-                                <p>Combo B: Couple snacks</p>
-                                <p>Price: $30</p>
-                            </td>
+                        <?php foreach ($fnbs as $fnb) { ?>
+                            <tr>
+                                <td>
+                                    <input type="checkbox" id="<?php echo $fnb['comboID']; ?>" />
+                                    <label for="<?php echo $fnb['comboID']; ?>">
+                                    <img src="../Images/<?php echo $fnb['comboImg']; ?>" />
+                                    </label>
+                                    <p><?php echo $fnb['comboName']; ?></p>
+                                    <p>Price: $<?php echo $fnb['comboPrice']; ?></p>
+                                </td>
+                            </tr>
+                        <?php } ?>
 
-                            <td><input type="checkbox" id="cb3" />
-                                <label for="cb3"><img src="../Images/combo3.jpg" /></label>
-                                <p>Combo C: Popcorns</p>
-                                <p>Price: $10</p>
+                        <tr>
+                            <td colspan="3">
+                                <a href="payment.php"><input class="button" value="Submit Food selection"></a>
                             </td>
                         </tr>
-                        <tr>
-							<td colspan="3"><a href="payment.php"><input class="button5"  value="Submit Food selection" ></a></td>
-							</td>
-                        </tr>
-                        
+
                     </form>
                 </table>
-                    
+
             </div>
         </section>
     </div>
