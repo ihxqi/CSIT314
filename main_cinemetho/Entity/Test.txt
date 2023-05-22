@@ -1,0 +1,22 @@
+UPDATE fnb SET ComboQuantity = (
+  SELECT fb.ComboQuantity - COALESCE(SUM(cb.comboQuantity), 0) AS RemainingQuantity
+  FROM fnb fb
+  LEFT JOIN combobooked cb ON fb.ComboID = cb.combo_id
+  WHERE fb.ComboID = fnb.ComboID
+  GROUP BY fb.ComboID
+  HAVING RemainingQuantity > 0
+);
+
+-- To update fnb accordingly when a transaction is made
+
+SELECT b.booking_id, SUM(cb.comboQuantity * f.ComboPrice) AS fnbTotal  
+FROM booking b 
+LEFT JOIN combobooked cb ON cb.booking_id = b.booking_id 
+LEFT JOIN fnb f ON f.ComboID = cb.combo_id
+GROUP BY b.booking_id;
+
+SELECT DATE(bookingDate) AS bookingDate, CONCAT('$', FORMAT(SUM(tb.ticketQuantity * t.TicketPrice), 1)) AS totalSale 
+FROM booking b 
+LEFT JOIN ticketbooked tb ON tb.booking_id = b.booking_id 
+LEFT JOIN ticket t ON t.TicketID = tb.ticket_id 
+GROUP BY DATE(bookingDate)
