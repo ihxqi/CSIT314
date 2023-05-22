@@ -144,15 +144,7 @@
 				<button type="submit" onclick="loginSuccess()" class="submit-btn">Log in</button>
 			</form>
 			
-			<form id="register" class="user-input" onsubmit="event.preventDefault();">
-				<label for="custProfile">Register as:</label>
-				<select name="custProfile" id="custProfile">
-				<option value="not set" disabled selected>Not Set</option>			
-				<option value="adult">Adult</option>
-				<option value="child">Child(Below 8yo)</option>
-				<option value="senior">Senior Citizen(Above 65yo)</option>
-				<option value="student">Student</option>			
-				</select>
+			<form id="register" class="user-input" onsubmit="event.preventDefault();">				
 				<input type="text" id="username" class="input-field" placeholder="Username" required>
 				<input type="email" id="email" class="input-field" placeholder="Email" required>
 				<input type="password" id="password" class="input-field" placeholder="Password" required><br><br>
