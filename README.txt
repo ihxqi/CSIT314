@@ -3,11 +3,11 @@ userAdmin
 Username: userAdmin
 Password: staff
 
-cinemaOwner
+cinemaManager
 Username: cinemaManager
 Password: staff
 
-cinemaManager
+cinemaOwner
 Username: cinemaOwner
 Password: staff
 
